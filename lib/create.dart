@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:node_tutorials/services/api.dart';
 
 class CreateData extends StatefulWidget {
   const CreateData({super.key});
@@ -39,7 +40,17 @@ class _CreateDataState extends State<CreateData> {
             SizedBox(
               height: 20,
             ),
-            ElevatedButton(onPressed: () {}, child: Text("Create Data"))
+            ElevatedButton(
+                onPressed: () {
+                  var data = {
+                    "pname": nameController.text,
+                    "pprice": priceController.text,
+                    "pdesc": descController.text,
+                  };
+
+                  Api.addproduct(data);
+                },
+                child: Text("Create Data"))
           ],
         ),
       ),

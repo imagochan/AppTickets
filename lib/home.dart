@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:node_tutorials/create.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,7 +15,12 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(),
         body: Column(
           children: [
-            ElevatedButton(onPressed: () {}, child: Text("CREATE")),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CreateData()));
+                },
+                child: Text("CREATE")),
             ElevatedButton(onPressed: () {}, child: Text("READ")),
             ElevatedButton(onPressed: () {}, child: Text("UPDATE")),
             ElevatedButton(onPressed: () {}, child: Text("DELETE")),
