@@ -38,8 +38,8 @@ class Api {
 
         data['products'].forEach(
           (value) => {
-            products
-                .add(Product(value['pname'], value['pprice'], value['pdesc'])),
+            products.add(Product(value['pname'], value['pprice'],
+                value['pdesc'], value['id'].toString())),
           },
         );
         return products;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:node_tutorials/services/api.dart';
 import 'package:node_tutorials/model/product_model.dart';
+import 'package:node_tutorials/edit.dart';
 
 class UpdateScreen extends StatelessWidget {
   const UpdateScreen({super.key});
@@ -37,6 +38,7 @@ class UpdateScreen extends StatelessWidget {
                                   EditScreen(data: pdata[index]),
                             ));
                       },
+                      icon: Icon(Icons.edit),
                     ));
               },
             );
