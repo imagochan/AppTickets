@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:node_tutorials/create.dart';
 import 'package:node_tutorials/fetch.dart';
+import 'package:node_tutorials/update.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,7 +31,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           builder: ((context) => const FetchData())));
                 },
                 child: Text("READ")),
-            ElevatedButton(onPressed: () {}, child: Text("UPDATE")),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => const UpdateScreen())));
+                },
+                child: Text("UPDATE")),
             ElevatedButton(onPressed: () {}, child: Text("DELETE")),
           ],
         ));
