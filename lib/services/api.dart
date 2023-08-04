@@ -30,7 +30,8 @@ class Api {
     try {
       final res = await http.get(url);
       if (res.statusCode == 200) {
-        //
+        var data = jsonDecode(res.body);
+        print(data);
       } else {
         //
       }
