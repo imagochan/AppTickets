@@ -57,7 +57,7 @@ class Api {
   static updateProduct(id, body) async {
     var url = Uri.parse(baseUrl + "update/$id");
 
-    final res = await http.put(url, body: body);
+    final res = await http.post(url, body: body);
     if (res.statusCode == 200) {
       print(jsonDecode(res.body));
     } else {
