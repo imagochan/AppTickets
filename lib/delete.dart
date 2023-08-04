@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:node_tutorials/model/product_model.dart';
 import 'package:node_tutorials/services/api.dart';
 
-class Deletescreen extends StatefulWidget {
-  const Deletescreen({super.key});
+class DeleteScreen extends StatefulWidget {
+  const DeleteScreen({super.key});
 
   @override
-  State<Deletescreen> createState() => _DeletescreenState();
+  State<DeleteScreen> createState() => _DeletescreenState();
 }
 
-class _DeletescreenState extends State<Deletescreen> {
+class _DeletescreenState extends State<DeleteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
