@@ -51,4 +51,17 @@ class Api {
       print(e.toString());
     }
   }
+
+  //update put method
+
+  static updateMethod(id, body) async {
+    var url = Uri.parse(baseUrl + "update/$id");
+
+    final res = await http.put(url, body: body);
+    if (res.statusCode == 200) {
+      print(jsonDecode(res.body));
+    } else {
+      print("failed to update data");
+    }
+  }
 }
