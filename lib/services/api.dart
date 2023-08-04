@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:node_tutorials/model/product_model.dart';
 
 class Api {
   //static const baseUrl = "http://192.168.0.254/api/";
@@ -26,12 +27,23 @@ class Api {
   }
 
   static getProduct() async {
+    List<Product> products = [];
+
     var url = Uri.parse("${baseUrl}get_product");
+
     try {
       final res = await http.get(url);
       if (res.statusCode == 200) {
         var data = jsonDecode(res.body);
-        print(data);
+
+        data['products'].forEach(
+          (value) => {
+            products
+                .add(Product(value['pname'], value['pprice'], value['pdesc'])),
+          },
+        );
+        return products;
+        //print(data);
       } else {
         //
       }
