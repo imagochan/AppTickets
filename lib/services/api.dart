@@ -73,7 +73,9 @@ class Api {
     final res = await http.post(url);
 
     if (res.statusCode == 204) {
-      print(jsonDecode(res.body));
+      if (res.body.isNotEmpty) {
+        json.decode(res.body);
+      }
     } else {
       print("failed to delete");
     }
