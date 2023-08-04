@@ -16,6 +16,7 @@ class _EditScreenState extends State<EditScreen> {
 
   @override
   void initState() {
+    //initializing stuff with their current values
     super.initState();
     nameController.text = widget.data.name.toString();
     priceController.text = widget.data.price.toString();
@@ -24,6 +25,39 @@ class _EditScreenState extends State<EditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Edit"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: nameController,
+              decoration: const InputDecoration(
+                hintText: "Name here",
+              ),
+            ),
+            TextField(
+              controller: priceController,
+              decoration: const InputDecoration(
+                hintText: "Price here",
+              ),
+            ),
+            TextField(
+              controller: descController,
+              decoration: const InputDecoration(
+                hintText: "Description here",
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(onPressed: () {}, child: const Text("update data"))
+          ],
+        ),
+      ),
+    );
   }
 }
