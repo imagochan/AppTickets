@@ -64,4 +64,18 @@ class Api {
       print("failed to update data");
     }
   }
+
+  // delete method
+
+  static deleteProduct(id) async {
+    var url = Uri.parse("${baseUrl}delete/$id");
+
+    final res = await http.post(url);
+
+    if (res.statusCode == 204) {
+      print(jsonDecode(res.body));
+    } else {
+      print("failed to delete");
+    }
+  }
 }
