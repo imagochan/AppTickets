@@ -35,8 +35,10 @@ class _DeletescreenState extends State<DeleteScreen> {
                   title: Text("${pdata[index].name}"),
                   subtitle: Text("${pdata[index].desc}"),
                   trailing: IconButton(
-                    onPressed: () {
-                      //
+                    onPressed: () async {
+                      await Api.deleteProduct(pdata[index].id);
+                      pdata.removeAt(index);
+                      setState(() {});
                     },
                     icon: const Icon(Icons.delete),
                   ),
