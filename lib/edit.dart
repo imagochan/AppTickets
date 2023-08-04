@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:node_tutorials/model/product_model.dart';
+import 'package:node_tutorials/services/api.dart';
 
 class EditScreen extends StatefulWidget {
   final Product data;
@@ -54,7 +55,16 @@ class _EditScreenState extends State<EditScreen> {
             SizedBox(
               height: 20,
             ),
-            ElevatedButton(onPressed: () {}, child: const Text("update data"))
+            ElevatedButton(
+                onPressed: () {
+                  Api.updateProduct(widget.data.id, {
+                    'pname': nameController.text,
+                    'pdesc': descController.text,
+                    'pprice': priceController.text,
+                    'id': widget.data.id,
+                  });
+                },
+                child: const Text("update data"))
           ],
         ),
       ),

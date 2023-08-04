@@ -54,7 +54,7 @@ class Api {
 
   //update put method
 
-  static updateMethod(id, body) async {
+  static updateProduct(id, body) async {
     var url = Uri.parse(baseUrl + "update/$id");
 
     final res = await http.put(url, body: body);
