@@ -146,4 +146,20 @@ class Api {
       print("failed to delete");
     }
   }
+
+  // delete ticket api
+
+  static deleteTicket(id) async {
+    var url = Uri.parse("${baseUrl}delete_ticket/$id");
+
+    final res = await http.post(url);
+
+    if (res.statusCode == 204) {
+      if (res.body.isNotEmpty) {
+        json.decode(res.body);
+      }
+    } else {
+      print("Fallo el borrado de ticket");
+    }
+  }
 }

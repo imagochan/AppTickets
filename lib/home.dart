@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:node_tutorials/borrar_ticket.dart';
 //import 'package:node_tutorials/create.dart';
 import 'package:node_tutorials/fetch_ticket.dart';
 //import 'package:node_tutorials/fetch.dart';
@@ -64,9 +65,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: ((context) => const DeleteScreen())));
+                            builder: ((context) =>
+                                const PantallaBorrarTicket())));
                   },
-                  child: const Text("DELETE")),
+                  child: const Text("Borrar Ticket")),
             ],
           ),
         ));
