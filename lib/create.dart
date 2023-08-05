@@ -37,7 +37,7 @@ class _CreateDataState extends State<CreateData> {
                 hintText: "Desc here",
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             ElevatedButton(
@@ -50,7 +50,7 @@ class _CreateDataState extends State<CreateData> {
 
                   Api.addproduct(data);
                 },
-                child: Text("Create Data"))
+                child: const Text("Create Data"))
           ],
         ),
       ),

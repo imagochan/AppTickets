@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:node_tutorials/create.dart';
-import 'package:node_tutorials/fetch.dart';
+//import 'package:node_tutorials/create.dart';
+import 'package:node_tutorials/fetch_ticket.dart';
+//import 'package:node_tutorials/fetch.dart';
 import 'package:node_tutorials/update.dart';
 import 'package:node_tutorials/delete.dart';
+import 'package:node_tutorials/create_ticket.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("App para tickets en línea"),
+          title: const Text("App para tickets en línea"),
         ),
         body: Center(
           child: Column(
@@ -25,11 +27,13 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => CreateData()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CrearTicket()));
                   },
-                  child: Text("CREATE")),
-              SizedBox(
+                  child: const Text("Crear Ticket")),
+              const SizedBox(
                 height: 20,
               ),
               ElevatedButton(
@@ -37,10 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: ((context) => const FetchData())));
+                            builder: ((context) => const ReadTickets())));
                   },
-                  child: Text("READ")),
-              SizedBox(
+                  child: const Text("Listar Tickets")),
+              const SizedBox(
                 height: 20,
               ),
               ElevatedButton(
@@ -50,8 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         MaterialPageRoute(
                             builder: ((context) => const UpdateScreen())));
                   },
-                  child: Text("UPDATE")),
-              SizedBox(
+                  child: const Text("UPDATE")),
+              const SizedBox(
                 height: 20,
               ),
               ElevatedButton(
@@ -61,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         MaterialPageRoute(
                             builder: ((context) => const DeleteScreen())));
                   },
-                  child: Text("DELETE")),
+                  child: const Text("DELETE")),
             ],
           ),
         ));

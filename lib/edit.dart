@@ -52,7 +52,7 @@ class _EditScreenState extends State<EditScreen> {
                 hintText: "Description here",
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             ElevatedButton(

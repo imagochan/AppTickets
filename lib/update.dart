@@ -26,7 +26,7 @@ class UpdateScreen extends StatelessWidget {
               itemCount: pdata.length,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
-                    leading: Icon(Icons.storage),
+                    leading: const Icon(Icons.storage),
                     title: Text("${pdata[index].name}"),
                     subtitle: Text("${pdata[index].desc}"),
                     trailing: IconButton(
@@ -38,7 +38,7 @@ class UpdateScreen extends StatelessWidget {
                                   EditScreen(data: pdata[index]),
                             ));
                       },
-                      icon: Icon(Icons.edit),
+                      icon: const Icon(Icons.edit),
                     ));
               },
             );

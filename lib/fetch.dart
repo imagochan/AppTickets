@@ -13,7 +13,7 @@ class FetchData extends StatelessWidget {
           future: Api.getProduct(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (!snapshot.hasData) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else {
@@ -23,7 +23,7 @@ class FetchData extends StatelessWidget {
                 itemCount: pdata.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                    leading: Icon(Icons.storage),
+                    leading: const Icon(Icons.storage),
                     title: Text("${pdata[index].name}"),
                     subtitle: Text("${pdata[index].desc}"),
                     trailing: Text("\$ ${pdata[index].price}"),
