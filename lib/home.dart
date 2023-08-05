@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 //import 'package:node_tutorials/create.dart';
 import 'package:node_tutorials/fetch_ticket.dart';
 //import 'package:node_tutorials/fetch.dart';
-import 'package:node_tutorials/update.dart';
+//import 'package:node_tutorials/update.dart';
 import 'package:node_tutorials/delete.dart';
 import 'package:node_tutorials/create_ticket.dart';
+import 'package:node_tutorials/update_tickets.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -52,9 +53,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: ((context) => const UpdateScreen())));
+                            builder: ((context) => const UpdateTickets())));
                   },
-                  child: const Text("UPDATE")),
+                  child: const Text("Actualizar Ticket")),
               const SizedBox(
                 height: 20,
               ),

@@ -118,6 +118,19 @@ class Api {
     }
   }
 
+  //update post ticket
+
+  static updateTicket(id, body) async {
+    var url = Uri.parse("${baseUrl}update_ticket/$id");
+
+    final res = await http.post(url, body: body);
+    if (res.statusCode == 200) {
+      print(jsonDecode(res.body));
+    } else {
+      print("failed to update ticket");
+    }
+  }
+
   // delete method
 
   static deleteProduct(id) async {

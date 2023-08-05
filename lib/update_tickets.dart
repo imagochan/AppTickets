@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:node_tutorials/edit_ticket.dart';
 import 'package:node_tutorials/services/api.dart';
 import 'package:node_tutorials/model/ticket_model.dart';
 
-class ReadTickets extends StatelessWidget {
-  const ReadTickets({super.key});
+class UpdateTickets extends StatelessWidget {
+  const UpdateTickets({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +30,25 @@ class ReadTickets extends StatelessWidget {
                         border: Border.all(color: Colors.blueAccent)),
                     child: Column(
                       children: [
-                        Text("Titulo: ${tdata[index].titulo}"),
-                        Text("Descripción: ${tdata[index].descripcion}"),
-                        Text(
-                            "Fecha de Vencimiento: ${tdata[index].fechaVencimiento}"),
-                        Text(
-                            "Fecha de Publicación: ${tdata[index].fechaPublicacion}"),
-                        Text(
-                            "Fecha de fin de Publicación: ${tdata[index].fechaFinPublicacion}"),
-                        Text("Valor de compra: ${tdata[index].valorCompra}"),
-                        Text("Categoria: ${tdata[index].categoria}"),
+                        Text("${tdata[index].titulo}"),
+                        Text("${tdata[index].descripcion}"),
+                        Text("${tdata[index].fechaVencimiento}"),
+                        Text("${tdata[index].fechaPublicacion}"),
+                        Text("${tdata[index].fechaFinPublicacion}"),
+                        Text("${tdata[index].valorCompra}"),
+                        Text("${tdata[index].categoria}"),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      PantallaActualizarTicket(
+                                          data: tdata[index]),
+                                ));
+                          },
+                          icon: const Icon(Icons.edit),
+                        )
                       ],
                     ),
                   );
