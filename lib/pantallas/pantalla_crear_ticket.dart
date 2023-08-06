@@ -1,3 +1,4 @@
+import 'package:apptickets/pantallas/pantalla_inicio.dart';
 import 'package:flutter/material.dart';
 import 'package:apptickets/servicios/api.dart';
 
@@ -86,6 +87,12 @@ class _CrearTicketState extends State<CrearTicket> {
                       };
 
                       Api.addTicket(data);
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const PantallaInicio()),
+                        (Route<dynamic> route) => false,
+                      );
                     },
                     child: const Text("Crear ticket"))
               ],
