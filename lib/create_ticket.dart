@@ -74,14 +74,15 @@ class _CrearTicketState extends State<CrearTicket> {
                 ElevatedButton(
                     onPressed: () {
                       var data = {
-                        "ttitulo": tituloController.text,
-                        "tdescripcion": descripcionController.text,
-                        "tfechaVencimiento": fechaVencimientoController.text,
-                        "tfechaPublicacion": fechaPublicacionController.text,
-                        "tfechaFinPublicacion":
+                        "titulo": tituloController.text,
+                        "descripcion": descripcionController.text,
+                        "fechaVencimiento": fechaVencimientoController.text,
+                        "fechaPublicacion": fechaPublicacionController.text,
+                        "fechaFinPublicacion":
                             fechaFinPublicacionController.text,
-                        "tvalorCompra": valorCompraController.text,
-                        "tcategoria": categoriaController.text
+                        //"valorCompra": num.parse(valorCompraController.text),
+                        "valorCompra": valorCompraController.text,
+                        "categoria": categoriaController.text
                       };
 
                       Api.addTicket(data);

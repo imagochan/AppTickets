@@ -38,7 +38,8 @@ class ReadTickets extends StatelessWidget {
                             "Fecha de Publicación: ${tdata[index].fechaPublicacion}"),
                         Text(
                             "Fecha de fin de Publicación: ${tdata[index].fechaFinPublicacion}"),
-                        Text("Valor de compra: ${tdata[index].valorCompra}"),
+                        Text(
+                            "Valor de la compra: ${tdata[index].valorCompra.toString()}"),
                         //Text("texto: ${double.parse(tdata[index].valorCompra).toString()}")
                         Text("Categoria: ${tdata[index].categoria}"),
                       ],
