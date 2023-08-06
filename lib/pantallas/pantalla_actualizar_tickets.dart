@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:node_tutorials/edit_ticket.dart';
-import 'package:node_tutorials/services/api.dart';
-import 'package:node_tutorials/model/ticket_model.dart';
+import 'package:node_tutorials/pantallas/pantalla_editar_ticket.dart';
+import 'package:node_tutorials/servicios/api.dart';
+import 'package:node_tutorials/modelos/modelo_ticket.dart';
 
-class UpdateTickets extends StatelessWidget {
-  const UpdateTickets({super.key});
+class ActualizarTickets extends StatelessWidget {
+  const ActualizarTickets({super.key});
 
   @override
   Widget build(BuildContext context) {

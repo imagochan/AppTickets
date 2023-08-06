@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:node_tutorials/borrar_ticket.dart';
+import 'package:node_tutorials/pantallas/pantalla_borrar_tickets.dart';
 //import 'package:node_tutorials/create.dart';
-import 'package:node_tutorials/fetch_ticket.dart';
+import 'package:node_tutorials/pantallas/pantalla_listar_tickets.dart';
 //import 'package:node_tutorials/fetch.dart';
 //import 'package:node_tutorials/update.dart';
 //import 'package:node_tutorials/delete.dart';
-import 'package:node_tutorials/create_ticket.dart';
-import 'package:node_tutorials/update_tickets.dart';
+import 'package:node_tutorials/pantallas/pantalla_crear_ticket.dart';
+import 'package:node_tutorials/pantallas/pantalla_actualizar_tickets.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class PantallaInicio extends StatefulWidget {
+  const PantallaInicio({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<PantallaInicio> createState() => _PantallaInicioState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _PantallaInicioState extends State<PantallaInicio> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: ((context) => const ReadTickets())));
+                            builder: ((context) => const ListarTickets())));
                   },
                   child: const Text("Listar Tickets")),
               const SizedBox(
@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: ((context) => const UpdateTickets())));
+                            builder: ((context) => const ActualizarTickets())));
                   },
                   child: const Text("Actualizar Ticket")),
               const SizedBox(
@@ -65,8 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: ((context) =>
-                                const PantallaBorrarTicket())));
+                            builder: ((context) => const BorrarTickets())));
                   },
                   child: const Text("Borrar Ticket")),
             ],

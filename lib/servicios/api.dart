@@ -1,24 +1,24 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:node_tutorials/model/ticket_model.dart';
+import 'package:node_tutorials/modelos/modelo_ticket.dart';
 
 class Api {
   static const baseUrl = "http://127.0.0.1:2000/api/";
 
   //add ticket
   static addTicket(Map tdata) async {
-    print(tdata);
+    //print(tdata);
     var url = Uri.parse("${baseUrl}add_ticket");
 
     try {
       final res = await http.post(url, body: tdata);
 
       if (res.statusCode == 200) {
-        var data = jsonDecode(res.body.toString());
-        print(data);
+        //var data = jsonDecode(res.body.toString());
+        //print(data);
       } else {
-        print("failed to get response");
+        //print("failed to get response");
       }
     } catch (e) {
       debugPrint(e.toString()); //foundation.dart
@@ -36,7 +36,7 @@ class Api {
       if (res.statusCode == 200) {
         var data = jsonDecode(res.body);
 
-        print(data);
+        //print(data);
 
         data['tickets'].forEach(
           (value) => {
@@ -57,7 +57,7 @@ class Api {
         //
       }
     } catch (e) {
-      print(e.toString());
+      //print(e.toString());
     }
   }
 
@@ -67,9 +67,9 @@ class Api {
 
     final res = await http.post(url, body: body);
     if (res.statusCode == 200) {
-      print(jsonDecode(res.body));
+      //print(jsonDecode(res.body));
     } else {
-      print("failed to update ticket");
+      //print("failed to update ticket");
     }
   }
 
@@ -84,7 +84,7 @@ class Api {
         json.decode(res.body);
       }
     } else {
-      print("Fallo el borrado de ticket");
+      //print("Fallo el borrado de ticket");
     }
   }
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:node_tutorials/fetch_ticket.dart';
-import 'package:node_tutorials/home.dart';
-import 'package:node_tutorials/services/api.dart';
-import 'package:node_tutorials/model/ticket_model.dart';
+import 'package:node_tutorials/pantallas/pantalla_inicio.dart';
+import 'package:node_tutorials/servicios/api.dart';
+import 'package:node_tutorials/modelos/modelo_ticket.dart';
 
 class PantallaActualizarTicket extends StatefulWidget {
   final Ticket data;
@@ -105,7 +104,7 @@ class _PantallaActualizarTicketState extends State<PantallaActualizarTicket> {
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const HomeScreen()),
+                            builder: (context) => const PantallaInicio()),
                         (Route<dynamic> route) => false,
                       );
                     },

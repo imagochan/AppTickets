@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:node_tutorials/services/api.dart';
-import 'package:node_tutorials/model/ticket_model.dart';
+import 'package:node_tutorials/servicios/api.dart';
+import 'package:node_tutorials/modelos/modelo_ticket.dart';
 
-class ReadTickets extends StatelessWidget {
-  const ReadTickets({super.key});
+class ListarTickets extends StatelessWidget {
+  const ListarTickets({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class ReadTickets extends StatelessWidget {
               );
             } else {
               List<Ticket> tdata = snapshot.data;
-              print(tdata);
+              //print(tdata);
 
               return ListView.builder(
                 itemCount: tdata.length,
