@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:node_tutorials/pantallas/pantalla_borrar_tickets.dart';
-//import 'package:node_tutorials/create.dart';
-import 'package:node_tutorials/pantallas/pantalla_listar_tickets.dart';
-//import 'package:node_tutorials/fetch.dart';
-//import 'package:node_tutorials/update.dart';
-//import 'package:node_tutorials/delete.dart';
-import 'package:node_tutorials/pantallas/pantalla_crear_ticket.dart';
-import 'package:node_tutorials/pantallas/pantalla_actualizar_tickets.dart';
+import 'package:apptickets/pantallas/pantalla_borrar_tickets.dart';
+//import 'package:apptickets/create.dart';
+import 'package:apptickets/pantallas/pantalla_listar_tickets.dart';
+//import 'package:apptickets/fetch.dart';
+//import 'package:apptickets/update.dart';
+//import 'package:apptickets/delete.dart';
+import 'package:apptickets/pantallas/pantalla_crear_ticket.dart';
+import 'package:apptickets/pantallas/pantalla_actualizar_tickets.dart';
 
 class PantallaInicio extends StatefulWidget {
   const PantallaInicio({super.key});

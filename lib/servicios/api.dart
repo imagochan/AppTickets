@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:node_tutorials/modelos/modelo_ticket.dart';
+import 'package:apptickets/modelos/modelo_ticket.dart';
 
 class Api {
   static const baseUrl = "http://127.0.0.1:2000/api/";

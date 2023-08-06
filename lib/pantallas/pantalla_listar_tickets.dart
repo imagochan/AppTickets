@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:node_tutorials/servicios/api.dart';
-import 'package:node_tutorials/modelos/modelo_ticket.dart';
+import 'package:apptickets/servicios/api.dart';
+import 'package:apptickets/modelos/modelo_ticket.dart';
 
 class ListarTickets extends StatelessWidget {
   const ListarTickets({super.key});

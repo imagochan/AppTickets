@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:node_tutorials/servicios/api.dart';
+import 'package:apptickets/servicios/api.dart';
 
 class CrearTicket extends StatefulWidget {
   const CrearTicket({super.key});
