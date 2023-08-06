@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:node_tutorials/fetch_ticket.dart';
+import 'package:node_tutorials/home.dart';
 import 'package:node_tutorials/services/api.dart';
 import 'package:node_tutorials/model/ticket_model.dart';
 
@@ -100,6 +102,12 @@ class _PantallaActualizarTicketState extends State<PantallaActualizarTicket> {
                         "valorCompra": valorCompraController.text,
                         "categoria": categoriaController.text
                       });
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen()),
+                        (Route<dynamic> route) => false,
+                      );
                     },
                     child: const Text("Actualizar ticket"))
               ],
