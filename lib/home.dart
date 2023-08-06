@@ -4,7 +4,7 @@ import 'package:node_tutorials/borrar_ticket.dart';
 import 'package:node_tutorials/fetch_ticket.dart';
 //import 'package:node_tutorials/fetch.dart';
 //import 'package:node_tutorials/update.dart';
-import 'package:node_tutorials/delete.dart';
+//import 'package:node_tutorials/delete.dart';
 import 'package:node_tutorials/create_ticket.dart';
 import 'package:node_tutorials/update_tickets.dart';
 
