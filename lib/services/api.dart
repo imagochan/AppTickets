@@ -91,7 +91,7 @@ class Api {
                 value['tfechaVencimiento'],
                 value['tfechaPublicacion'],
                 value['tfechaFinPublicacion'],
-                value['tvalorCompra'],
+                num.tryParse(value['tvalorCompra']),
                 value['tcategoria'])),
           },
         );

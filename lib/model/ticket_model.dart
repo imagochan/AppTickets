@@ -5,7 +5,7 @@ class Ticket {
   final String? fechaVencimiento; //format to datetime before using
   final String? fechaPublicacion;
   final String? fechaFinPublicacion;
-  var valorCompra;
+  final num? valorCompra;
   //final String? imagenTicket;
   final String? categoria;
 

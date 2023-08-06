@@ -18,6 +18,7 @@ class ReadTickets extends StatelessWidget {
               );
             } else {
               List<Ticket> tdata = snapshot.data;
+              print(tdata);
 
               return ListView.builder(
                 itemCount: tdata.length,
@@ -38,6 +39,7 @@ class ReadTickets extends StatelessWidget {
                         Text(
                             "Fecha de fin de Publicación: ${tdata[index].fechaFinPublicacion}"),
                         Text("Valor de compra: ${tdata[index].valorCompra}"),
+                        //Text("texto: ${double.parse(tdata[index].valorCompra).toString()}")
                         Text("Categoria: ${tdata[index].categoria}"),
                       ],
                     ),
