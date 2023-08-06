@@ -1,6 +1,6 @@
 {
-    "name": "node_tutorials",
-    "short_name": "node_tutorials",
+    "name": "AppTickets",
+    "short_name": "AppTickets",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

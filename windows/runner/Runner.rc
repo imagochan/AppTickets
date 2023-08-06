@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "node_tutorials" "\0"
+            VALUE "FileDescription", "AppTickets" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "node_tutorials" "\0"
+            VALUE "InternalName", "AppTickets" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "node_tutorials.exe" "\0"
-            VALUE "ProductName", "node_tutorials" "\0"
+            VALUE "OriginalFilename", "AppTickets.exe" "\0"
+            VALUE "ProductName", "AppTickets" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
