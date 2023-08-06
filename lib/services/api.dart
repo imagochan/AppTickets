@@ -82,17 +82,20 @@ class Api {
       if (res.statusCode == 200) {
         var data = jsonDecode(res.body);
 
+        print(data);
+
         data['tickets'].forEach(
           (value) => {
             tickets.add(Ticket(
-                value['tid'].toString(),
-                value['ttitulo'],
-                value['tdescripcion'],
-                value['tfechaVencimiento'],
-                value['tfechaPublicacion'],
-                value['tfechaFinPublicacion'],
-                num.tryParse(value['tvalorCompra']),
-                value['tcategoria'])),
+                value['id'],
+                value['titulo'],
+                value['descripcion'],
+                value['fechaVencimiento'],
+                value['fechaPublicacion'],
+                value['fechaFinPublicacion'],
+                //num.tryParse(value['valorCompra']),
+                value['valorComrpra'],
+                value['categoria'])),
           },
         );
         return tickets;
