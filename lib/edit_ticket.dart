@@ -91,14 +91,14 @@ class _PantallaActualizarTicketState extends State<PantallaActualizarTicket> {
                 ElevatedButton(
                     onPressed: () {
                       Api.updateTicket(widget.data.id, {
-                        "ttitulo": tituloController.text,
-                        "tdescripcion": descripcionController.text,
-                        "tfechaVencimiento": fechaVencimientoController.text,
-                        "tfechaPublicacion": fechaPublicacionController.text,
-                        "tfechaFinPublicacion":
+                        "titulo": tituloController.text,
+                        "descripcion": descripcionController.text,
+                        "fechaVencimiento": fechaVencimientoController.text,
+                        "fechaPublicacion": fechaPublicacionController.text,
+                        "fechaFinPublicacion":
                             fechaFinPublicacionController.text,
-                        "tvalorCompra": valorCompraController.text,
-                        "tcategoria": categoriaController.text
+                        "valorCompra": valorCompraController.text,
+                        "categoria": categoriaController.text
                       });
                     },
                     child: const Text("Actualizar ticket"))
