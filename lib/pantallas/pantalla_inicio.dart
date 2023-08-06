@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:apptickets/pantallas/pantalla_borrar_tickets.dart';
-//import 'package:apptickets/create.dart';
 import 'package:apptickets/pantallas/pantalla_listar_tickets.dart';
-//import 'package:apptickets/fetch.dart';
-//import 'package:apptickets/update.dart';
-//import 'package:apptickets/delete.dart';
 import 'package:apptickets/pantallas/pantalla_crear_ticket.dart';
 import 'package:apptickets/pantallas/pantalla_actualizar_tickets.dart';
 
