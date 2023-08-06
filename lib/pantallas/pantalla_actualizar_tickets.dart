@@ -30,13 +30,18 @@ class ActualizarTickets extends StatelessWidget {
                         border: Border.all(color: Colors.blueAccent)),
                     child: Column(
                       children: [
-                        Text("${tdata[index].titulo}"),
-                        Text("${tdata[index].descripcion}"),
-                        Text("${tdata[index].fechaVencimiento}"),
-                        Text("${tdata[index].fechaPublicacion}"),
-                        Text("${tdata[index].fechaFinPublicacion}"),
-                        Text("${tdata[index].valorCompra}"),
-                        Text("${tdata[index].categoria}"),
+                        Text("Titulo: ${tdata[index].titulo}"),
+                        Text("Descripción: ${tdata[index].descripcion}"),
+                        Text(
+                            "Fecha de Vencimiento: ${tdata[index].fechaVencimiento}"),
+                        Text(
+                            "Fecha de Publicación: ${tdata[index].fechaPublicacion}"),
+                        Text(
+                            "Fecha de fin de Publicación: ${tdata[index].fechaFinPublicacion}"),
+                        Text(
+                            "Valor de la compra: ${tdata[index].valorCompra.toString()}"),
+                        //Text("texto: ${double.parse(tdata[index].valorCompra).toString()}")
+                        Text("Categoria: ${tdata[index].categoria}"),
                         IconButton(
                           onPressed: () {
                             Navigator.push(
