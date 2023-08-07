@@ -4,6 +4,7 @@ import 'package:apptickets/servicios/api.dart';
 import 'package:apptickets/modelos/modelo_ticket.dart';
 
 class PantallaActualizarTicket extends StatefulWidget {
+  //estructura para almacenar un ticket
   final Ticket data;
   const PantallaActualizarTicket({super.key, required this.data});
 
@@ -11,6 +12,9 @@ class PantallaActualizarTicket extends StatefulWidget {
   State<PantallaActualizarTicket> createState() =>
       _PantallaActualizarTicketState();
 }
+
+//Declaramos controladores para los widget dentro de esta pantalla
+//para acceder al estado del widget y sus propiedades
 
 class _PantallaActualizarTicketState extends State<PantallaActualizarTicket> {
   var tituloController = TextEditingController();
@@ -23,7 +27,7 @@ class _PantallaActualizarTicketState extends State<PantallaActualizarTicket> {
 
   @override
   void initState() {
-    //initializing stuff with their current values
+    //Inicializamos los widgets con sus datos actuales
     super.initState();
     tituloController.text = widget.data.titulo.toString();
     descripcionController.text = widget.data.descripcion.toString();
@@ -90,6 +94,9 @@ class _PantallaActualizarTicketState extends State<PantallaActualizarTicket> {
                   height: 20,
                 ),
                 ElevatedButton(
+                    //Al pulsar el botón de actualizar ticket
+                    //Enviamos la información del ticket a la API y
+                    //redirigimos al usuario a la pantalla de inicio
                     onPressed: () {
                       Api.updateTicket(widget.data.id, {
                         "titulo": tituloController.text,

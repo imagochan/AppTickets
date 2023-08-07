@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:apptickets/pantallas/pantalla_inicio.dart';
 
+//Punto de inicio de la app
 void main() {
   runApp(const MyApp());
 }

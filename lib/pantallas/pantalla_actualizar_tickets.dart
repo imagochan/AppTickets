@@ -11,13 +11,19 @@ class ActualizarTickets extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: FutureBuilder(
+          //Llamamos a la API de recolectar tickets de forma asíncrona
+          //Para desplegar los tickets dentro de la App
           future: Api.getTicket(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
+            //Mostramos una pantalla de carga mientras esperamos la información.
             if (!snapshot.hasData) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
+            //Si recibimos datos, procedemos a desplegarlos
             } else {
+              //Agregamos los datos recibidos a una lista
+              //para manipular mas facilmente la información
               List<Ticket> tdata = snapshot.data;
 
               return ListView.builder(
@@ -40,9 +46,11 @@ class ActualizarTickets extends StatelessWidget {
                             "Fecha de fin de Publicación: ${tdata[index].fechaFinPublicacion}"),
                         Text(
                             "Valor de la compra: ${tdata[index].valorCompra.toString()}"),
-                        //Text("texto: ${double.parse(tdata[index].valorCompra).toString()}")
                         Text("Categoria: ${tdata[index].categoria}"),
                         IconButton(
+                          //Al pulsar el botón de editar
+                          //enviamos el índice del ticket a actualizar y
+                          //redirigimos al usuario a la pantalla de edición de tickets
                           onPressed: () {
                             Navigator.push(
                                 context,

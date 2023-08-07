@@ -4,6 +4,9 @@ import 'package:apptickets/pantallas/pantalla_listar_tickets.dart';
 import 'package:apptickets/pantallas/pantalla_crear_ticket.dart';
 import 'package:apptickets/pantallas/pantalla_actualizar_tickets.dart';
 
+//Pantalla de inicio que aloja los botones para crear, listar, actualizar y borrar tickets
+//Utilizamos Navigator y Routes para mover al usuario entre pantallas
+
 class PantallaInicio extends StatefulWidget {
   const PantallaInicio({super.key});
 

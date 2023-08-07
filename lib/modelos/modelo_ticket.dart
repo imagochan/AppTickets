@@ -1,3 +1,5 @@
+//Modelo de un ticket a utilizar en la App
+
 class Ticket {
   final String? id;
   final String? titulo;

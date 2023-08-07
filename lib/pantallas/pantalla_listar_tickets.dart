@@ -10,15 +10,20 @@ class ListarTickets extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: FutureBuilder(
+          //Llamamos a la API de recolectar tickets de forma asíncrona
+          //Para desplegar los tickets dentro de la App
           future: Api.getTicket(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
+            //Mostramos una pantalla de carga mientras esperamos la información.
             if (!snapshot.hasData) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
+            //Si recibimos datos, procedemos a desplegarlos
             } else {
+              //Agregamos los datos recibidos a una lista
+              //para manipular mas facilmente la información
               List<Ticket> tdata = snapshot.data;
-              //print(tdata);
 
               return ListView.builder(
                 itemCount: tdata.length,
@@ -40,7 +45,6 @@ class ListarTickets extends StatelessWidget {
                             "Fecha de fin de Publicación: ${tdata[index].fechaFinPublicacion}"),
                         Text(
                             "Valor de la compra: ${tdata[index].valorCompra.toString()}"),
-                        //Text("texto: ${double.parse(tdata[index].valorCompra).toString()}")
                         Text("Categoria: ${tdata[index].categoria}"),
                       ],
                     ),

@@ -17,13 +17,19 @@ class _BorrarTicketsState extends State<BorrarTickets> {
         title: const Text("Borrar un ticket"),
       ),
       body: FutureBuilder(
+          //Llamamos a la API de recolectar tickets de forma asíncrona
+          //Para desplegar los tickets dentro de la App
           future: Api.getTicket(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
+            //Mostramos una pantalla de carga mientras esperamos la información.
             if (!snapshot.hasData) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
+            //Si recibimos datos, procedemos a desplegarlos
             } else {
+              //Agregamos los datos recibidos a una lista
+              //para manipular mas facilmente la información
               List<Ticket> tdata = snapshot.data;
 
               return ListView.builder(
@@ -47,9 +53,12 @@ class _BorrarTicketsState extends State<BorrarTickets> {
                         Text("Valor de compra: ${tdata[index].valorCompra}"),
                         Text("Categoria: ${tdata[index].categoria}"),
                         IconButton(
+                          //Al pulsar el botón de borrado
+                          //llamamos a la API de borrado enviandole el id del ticket a borrar
                           onPressed: () async {
                             await Api.deleteTicket(tdata[index].id);
                             tdata.removeAt(index);
+                            //Refrescamos la pantalla luego de borrar el ticket
                             setState(() {});
                           },
                           icon: const Icon(Icons.delete),

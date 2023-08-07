@@ -9,6 +9,9 @@ class CrearTicket extends StatefulWidget {
   State<CrearTicket> createState() => _CrearTicketState();
 }
 
+//Declaramos controladores para los widget dentro de esta pantalla
+//para acceder al estado del widget y sus propiedades
+
 class _CrearTicketState extends State<CrearTicket> {
   var tituloController = TextEditingController();
   var descripcionController = TextEditingController();
@@ -72,6 +75,7 @@ class _CrearTicketState extends State<CrearTicket> {
                 const SizedBox(
                   height: 20,
                 ),
+                //Al pulsar el botón, recolectamos la información de los widgets
                 ElevatedButton(
                     onPressed: () {
                       var data = {
@@ -85,8 +89,11 @@ class _CrearTicketState extends State<CrearTicket> {
                         "valorCompra": valorCompraController.text,
                         "categoria": categoriaController.text
                       };
-
+                      //Enviamos la información del ticket usando la API del servidor
                       Api.addTicket(data);
+                      //Redirigimos al usuario a la pantalla de inicio
+                      //utilizamos el método pushandremoveuntil
+                      //para que el usuario no retroceda a una vista desactualizada
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
