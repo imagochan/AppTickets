@@ -1,3 +1,4 @@
+import 'package:apptickets/pantallas/pantalla_creat_ticket_form.dart';
 import 'package:flutter/material.dart';
 import 'package:apptickets/pantallas/pantalla_borrar_tickets.dart';
 import 'package:apptickets/pantallas/pantalla_listar_tickets.dart';
@@ -31,7 +32,7 @@ class _PantallaInicioState extends State<PantallaInicio> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const CrearTicket()));
+                            builder: (context) => const CrearTicketForm()));
                   },
                   child: const Text("Crear Ticket")),
               const SizedBox(
