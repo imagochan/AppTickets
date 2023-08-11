@@ -38,6 +38,15 @@ class MyCustomFormState extends State<MyCustomForm> {
                 return null;
               },
             ),
+            TextFormField(
+              decoration: const InputDecoration(
+                icon: Icon(Icons.send),
+                hintText: 'Hint Text',
+                helperText: 'Helper Text',
+                counterText: '0 characters',
+                border: OutlineInputBorder(),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: ElevatedButton(
