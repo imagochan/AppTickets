@@ -1,3 +1,4 @@
+import 'package:apptickets/pantallas/pantalla_crear_ticket_form_cookbook.dart';
 import 'package:apptickets/pantallas/pantalla_creat_ticket_form.dart';
 import 'package:flutter/material.dart';
 import 'package:apptickets/pantallas/pantalla_borrar_tickets.dart';
@@ -32,7 +33,7 @@ class _PantallaInicioState extends State<PantallaInicio> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const CrearTicketForm()));
+                            builder: (context) => const MyCustomForm()));
                   },
                   child: const Text("Crear Ticket")),
               const SizedBox(
