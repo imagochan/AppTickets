@@ -123,8 +123,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                           final DateTime? dateTime = await showDatePicker(
                             context: context,
                             initialDate: selectedDate,
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(3000),
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(2100),
                           );
                           if (dateTime != null) {
                             setState(() {
