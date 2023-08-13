@@ -78,16 +78,14 @@ class MyCustomFormState extends State<MyCustomForm> {
                   child: const Text('Submit'),
                 ),
               ),
-              TextFormField(
-                decoration:
-                    const InputDecoration(hintText: "fecha de vencimiento"),
-                controller: fechaVencimientoController,
-              ),
               Text(
-                  "${selectedDate.year} - ${selectedDate.month} - ${selectedDate.day}"),
+                  "${selectedDate.year} - ${selectedDate.month.toString().padLeft(2, '0')} - ${selectedDate.day}"),
               Text(selectedDate.toString()),
               Text("hola"),
               Text(DateTime.parse('2023-08-13').toString()),
+              Text(DateTime.parse(
+                      "${selectedDate.year}-${selectedDate.month.toString().padLeft(2, '0')}-${selectedDate.day}")
+                  .toString()),
               Text(DateUtils.dateOnly(selectedDate).toString()),
               Text("hola2"),
               ElevatedButton(
@@ -105,7 +103,41 @@ class MyCustomFormState extends State<MyCustomForm> {
                       });
                     }
                   },
-                  child: const Text("Choose Date"))
+                  child: const Text("Choose Date")),
+              Row(
+                children: [
+                  Flexible(
+                    fit: FlexFit.tight,
+                    flex: 5,
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                          hintText: "fecha de vencimiento"),
+                      controller: fechaVencimientoController,
+                    ),
+                  ),
+                  Flexible(
+                    fit: FlexFit.tight,
+                    flex: 1,
+                    child: IconButton(
+                        onPressed: () async {
+                          final DateTime? dateTime = await showDatePicker(
+                            context: context,
+                            initialDate: selectedDate,
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(3000),
+                          );
+                          if (dateTime != null) {
+                            setState(() {
+                              selectedDate = dateTime;
+                              fechaVencimientoController.text =
+                                  dateTime.toString();
+                            });
+                          }
+                        },
+                        icon: const Icon(Icons.edit_calendar)),
+                  )
+                ],
+              ),
             ],
           ),
         ),
