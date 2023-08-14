@@ -108,12 +108,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                 children: [
                   Flexible(
                     fit: FlexFit.tight,
-                    flex: 5,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                          hintText: "fecha de vencimiento"),
-                      controller: fechaVencimientoController,
-                    ),
+                    flex: 2,
+                    child: Text("Fecha de vencimiento: $selectedDate"),
                   ),
                   Flexible(
                     fit: FlexFit.tight,
@@ -124,7 +120,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                             context: context,
                             initialDate: selectedDate,
                             firstDate: DateTime.now(),
-                            lastDate: DateTime(2100),
+                            lastDate: DateTime(2030),
                           );
                           if (dateTime != null) {
                             setState(() {
