@@ -34,213 +34,262 @@ class MyCustomFormState extends State<MyCustomForm> {
   DateTime fechaFinPublicacion = DateTime.now();
   String? categoriaSeleccionada;
 
-  var fechaVencimientoController = TextEditingController();
-
   String dropdownValue = list.first;
 
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.send),
-                  hintText: 'Hint Text',
-                  helperText: 'Helper Text',
-                  counterText: '0 characters',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              TextFormField(
-                decoration: const InputDecoration(hintText: "titulo"),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                decoration: const InputDecoration(hintText: "descripcion"),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Validate returns true if the form is valid, or false otherwise.
-                    if (_formKey.currentState!.validate()) {
-                      // If the form is valid, display a snackbar. In the real world,
-                      // you'd often call a server or save the information in a database.
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
-                      );
+      appBar: AppBar(
+        title: const Text("Ingrese datos del ticket a crear"),
+      ),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: "Titulo",
+                    helperText: "Titulo",
+                    icon: Icon(Icons.title),
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor introduzca un texto';
                     }
+                    return null;
                   },
-                  child: const Text('Submit'),
                 ),
-              ),
-              Text(
-                  "${fechaVencimiento.year} - ${fechaVencimiento.month.toString().padLeft(2, '0')} - ${fechaVencimiento.day}"),
-              Text(fechaVencimiento.toString()),
-              Text("hola"),
-              Text(DateTime.parse('2023-08-13').toString()),
-              Text(DateTime.parse(
-                      "${fechaVencimiento.year}-${fechaVencimiento.month.toString().padLeft(2, '0')}-${fechaVencimiento.day}")
-                  .toString()),
-              Text(DateUtils.dateOnly(fechaVencimiento).toString()),
-              Text("hola2"),
-              ElevatedButton(
-                  onPressed: () async {
-                    final DateTime? dateTime = await showDatePicker(
-                      context: context,
-                      initialDate: fechaVencimiento,
-                      firstDate: DateTime(2000),
-                      lastDate: DateTime(3000),
-                    );
-                    if (dateTime != null) {
+                const SizedBox(
+                  height: 5,
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: "Descripción",
+                    helperText: "Descripción",
+                    icon: Icon(Icons.description),
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor introduzca un texto';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                TextFormField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))
+                  ],
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(
+                    hintText: "Valor de compra",
+                    helperText: "Valor de compra",
+                    icon: Icon(Icons.money),
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor introduzca un numero decimal';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Center(
+                  child: DropdownButton<String>(
+                    hint: const Text("Elija una categoría"),
+                    value: dropdownValue,
+                    icon: const Icon(Icons.arrow_downward),
+                    elevation: 16,
+                    style: const TextStyle(color: Colors.deepPurple),
+                    underline: Container(
+                      height: 2,
+                      color: Colors.deepPurpleAccent,
+                    ),
+                    onChanged: (String? value) {
+                      // This is called when the user selects an item.
                       setState(() {
-                        fechaVencimiento = dateTime;
-                        fechaVencimientoController.text = dateTime.toString();
+                        dropdownValue = value!;
                       });
-                    }
-                  },
-                  child: const Text("Choose Date")),
-              Row(
-                children: [
-                  Flexible(
-                    fit: FlexFit.tight,
-                    flex: 2,
-                    child: Text("Fecha de vencimiento: $fechaVencimiento"),
+                    },
+                    items: list.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
-                  Flexible(
-                    fit: FlexFit.tight,
-                    flex: 1,
-                    child: IconButton(
-                        onPressed: () async {
-                          final DateTime? dateTime = await showDatePicker(
-                            context: context,
-                            initialDate: fechaVencimiento,
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime(2030),
-                          );
-                          if (dateTime != null) {
-                            setState(() {
-                              fechaVencimiento = dateTime;
-                              fechaVencimientoController.text =
-                                  dateTime.toString();
-                            });
-                          }
-                        },
-                        icon: const Icon(Icons.edit_calendar)),
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  Flexible(
-                    fit: FlexFit.tight,
-                    flex: 2,
-                    child: Text("Fecha de publicación: $fechaPublicacion"),
-                  ),
-                  Flexible(
-                    fit: FlexFit.tight,
-                    flex: 1,
-                    child: IconButton(
-                        onPressed: () async {
-                          final DateTime? dateTime = await showDatePicker(
-                            context: context,
-                            initialDate: fechaPublicacion,
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime(2030),
-                          );
-                          if (dateTime != null) {
-                            setState(() {
-                              fechaPublicacion = dateTime;
-                            });
-                          }
-                        },
-                        icon: const Icon(Icons.edit_calendar)),
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  Flexible(
-                    fit: FlexFit.tight,
-                    flex: 2,
-                    child: Text(
-                        "Fecha de fin de publicación: $fechaFinPublicacion"),
-                  ),
-                  Flexible(
-                    fit: FlexFit.tight,
-                    flex: 1,
-                    child: IconButton(
-                        onPressed: () async {
-                          final DateTime? dateTime = await showDatePicker(
-                            context: context,
-                            initialDate: fechaPublicacion,
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime(2030),
-                          );
-                          if (dateTime != null) {
-                            setState(() {
-                              fechaFinPublicacion = dateTime;
-                            });
-                          }
-                        },
-                        icon: const Icon(Icons.edit_calendar)),
-                  )
-                ],
-              ),
-              TextFormField(
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))
-                ],
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(hintText: "Valor de compra"),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-              ),
-              DropdownButton<String>(
-                value: dropdownValue,
-                icon: const Icon(Icons.arrow_downward),
-                elevation: 16,
-                style: const TextStyle(color: Colors.deepPurple),
-                underline: Container(
-                  height: 2,
-                  color: Colors.deepPurpleAccent,
                 ),
-                onChanged: (String? value) {
-                  // This is called when the user selects an item.
-                  setState(() {
-                    dropdownValue = value!;
-                  });
-                },
-                items: list.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              )
-            ],
+                Container(
+                  margin: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(3.0),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blueAccent)),
+                  child: Row(
+                    children: [
+                      const Flexible(
+                        fit: FlexFit.tight,
+                        flex: 2,
+                        child: Text(
+                          "Fecha de vencimiento:",
+                          overflow: TextOverflow.clip,
+                        ),
+                      ),
+                      Flexible(
+                        fit: FlexFit.tight,
+                        flex: 2,
+                        child: Text(
+                          "${fechaVencimiento.year}-${fechaVencimiento.month}-${fechaVencimiento.day}",
+                          overflow: TextOverflow.clip,
+                        ),
+                      ),
+                      Flexible(
+                        fit: FlexFit.tight,
+                        flex: 1,
+                        child: IconButton(
+                            onPressed: () async {
+                              final DateTime? dateTime = await showDatePicker(
+                                context: context,
+                                initialDate: fechaVencimiento,
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime(2030),
+                              );
+                              if (dateTime != null) {
+                                setState(() {
+                                  fechaVencimiento =
+                                      DateUtils.dateOnly(dateTime);
+                                });
+                              }
+                            },
+                            icon: const Icon(Icons.edit_calendar)),
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(3.0),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blueAccent)),
+                  child: Row(
+                    children: [
+                      const Flexible(
+                        fit: FlexFit.tight,
+                        flex: 2,
+                        child: Text(
+                          "Fecha de publicacion:",
+                          overflow: TextOverflow.clip,
+                        ),
+                      ),
+                      Flexible(
+                        fit: FlexFit.tight,
+                        flex: 2,
+                        child: Text(
+                          "${fechaPublicacion.year}-${fechaPublicacion.month}-${fechaPublicacion.day}",
+                          overflow: TextOverflow.clip,
+                        ),
+                      ),
+                      Flexible(
+                        fit: FlexFit.tight,
+                        flex: 1,
+                        child: IconButton(
+                            onPressed: () async {
+                              final DateTime? dateTime = await showDatePicker(
+                                context: context,
+                                initialDate: fechaPublicacion,
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime(2030),
+                              );
+                              if (dateTime != null) {
+                                setState(() {
+                                  fechaPublicacion =
+                                      DateUtils.dateOnly(dateTime);
+                                });
+                              }
+                            },
+                            icon: const Icon(Icons.edit_calendar)),
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(3.0),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blueAccent)),
+                  child: Row(
+                    children: [
+                      const Flexible(
+                        fit: FlexFit.tight,
+                        flex: 2,
+                        child: Text(
+                          "Fecha de fin de publicacion:",
+                          overflow: TextOverflow.clip,
+                        ),
+                      ),
+                      Flexible(
+                        fit: FlexFit.tight,
+                        flex: 2,
+                        child: Text(
+                          "${fechaFinPublicacion.year}-${fechaFinPublicacion.month}-${fechaFinPublicacion.day}",
+                          overflow: TextOverflow.clip,
+                        ),
+                      ),
+                      Flexible(
+                        fit: FlexFit.tight,
+                        flex: 1,
+                        child: IconButton(
+                            onPressed: () async {
+                              final DateTime? dateTime = await showDatePicker(
+                                context: context,
+                                initialDate: fechaFinPublicacion,
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime(2030),
+                              );
+                              if (dateTime != null) {
+                                setState(() {
+                                  fechaFinPublicacion =
+                                      DateUtils.dateOnly(dateTime);
+                                });
+                              }
+                            },
+                            icon: const Icon(Icons.edit_calendar)),
+                      )
+                    ],
+                  ),
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Validate returns true if the form is valid, or false otherwise.
+                        if (_formKey.currentState!.validate()) {
+                          // If the form is valid, display a snackbar. In the real world,
+                          // you'd often call a server or save the information in a database.
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Processing Data')),
+                          );
+                        }
+                      },
+                      child: const Text('Crear Ticket'),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
