@@ -45,6 +45,8 @@ class MyCustomFormState extends State<MyCustomForm> {
   var valorCompraController = TextEditingController();
 
   var fechaVencimientoController = TextEditingController();
+  var fechaPublicacionController = TextEditingController();
+  var fechaFinPublicacionController = TextEditingController();
 
   // user defined function void _showDialog(BuildContext context) {
   void _showDialog(BuildContext context) {
@@ -166,12 +168,81 @@ class MyCustomFormState extends State<MyCustomForm> {
                   controller: fechaVencimientoController,
                   decoration: const InputDecoration(
                     helperText: "Fecha de vencimiento",
+                    hintText: "Fecha de vencimiento",
                     icon: Icon(Icons.edit_calendar),
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Por favor introduzca una fecha';
+                      return 'Por favor seleccione una fecha';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                TextFormField(
+                  onTap: () async {
+                    final DateTime? dateTime = await showDatePicker(
+                      context: context,
+                      initialDate: fechaPublicacion,
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2030),
+                    );
+                    if (dateTime != null) {
+                      setState(() {
+                        fechaPublicacion = DateUtils.dateOnly(dateTime);
+                        fechaPublicacionController.text =
+                            fechaPublicacion.toString();
+                      });
+                    }
+                  },
+                  readOnly: true,
+                  controller: fechaPublicacionController,
+                  decoration: const InputDecoration(
+                    helperText: "Fecha de publicación",
+                    hintText: "Fecha de publicación",
+                    icon: Icon(Icons.edit_calendar),
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor seleccione una fecha';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                TextFormField(
+                  onTap: () async {
+                    final DateTime? dateTime = await showDatePicker(
+                      context: context,
+                      initialDate: fechaFinPublicacion,
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2030),
+                    );
+                    if (dateTime != null) {
+                      setState(() {
+                        fechaFinPublicacion = DateUtils.dateOnly(dateTime);
+                        fechaFinPublicacionController.text =
+                            fechaFinPublicacion.toString();
+                      });
+                    }
+                  },
+                  readOnly: true,
+                  controller: fechaFinPublicacionController,
+                  decoration: const InputDecoration(
+                    helperText: "Fecha de publicación",
+                    hintText: "Fecha de publicación",
+                    icon: Icon(Icons.edit_calendar),
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor seleccione una fecha';
                     }
                     return null;
                   },
@@ -181,14 +252,15 @@ class MyCustomFormState extends State<MyCustomForm> {
                 ),
                 Center(
                   child: DropdownButton<String>(
+                    isExpanded: true,
                     hint: const Text("Elija una categoría"),
                     value: dropdownValue,
                     icon: const Icon(Icons.arrow_downward),
                     elevation: 16,
-                    style: const TextStyle(color: Colors.deepPurple),
+                    //style: const TextStyle(color: Colors.deepPurple),
                     underline: Container(
                       height: 2,
-                      color: Colors.deepPurpleAccent,
+                      color: Colors.black,
                     ),
                     onChanged: (String? value) {
                       // This is called when the user selects an item.
@@ -202,146 +274,6 @@ class MyCustomFormState extends State<MyCustomForm> {
                         child: Text(value),
                       );
                     }).toList(),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(15.0),
-                  padding: const EdgeInsets.all(3.0),
-                  decoration:
-                      BoxDecoration(border: Border.all(color: Colors.black)),
-                  child: Row(
-                    children: [
-                      const Flexible(
-                        fit: FlexFit.tight,
-                        flex: 2,
-                        child: Text(
-                          "Fecha de vencimiento:",
-                          overflow: TextOverflow.clip,
-                        ),
-                      ),
-                      Flexible(
-                        fit: FlexFit.tight,
-                        flex: 2,
-                        child: Text(
-                          "${fechaVencimiento.year}-${fechaVencimiento.month}-${fechaVencimiento.day}",
-                          overflow: TextOverflow.clip,
-                        ),
-                      ),
-                      Flexible(
-                        fit: FlexFit.tight,
-                        flex: 1,
-                        child: IconButton(
-                            onPressed: () async {
-                              final DateTime? dateTime = await showDatePicker(
-                                context: context,
-                                initialDate: fechaVencimiento,
-                                firstDate: DateTime.now(),
-                                lastDate: DateTime(2030),
-                              );
-                              if (dateTime != null &&
-                                  fechaVencimiento.compareTo(fechaPublicacion) >
-                                      0) {
-                                setState(() {
-                                  fechaVencimiento =
-                                      DateUtils.dateOnly(dateTime);
-                                });
-                              }
-                            },
-                            icon: const Icon(Icons.edit_calendar)),
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(15.0),
-                  padding: const EdgeInsets.all(3.0),
-                  decoration:
-                      BoxDecoration(border: Border.all(color: Colors.black)),
-                  child: Row(
-                    children: [
-                      const Flexible(
-                        fit: FlexFit.tight,
-                        flex: 2,
-                        child: Text(
-                          "Fecha de publicacion:",
-                          overflow: TextOverflow.clip,
-                        ),
-                      ),
-                      Flexible(
-                        fit: FlexFit.tight,
-                        flex: 2,
-                        child: Text(
-                          "${fechaPublicacion.year}-${fechaPublicacion.month}-${fechaPublicacion.day}",
-                          overflow: TextOverflow.clip,
-                        ),
-                      ),
-                      Flexible(
-                        fit: FlexFit.tight,
-                        flex: 1,
-                        child: IconButton(
-                            onPressed: () async {
-                              final DateTime? dateTime = await showDatePicker(
-                                context: context,
-                                initialDate: fechaPublicacion,
-                                firstDate: DateTime.now(),
-                                lastDate: DateTime(2030),
-                              );
-                              if (dateTime != null) {
-                                setState(() {
-                                  fechaPublicacion =
-                                      DateUtils.dateOnly(dateTime);
-                                });
-                              }
-                            },
-                            icon: const Icon(Icons.edit_calendar)),
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(15.0),
-                  padding: const EdgeInsets.all(3.0),
-                  decoration:
-                      BoxDecoration(border: Border.all(color: Colors.black)),
-                  child: Row(
-                    children: [
-                      const Flexible(
-                        fit: FlexFit.tight,
-                        flex: 2,
-                        child: Text(
-                          "Fecha de fin de publicacion:",
-                          overflow: TextOverflow.clip,
-                        ),
-                      ),
-                      Flexible(
-                        fit: FlexFit.tight,
-                        flex: 2,
-                        child: Text(
-                          "${fechaFinPublicacion.year}-${fechaFinPublicacion.month}-${fechaFinPublicacion.day}",
-                          overflow: TextOverflow.clip,
-                        ),
-                      ),
-                      Flexible(
-                        fit: FlexFit.tight,
-                        flex: 1,
-                        child: IconButton(
-                            onPressed: () async {
-                              final DateTime? dateTime = await showDatePicker(
-                                context: context,
-                                initialDate: fechaFinPublicacion,
-                                firstDate: DateTime.now(),
-                                lastDate: DateTime(2030),
-                              );
-                              if (dateTime != null) {
-                                setState(() {
-                                  fechaFinPublicacion =
-                                      DateUtils.dateOnly(dateTime);
-                                });
-                              }
-                            },
-                            icon: const Icon(Icons.edit_calendar)),
-                      )
-                    ],
                   ),
                 ),
                 Center(
@@ -409,15 +341,6 @@ class MyCustomFormState extends State<MyCustomForm> {
                       child: const Text('Crear Ticket'),
                     ),
                   ),
-                ),
-                Center(
-                  child: GestureDetector(
-                      onTap: () {
-                        _showDialog(context);
-                      },
-                      child: const Text(
-                        'Hello World',
-                      )),
                 ),
               ],
             ),
