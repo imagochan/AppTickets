@@ -44,6 +44,8 @@ class MyCustomFormState extends State<MyCustomForm> {
   var descripcionController = TextEditingController();
   var valorCompraController = TextEditingController();
 
+  var fechaVencimientoController = TextEditingController();
+
   // user defined function void _showDialog(BuildContext context) {
   void _showDialog(BuildContext context) {
     // flutter defined function
@@ -93,6 +95,24 @@ class MyCustomFormState extends State<MyCustomForm> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor introduzca un texto';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  onTap: () {
+                    _showDialog(context);
+                  },
+                  readOnly: true,
+                  controller: fechaVencimientoController,
+                  decoration: const InputDecoration(
+                    helperText: "Fecha de vencimiento",
+                    icon: Icon(Icons.edit_calendar),
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor introduzca una fecha';
                     }
                     return null;
                   },
