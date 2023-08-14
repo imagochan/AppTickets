@@ -33,7 +33,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
 
   DateTime fechaVencimiento = DateUtils.addDaysToDate(DateTime.now(), 7);
-  DateTime fechaPublicacion = DateTime.now();
+  DateTime fechaPublicacion = DateUtils.dateOnly(DateTime.now());
   DateTime fechaFinPublicacion = DateUtils.addDaysToDate(DateTime.now(), 14);
 
 //  String? categoriaSeleccionada;
@@ -78,6 +78,9 @@ class MyCustomFormState extends State<MyCustomForm> {
                   height: 5,
                 ),
                 TextFormField(
+                  minLines: 3,
+                  maxLines: 5,
+                  keyboardType: TextInputType.multiline,
                   controller: descripcionController,
                   decoration: const InputDecoration(
                     hintText: "Descripción",
@@ -325,9 +328,9 @@ class MyCustomFormState extends State<MyCustomForm> {
                                 content: Text('Revise los datos del ticket')),
                           );
                           if (!(fechaVencimiento.compareTo(fechaPublicacion) >
-                                  0) ||
+                                  0 ||
                               fechaVencimiento.compareTo(fechaFinPublicacion) <
-                                  0) {
+                                  0)) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content: Text(

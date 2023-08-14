@@ -50,9 +50,9 @@ class Api {
                 value['id'],
                 value['titulo'],
                 value['descripcion'],
-                value['fechaVencimiento'],
-                value['fechaPublicacion'],
-                value['fechaFinPublicacion'],
+                DateTime.parse(value['fechaVencimiento']),
+                DateTime.parse(value['fechaPublicacion']),
+                DateTime.parse(value['fechaFinPublicacion']),
                 value['valorCompra'],
                 value['categoria'])),
           },
@@ -81,7 +81,7 @@ class Api {
     }
   }
 
-    //Método para comunicarse con la API de borrar tickets del servidor
+  //Método para comunicarse con la API de borrar tickets del servidor
   static deleteTicket(id) async {
     //Configuramos la URL a usar junto con el ID del ticket a borrar
     var url = Uri.parse("${baseUrl}delete_ticket/$id");

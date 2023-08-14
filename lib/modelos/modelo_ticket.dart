@@ -4,9 +4,9 @@ class Ticket {
   final String? id;
   final String? titulo;
   final String? descripcion;
-  final String? fechaVencimiento; //format to datetime before using
-  final String? fechaPublicacion;
-  final String? fechaFinPublicacion;
+  final DateTime? fechaVencimiento; //format to datetime before using
+  final DateTime? fechaPublicacion;
+  final DateTime? fechaFinPublicacion;
   final num? valorCompra;
   //final String? imagenTicket;
   final String? categoria;
