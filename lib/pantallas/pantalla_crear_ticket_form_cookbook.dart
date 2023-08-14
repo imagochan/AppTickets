@@ -80,6 +80,105 @@ class MyCustomFormState extends State<MyCustomForm> {
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
+    var botonCrearTicket = Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: ElevatedButton(
+          onPressed: () {
+            // Validate returns true if the form is valid, or false otherwise.
+            if (_formKey.currentState!.validate() &&
+                fechaVencimiento.compareTo(fechaPublicacion) > 0 &&
+                fechaVencimiento.compareTo(fechaFinPublicacion) < 0 &&
+                fechaFinPublicacion.compareTo(fechaPublicacion) > 0) {
+              //creamos una estructura de datos
+              var data = {
+                "titulo": tituloController.text,
+                "descripcion": descripcionController.text,
+                "fechaVencimiento": fechaVencimiento.toString(),
+                "fechaPublicacion": fechaPublicacion.toString(),
+                "fechaFinPublicacion": fechaFinPublicacion.toString(),
+                "valorCompra": valorCompraController.text,
+                "categoria": dropdownValue
+              };
+              //imprimimos los datos para checar que este en orden
+              print(data);
+              //llamamos a la api de crear tickets
+              //bool isSuccesful = Api.addTicket(data);
+              Api.addTicket(data);
+
+              _showDialog(context);
+
+              // Navigator.pushAndRemoveUntil(
+              //   context,
+              //   MaterialPageRoute(
+              //       builder: (context) => const PantallaInicio()),
+              //   (Route<dynamic> route) => false,
+              // );
+
+              // If the form is valid, display a snackbar. In the real world,
+              // you'd often call a server or save the information in a database.
+
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   const SnackBar(
+              //       content: Text('Se ha creado un ticket')),
+              // );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Revise los datos del ticket')),
+              );
+              if (!(fechaVencimiento.compareTo(fechaPublicacion) > 0 ||
+                  fechaVencimiento.compareTo(fechaFinPublicacion) < 0)) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content: Text(
+                          'La fecha de vencimiento debe estar entre el inicio y fin de la fecha de publicacion')),
+                );
+              }
+              if (!(fechaFinPublicacion.compareTo(fechaPublicacion) > 0)) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content: Text(
+                          'La fecha de fin de publicación debe ser posterior a la de inicio')),
+                );
+              }
+            }
+          },
+          child: const Text('Crear Ticket'),
+        ),
+      ),
+    );
+    var selectorCategoria = Center(
+      child: DropdownButtonFormField<String>(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Por favor seleccione una categoria';
+          }
+          return null;
+        },
+        isExpanded: true,
+        hint: const Text("Elija una categoría"),
+        value: dropdownValue,
+        icon: const Icon(Icons.arrow_downward),
+        elevation: 16,
+        //style: const TextStyle(color: Colors.deepPurple),
+        // underline: Container(
+        //   height: 2,
+        //   color: Colors.black,
+        // ),
+        onChanged: (String? value) {
+          // This is called when the user selects an item.
+          setState(() {
+            dropdownValue = value!;
+          });
+        },
+        items: list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+      ),
+    );
     return Scaffold(
       appBar: AppBar(
         title: const Text("Crear un ticket"),
@@ -259,112 +358,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                 const SizedBox(
                   height: 5,
                 ),
-                Center(
-                  child: DropdownButtonFormField<String>(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor seleccione una categoria';
-                      }
-                      return null;
-                    },
-                    isExpanded: true,
-                    hint: const Text("Elija una categoría"),
-                    value: dropdownValue,
-                    icon: const Icon(Icons.arrow_downward),
-                    elevation: 16,
-                    //style: const TextStyle(color: Colors.deepPurple),
-                    // underline: Container(
-                    //   height: 2,
-                    //   color: Colors.black,
-                    // ),
-                    onChanged: (String? value) {
-                      // This is called when the user selects an item.
-                      setState(() {
-                        dropdownValue = value!;
-                      });
-                    },
-                    items: list.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Validate returns true if the form is valid, or false otherwise.
-                        if (_formKey.currentState!.validate() &&
-                            fechaVencimiento.compareTo(fechaPublicacion) > 0 &&
-                            fechaVencimiento.compareTo(fechaFinPublicacion) <
-                                0 &&
-                            fechaFinPublicacion.compareTo(fechaPublicacion) >
-                                0) {
-                          //creamos una estructura de datos
-                          var data = {
-                            "titulo": tituloController.text,
-                            "descripcion": descripcionController.text,
-                            "fechaVencimiento": fechaVencimiento.toString(),
-                            "fechaPublicacion": fechaPublicacion.toString(),
-                            "fechaFinPublicacion":
-                                fechaFinPublicacion.toString(),
-                            "valorCompra": valorCompraController.text,
-                            "categoria": dropdownValue
-                          };
-                          //imprimimos los datos para checar que este en orden
-                          print(data);
-                          //llamamos a la api de crear tickets
-                          Api.addTicket(data);
-
-                          _showDialog(context);
-
-                          // Navigator.pushAndRemoveUntil(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => const PantallaInicio()),
-                          //   (Route<dynamic> route) => false,
-                          // );
-
-                          // If the form is valid, display a snackbar. In the real world,
-                          // you'd often call a server or save the information in a database.
-
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   const SnackBar(
-                          //       content: Text('Se ha creado un ticket')),
-                          // );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Revise los datos del ticket')),
-                          );
-                          if (!(fechaVencimiento.compareTo(fechaPublicacion) >
-                                  0 ||
-                              fechaVencimiento.compareTo(fechaFinPublicacion) <
-                                  0)) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text(
-                                      'La fecha de vencimiento debe estar entre el inicio y fin de la fecha de publicacion')),
-                            );
-                          }
-                          if (!(fechaFinPublicacion
-                                  .compareTo(fechaPublicacion) >
-                              0)) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text(
-                                      'La fecha de fin de publicación debe ser posterior a la de inicio')),
-                            );
-                          }
-                        }
-                      },
-                      child: const Text('Crear Ticket'),
-                    ),
-                  ),
-                ),
+                selectorCategoria,
+                botonCrearTicket,
               ],
             ),
           ),
