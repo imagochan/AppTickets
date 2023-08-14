@@ -44,6 +44,29 @@ class MyCustomFormState extends State<MyCustomForm> {
   var descripcionController = TextEditingController();
   var valorCompraController = TextEditingController();
 
+  // user defined function void _showDialog(BuildContext context) {
+  void _showDialog(BuildContext context) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: const Text("Message"),
+          content: const Text("Hello World"),
+          actions: <Widget>[
+            ElevatedButton(
+              child: const Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
@@ -351,6 +374,15 @@ class MyCustomFormState extends State<MyCustomForm> {
                       child: const Text('Crear Ticket'),
                     ),
                   ),
+                ),
+                Center(
+                  child: GestureDetector(
+                      onTap: () {
+                        _showDialog(context);
+                      },
+                      child: const Text(
+                        'Hello World',
+                      )),
                 ),
               ],
             ),
