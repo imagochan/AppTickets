@@ -38,7 +38,7 @@ class MyCustomFormState extends State<MyCustomForm> {
 
 //  String? categoriaSeleccionada;
 
-  String dropdownValue = list.first;
+  String? dropdownValue;
 
   var tituloController = TextEditingController();
   var descripcionController = TextEditingController();
@@ -56,13 +56,19 @@ class MyCustomFormState extends State<MyCustomForm> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: const Text("Message"),
-          content: const Text("Hello World"),
+          title: const Text("Mensaje"),
+          content: const Text("Se ha creado un ticket"),
           actions: <Widget>[
             ElevatedButton(
-              child: const Text("Close"),
+              child: const Text("Regresar al menu principal"),
               onPressed: () {
-                Navigator.of(context).pop();
+                //Navigator.of(context).pop();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PantallaInicio()),
+                  (Route<dynamic> route) => false,
+                );
               },
             ),
           ],
@@ -86,6 +92,9 @@ class MyCustomFormState extends State<MyCustomForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(
+                  height: 5,
+                ),
                 TextFormField(
                   controller: tituloController,
                   decoration: const InputDecoration(
@@ -235,8 +244,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                   readOnly: true,
                   controller: fechaFinPublicacionController,
                   decoration: const InputDecoration(
-                    helperText: "Fecha de publicación",
-                    hintText: "Fecha de publicación",
+                    helperText: "Fecha de fin de publicación",
+                    hintText: "Fecha de fin de publicación",
                     icon: Icon(Icons.edit_calendar),
                     border: OutlineInputBorder(),
                   ),
@@ -251,17 +260,23 @@ class MyCustomFormState extends State<MyCustomForm> {
                   height: 5,
                 ),
                 Center(
-                  child: DropdownButton<String>(
+                  child: DropdownButtonFormField<String>(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor seleccione una categoria';
+                      }
+                      return null;
+                    },
                     isExpanded: true,
                     hint: const Text("Elija una categoría"),
                     value: dropdownValue,
                     icon: const Icon(Icons.arrow_downward),
                     elevation: 16,
                     //style: const TextStyle(color: Colors.deepPurple),
-                    underline: Container(
-                      height: 2,
-                      color: Colors.black,
-                    ),
+                    // underline: Container(
+                    //   height: 2,
+                    //   color: Colors.black,
+                    // ),
                     onChanged: (String? value) {
                       // This is called when the user selects an item.
                       setState(() {
@@ -288,6 +303,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                                 0 &&
                             fechaFinPublicacion.compareTo(fechaPublicacion) >
                                 0) {
+                          //creamos una estructura de datos
                           var data = {
                             "titulo": tituloController.text,
                             "descripcion": descripcionController.text,
@@ -298,20 +314,27 @@ class MyCustomFormState extends State<MyCustomForm> {
                             "valorCompra": valorCompraController.text,
                             "categoria": dropdownValue
                           };
+                          //imprimimos los datos para checar que este en orden
                           print(data);
+                          //llamamos a la api de crear tickets
                           Api.addTicket(data);
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const PantallaInicio()),
-                            (Route<dynamic> route) => false,
-                          );
+
+                          _showDialog(context);
+
+                          // Navigator.pushAndRemoveUntil(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => const PantallaInicio()),
+                          //   (Route<dynamic> route) => false,
+                          // );
+
                           // If the form is valid, display a snackbar. In the real world,
                           // you'd often call a server or save the information in a database.
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Se ha creado un ticket')),
-                          );
+
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   const SnackBar(
+                          //       content: Text('Se ha creado un ticket')),
+                          // );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
