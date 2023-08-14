@@ -1,3 +1,4 @@
+import 'package:apptickets/pantallas/pantalla_inicio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -29,9 +30,10 @@ class MyCustomFormState extends State<MyCustomForm> {
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
 
-  DateTime fechaVencimiento = DateTime.now();
+  DateTime fechaVencimiento = DateUtils.addDaysToDate(DateTime.now(), 7);
   DateTime fechaPublicacion = DateTime.now();
-  DateTime fechaFinPublicacion = DateTime.now();
+  DateTime fechaFinPublicacion = DateUtils.addDaysToDate(DateTime.now(), 14);
+
   String? categoriaSeleccionada;
 
   String dropdownValue = list.first;
@@ -166,7 +168,9 @@ class MyCustomFormState extends State<MyCustomForm> {
                                 firstDate: DateTime.now(),
                                 lastDate: DateTime(2030),
                               );
-                              if (dateTime != null) {
+                              if (dateTime != null &&
+                                  fechaVencimiento.compareTo(fechaPublicacion) >
+                                      0) {
                                 setState(() {
                                   fechaVencimiento =
                                       DateUtils.dateOnly(dateTime);
@@ -276,11 +280,28 @@ class MyCustomFormState extends State<MyCustomForm> {
                     child: ElevatedButton(
                       onPressed: () {
                         // Validate returns true if the form is valid, or false otherwise.
-                        if (_formKey.currentState!.validate()) {
+                        if (_formKey.currentState!.validate() &&
+                            fechaVencimiento.compareTo(fechaPublicacion) > 0 &&
+                            fechaVencimiento.compareTo(fechaFinPublicacion) <
+                                0 &&
+                            fechaFinPublicacion.compareTo(fechaPublicacion) >
+                                0) {
                           // If the form is valid, display a snackbar. In the real world,
                           // you'd often call a server or save the information in a database.
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Processing Data')),
+                            const SnackBar(
+                                content: Text('Se ha creado un ticket')),
+                          );
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const PantallaInicio()),
+                            (Route<dynamic> route) => false,
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Revise los datos del ticket')),
                           );
                         }
                       },
