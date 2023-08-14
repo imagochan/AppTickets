@@ -137,8 +137,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                 Container(
                   margin: const EdgeInsets.all(15.0),
                   padding: const EdgeInsets.all(3.0),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blueAccent)),
+                  decoration:
+                      BoxDecoration(border: Border.all(color: Colors.black)),
                   child: Row(
                     children: [
                       const Flexible(
@@ -185,8 +185,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                 Container(
                   margin: const EdgeInsets.all(15.0),
                   padding: const EdgeInsets.all(3.0),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blueAccent)),
+                  decoration:
+                      BoxDecoration(border: Border.all(color: Colors.black)),
                   child: Row(
                     children: [
                       const Flexible(
@@ -231,8 +231,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                 Container(
                   margin: const EdgeInsets.all(15.0),
                   padding: const EdgeInsets.all(3.0),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blueAccent)),
+                  decoration:
+                      BoxDecoration(border: Border.all(color: Colors.black)),
                   child: Row(
                     children: [
                       const Flexible(
@@ -303,6 +303,25 @@ class MyCustomFormState extends State<MyCustomForm> {
                             const SnackBar(
                                 content: Text('Revise los datos del ticket')),
                           );
+                          if (!(fechaVencimiento.compareTo(fechaPublicacion) >
+                                  0) ||
+                              fechaVencimiento.compareTo(fechaFinPublicacion) <
+                                  0) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text(
+                                      'La fecha de vencimiento debe estar entre el inicio y fin de la fecha de publicacion')),
+                            );
+                          }
+                          if (!(fechaFinPublicacion
+                                  .compareTo(fechaPublicacion) >
+                              0)) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text(
+                                      'La fecha de fin de publicación debe ser posterior a la de inicio')),
+                            );
+                          }
                         }
                       },
                       child: const Text('Crear Ticket'),
