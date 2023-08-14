@@ -2,6 +2,8 @@ import 'package:apptickets/pantallas/pantalla_inicio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../servicios/api.dart';
+
 const List<String> list = <String>[
   'Comedia',
   'Historia',
@@ -34,16 +36,20 @@ class MyCustomFormState extends State<MyCustomForm> {
   DateTime fechaPublicacion = DateTime.now();
   DateTime fechaFinPublicacion = DateUtils.addDaysToDate(DateTime.now(), 14);
 
-  String? categoriaSeleccionada;
+//  String? categoriaSeleccionada;
 
   String dropdownValue = list.first;
+
+  var tituloController = TextEditingController();
+  var descripcionController = TextEditingController();
+  var valorCompraController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Ingrese datos del ticket a crear"),
+        title: const Text("Crear un ticket"),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -54,6 +60,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
+                  controller: tituloController,
                   decoration: const InputDecoration(
                     hintText: "Titulo",
                     helperText: "Titulo",
@@ -71,6 +78,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   height: 5,
                 ),
                 TextFormField(
+                  controller: descripcionController,
                   decoration: const InputDecoration(
                     hintText: "Descripción",
                     helperText: "Descripción",
@@ -88,6 +96,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   height: 5,
                 ),
                 TextFormField(
+                  controller: valorCompraController,
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))
                   ],
@@ -286,17 +295,29 @@ class MyCustomFormState extends State<MyCustomForm> {
                                 0 &&
                             fechaFinPublicacion.compareTo(fechaPublicacion) >
                                 0) {
-                          // If the form is valid, display a snackbar. In the real world,
-                          // you'd often call a server or save the information in a database.
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Se ha creado un ticket')),
-                          );
+                          var data = {
+                            "titulo": tituloController.text,
+                            "descripcion": descripcionController.text,
+                            "fechaVencimiento": fechaVencimiento.toString(),
+                            "fechaPublicacion": fechaPublicacion.toString(),
+                            "fechaFinPublicacion":
+                                fechaFinPublicacion.toString(),
+                            "valorCompra": valorCompraController.text,
+                            "categoria": dropdownValue
+                          };
+                          print(data);
+                          Api.addTicket(data);
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const PantallaInicio()),
                             (Route<dynamic> route) => false,
+                          );
+                          // If the form is valid, display a snackbar. In the real world,
+                          // you'd often call a server or save the information in a database.
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Se ha creado un ticket')),
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
