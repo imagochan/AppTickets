@@ -99,24 +99,6 @@ class MyCustomFormState extends State<MyCustomForm> {
                     return null;
                   },
                 ),
-                TextFormField(
-                  onTap: () {
-                    _showDialog(context);
-                  },
-                  readOnly: true,
-                  controller: fechaVencimientoController,
-                  decoration: const InputDecoration(
-                    helperText: "Fecha de vencimiento",
-                    icon: Icon(Icons.edit_calendar),
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor introduzca una fecha';
-                    }
-                    return null;
-                  },
-                ),
                 const SizedBox(
                   height: 5,
                 ),
@@ -157,6 +139,39 @@ class MyCustomFormState extends State<MyCustomForm> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor introduzca un numero decimal';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                TextFormField(
+                  onTap: () async {
+                    final DateTime? dateTime = await showDatePicker(
+                      context: context,
+                      initialDate: fechaVencimiento,
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2030),
+                    );
+                    if (dateTime != null) {
+                      setState(() {
+                        fechaVencimiento = DateUtils.dateOnly(dateTime);
+                        fechaVencimientoController.text =
+                            fechaVencimiento.toString();
+                      });
+                    }
+                  },
+                  readOnly: true,
+                  controller: fechaVencimientoController,
+                  decoration: const InputDecoration(
+                    helperText: "Fecha de vencimiento",
+                    icon: Icon(Icons.edit_calendar),
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor introduzca una fecha';
                     }
                     return null;
                   },
