@@ -181,7 +181,7 @@ class MyCustomFormState extends State<MyCustomForm> {
     );
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Crear un ticket"),
+        title: const Text("Crear un Ticket"),
       ),
       body: SingleChildScrollView(
         child: Form(

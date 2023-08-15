@@ -20,4 +20,10 @@ class Ticket {
       this.fechaFinPublicacion,
       this.valorCompra,
       this.categoria);
+
+  factory Ticket.fromJson(Map<String, dynamic> json) => Ticket(id:json["id"],);
+
+  List<Ticket> fromJsonToList(List<dynamic> list) =>
+
+      List<Ticket>.from(list.map((x) => Ticket.fromJson(x)));
 }

@@ -2,6 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:apptickets/servicios/api.dart';
 import 'package:apptickets/modelos/modelo_ticket.dart';
 
+enum Tipo{tipo1,tipo2,tipo3}
+extension TipoExtension on Tipo{String get miextension{switch (this) {
+  case Tipo.tipo1:
+    return "";
+    break;
+  default:
+}}}
+
 class ListarTickets extends StatelessWidget {
   const ListarTickets({super.key});
 
@@ -15,7 +23,8 @@ class ListarTickets extends StatelessWidget {
           future: Api.getTicket(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             //Mostramos una pantalla de carga mientras esperamos la información.
-            if (!snapshot.hasData) {
+            Tipo.tipo1.miextension;
+            if (!snapshot.connectionState == ConnectionState.none) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
