@@ -1,9 +1,9 @@
 import 'package:apptickets/pantallas/pantalla_crear_ticket_form_cookbook.dart';
-import 'package:apptickets/pantallas/pantalla_creat_ticket_form.dart';
+//import 'package:apptickets/pantallas/pantalla_creat_ticket_form.dart';
 import 'package:flutter/material.dart';
 import 'package:apptickets/pantallas/pantalla_borrar_tickets.dart';
 import 'package:apptickets/pantallas/pantalla_listar_tickets.dart';
-import 'package:apptickets/pantallas/pantalla_crear_ticket.dart';
+//import 'package:apptickets/pantallas/pantalla_crear_ticket.dart';
 import 'package:apptickets/pantallas/pantalla_actualizar_tickets.dart';
 
 //Pantalla de inicio que aloja los botones para crear, listar, actualizar y borrar tickets
