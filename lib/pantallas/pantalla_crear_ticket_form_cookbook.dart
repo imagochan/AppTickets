@@ -192,13 +192,14 @@ class MyCustomFormState extends State<MyCustomForm> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
                 TextFormField(
                   controller: tituloController,
                   decoration: const InputDecoration(
-                    hintText: "Titulo",
-                    helperText: "Titulo",
+                    hintText: "Ingrese un Titulo",
+                    //helperText: "Titulo",
+                    labelText: "Titulo",
                     icon: Icon(Icons.title),
                     border: OutlineInputBorder(),
                   ),
@@ -210,7 +211,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   },
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
                 TextFormField(
                   minLines: 3,
@@ -218,8 +219,9 @@ class MyCustomFormState extends State<MyCustomForm> {
                   keyboardType: TextInputType.multiline,
                   controller: descripcionController,
                   decoration: const InputDecoration(
-                    hintText: "Descripción",
-                    helperText: "Descripción",
+                    hintText: "Ingrese una Descripción",
+                    //helperText: "Descripción",
+                    labelText: "Descripción",
                     icon: Icon(Icons.description),
                     border: OutlineInputBorder(),
                   ),
@@ -231,7 +233,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   },
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
                 TextFormField(
                   controller: valorCompraController,
@@ -241,8 +243,9 @@ class MyCustomFormState extends State<MyCustomForm> {
                   keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
                   decoration: const InputDecoration(
-                    hintText: "Valor de compra",
-                    helperText: "Valor de compra",
+                    hintText: "Ingrese un Valor de compra",
+                    //helperText: "Valor de compra",
+                    labelText: "Valor de compra",
                     icon: Icon(Icons.money),
                     border: OutlineInputBorder(),
                   ),
@@ -254,7 +257,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   },
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
                 TextFormField(
                   onTap: () async {
@@ -275,8 +278,10 @@ class MyCustomFormState extends State<MyCustomForm> {
                   readOnly: true,
                   controller: fechaVencimientoController,
                   decoration: const InputDecoration(
-                    helperText: "Fecha de vencimiento",
+                    //helperText: "Fecha de vencimiento",
                     hintText: "Fecha de vencimiento",
+                    labelText: "Fecha de vencimiento",
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
                     icon: Icon(Icons.edit_calendar),
                     border: OutlineInputBorder(),
                   ),
@@ -288,7 +293,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   },
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
                 TextFormField(
                   onTap: () async {
@@ -309,8 +314,10 @@ class MyCustomFormState extends State<MyCustomForm> {
                   readOnly: true,
                   controller: fechaPublicacionController,
                   decoration: const InputDecoration(
-                    helperText: "Fecha de publicación",
+                    //helperText: "Fecha de publicación",
                     hintText: "Fecha de publicación",
+                    labelText: "Fecha de publicación",
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
                     icon: Icon(Icons.edit_calendar),
                     border: OutlineInputBorder(),
                   ),
@@ -322,7 +329,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   },
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
                 TextFormField(
                   onTap: () async {
@@ -343,8 +350,10 @@ class MyCustomFormState extends State<MyCustomForm> {
                   readOnly: true,
                   controller: fechaFinPublicacionController,
                   decoration: const InputDecoration(
-                    helperText: "Fecha de fin de publicación",
+                    //helperText: "Fecha de fin de publicación",
                     hintText: "Fecha de fin de publicación",
+                    labelText: "Fecha de fin de publicación",
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
                     icon: Icon(Icons.edit_calendar),
                     border: OutlineInputBorder(),
                   ),
@@ -356,7 +365,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   },
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
                 selectorCategoria,
                 botonCrearTicket,
