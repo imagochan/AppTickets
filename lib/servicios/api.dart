@@ -54,14 +54,15 @@ class Api {
         data['tickets'].forEach(
           (value) => {
             tickets.add(Ticket(
-                value['id'],
-                value['titulo'],
-                value['descripcion'],
-                DateTime.parse(value['fechaVencimiento']),
-                DateTime.parse(value['fechaPublicacion']),
-                DateTime.parse(value['fechaFinPublicacion']),
-                value['valorCompra'],
-                value['categoria'])),
+                id: value['id'],
+                titulo: value['titulo'],
+                descripcion: value['descripcion'],
+                fechaVencimiento: DateTime.parse(value['fechaVencimiento']),
+                fechaPublicacion: DateTime.parse(value['fechaPublicacion']),
+                fechaFinPublicacion:
+                    DateTime.parse(value['fechaFinPublicacion']),
+                valorCompra: value['valorCompra'],
+                categoria: value['categoria'])),
           },
         );
         return tickets;
