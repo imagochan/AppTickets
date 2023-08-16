@@ -29,13 +29,14 @@ class Api {
   }
 
   //nueva get
-  static Future<dynamic> getService({required String url, bool hola=false}) async{
+  static Future<dynamic> getService(
+      {required String url, bool hola = false}) async {
     return "";
   }
 
   //Método para comunicarse con la API de obtener tickets del servidor
   static getTicket() async {
-    getService(url: "url",hola: true)
+    getService(url: "url", hola: true);
     //Iniciamos una lista de tickets vacía
     List<Ticket> tickets = [];
 
