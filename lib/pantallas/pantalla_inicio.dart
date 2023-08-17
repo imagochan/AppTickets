@@ -69,4 +69,5 @@ class _PantallaInicioState extends State<PantallaInicio> {
           ),
         ));
   }
+  
 }
