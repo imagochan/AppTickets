@@ -17,6 +17,14 @@ class PantallaInicio extends StatefulWidget {
 }
 
 class _PantallaInicioState extends State<PantallaInicio> {
+
+  void _cambiarPantalla(Widget destinationPage){
+    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => destinationPage));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,10 +38,7 @@ class _PantallaInicioState extends State<PantallaInicio> {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MyCustomForm()));
+                    _cambiarPantalla(const MyCustomForm());
                   },
                   child: const Text("Crear Ticket")),
               const SizedBox(
@@ -41,10 +46,7 @@ class _PantallaInicioState extends State<PantallaInicio> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => const ListarTickets())));
+                    _cambiarPantalla(const ListarTickets());
                   },
                   child: const Text("Listar Tickets")),
               const SizedBox(
@@ -52,10 +54,7 @@ class _PantallaInicioState extends State<PantallaInicio> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => const ActualizarTickets())));
+                    _cambiarPantalla(const ActualizarTickets());
                   },
                   child: const Text("Actualizar Ticket")),
               const SizedBox(
@@ -63,10 +62,7 @@ class _PantallaInicioState extends State<PantallaInicio> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => const BorrarTickets())));
+                    _cambiarPantalla(const BorrarTickets());
                   },
                   child: const Text("Borrar Ticket")),
             ],
