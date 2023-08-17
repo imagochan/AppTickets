@@ -47,8 +47,11 @@ class Api {
       //Enviamos una solicitud GET a la API
       final res = await http.get(url);
       if (res.statusCode == 200) {
+        print("peticion get funciono");
         //Declaramos una variable para almacenar la información recibida
         var data = jsonDecode(res.body);
+        print("data");
+        print(data);
 
         //añadimos a la lista de tickets la información recibida de la API
         data['tickets'].forEach(

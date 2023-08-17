@@ -26,6 +26,8 @@ class ListarTickets extends StatelessWidget {
           //Llamamos a la API de recolectar tickets de forma asíncrona
           //Para desplegar los tickets dentro de la App
           future: Api.getTicket(),
+          //print("futuro");
+          //print(future);
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             //Mostramos una pantalla de carga mientras esperamos la información.
 
@@ -41,8 +43,11 @@ class ListarTickets extends StatelessWidget {
             } else {
               //Agregamos los datos recibidos a una lista
               //para manipular mas facilmente la información
+              print("snapshot data");
+              print(snapshot.data[0].fechaVencimiento);
               List<Ticket> tdata = snapshot.data;
-
+              print("tdata");
+              print(tdata);
               return ListView.builder(
                 itemCount: tdata.length,
                 itemBuilder: (BuildContext context, int index) {
