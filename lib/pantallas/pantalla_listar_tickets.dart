@@ -2,19 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:apptickets/servicios/api.dart';
 import 'package:apptickets/modelos/modelo_ticket.dart';
 
-enum Tipo { tipo1, tipo2, tipo3 }
-
-// extension TipoExtension on Tipo {
-//   String get miextension {
-//     switch (this) {
-//       case Tipo.tipo1:
-//         return "";
-//         break;
-//       default:
-//     }
-//   }
-// }
-
 class ListarTickets extends StatelessWidget {
   const ListarTickets({super.key});
 
@@ -61,11 +48,11 @@ class ListarTickets extends StatelessWidget {
                         Text("Titulo: ${tdata[index].titulo}"),
                         Text("Descripción: ${tdata[index].descripcion}"),
                         Text(
-                            "Fecha de Vencimiento: ${tdata[index].fechaVencimiento.toString()}"),
+                            "Fecha de Vencimiento: ${tdata[index].fechaVencimiento.year}-${tdata[index].fechaVencimiento.month}-${tdata[index].fechaVencimiento.day}"),
                         Text(
-                            "Fecha de Publicación: ${tdata[index].fechaPublicacion.toString()}"),
+                            "Fecha de Publicación: ${tdata[index].fechaPublicacion.year}-${tdata[index].fechaPublicacion.month}-${tdata[index].fechaPublicacion.day}"),
                         Text(
-                            "Fecha de fin de Publicación: ${tdata[index].fechaFinPublicacion.toString()}"),
+                            "Fecha de fin de Publicación: ${tdata[index].fechaFinPublicacion.year}-${tdata[index].fechaFinPublicacion.month}-${tdata[index].fechaFinPublicacion.day}"),
                         Text(
                             "Valor de la compra: ${tdata[index].valorCompra.toString()}"),
                         Text("Categoria: ${tdata[index].categoria}"),
