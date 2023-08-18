@@ -47,7 +47,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   var fechaFinPublicacionController = TextEditingController();
 
   // user defined function void _showDialog(BuildContext context) {
-  void _showDialog(BuildContext context) {
+  void _showDialog(BuildContext context, String mensaje) {
     // flutter defined function
     showDialog(
       context: context,
@@ -55,7 +55,7 @@ class MyCustomFormState extends State<MyCustomForm> {
         // return object of type Dialog
         return AlertDialog(
           title: Text("Mensaje"),
-          content: Text("Se ha creado un ticket"),
+          content: Text(mensaje),
           actions: <Widget>[
             ElevatedButton(
               child: Text("Regresar al menu principal"),
@@ -92,9 +92,9 @@ class MyCustomFormState extends State<MyCustomForm> {
       //imprimimos los datos para checar que este en orden
       print(data);
       //llamamos a la api de crear tickets
-      //bool isSuccesful = Api.addTicket(data);
+      //TODO: bool isSuccesful = Api.addTicket(data);
       Api.addTicket(data);
-      _showDialog(context);
+      _showDialog(context,"Se ha creado un ticket");
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Revise los datos del ticket')),
@@ -160,6 +160,22 @@ class MyCustomFormState extends State<MyCustomForm> {
       ),
     );
 
+    Future<void> llamarDatePicker(DateTime date, TextEditingController controller) async {
+      final DateTime? dateTime = await showDatePicker(
+                      context: context,
+                      initialDate: date,
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2030),
+                    );
+                    if (dateTime != null) {
+                      setState(() {
+                        date = DateUtils.dateOnly(dateTime);
+                        controller.text =
+                            date.toString();
+                      });
+                    }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Crear un Ticket"),
@@ -195,111 +211,16 @@ class MyCustomFormState extends State<MyCustomForm> {
                 SizedBox(
                   height: 10,
                 ),
-                TextFormField(
-                  onTap: () async {
-                    final DateTime? dateTime = await showDatePicker(
-                      context: context,
-                      initialDate: fechaVencimiento,
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime(2030),
-                    );
-                    if (dateTime != null) {
-                      setState(() {
-                        fechaVencimiento = DateUtils.dateOnly(dateTime);
-                        fechaVencimientoController.text =
-                            fechaVencimiento.toString();
-                      });
-                    }
-                  },
-                  readOnly: true,
-                  controller: fechaVencimientoController,
-                  decoration: InputDecoration(
-                    //helperText: "Fecha de vencimiento",
-                    hintText: "Fecha de vencimiento",
-                    labelText: "Fecha de vencimiento",
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    icon: Icon(Icons.edit_calendar),
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor seleccione una fecha';
-                    }
-                    return null;
-                  },
-                ),
+                //form_date_field_widget(fecha: fechaVencimiento, controller: fechaVencimientoController, ),
+                form_date_field_widget(fecha: fechaVencimiento, controller: fechaVencimientoController, llamarDatePicker: llamarDatePicker, texto: "Fecha de vencimiento",),
                 SizedBox(
                   height: 10,
                 ),
-                TextFormField(
-                  onTap: () async {
-                    final DateTime? dateTime = await showDatePicker(
-                      context: context,
-                      initialDate: fechaPublicacion,
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime(2030),
-                    );
-                    if (dateTime != null) {
-                      setState(() {
-                        fechaPublicacion = DateUtils.dateOnly(dateTime);
-                        fechaPublicacionController.text =
-                            fechaPublicacion.toString();
-                      });
-                    }
-                  },
-                  readOnly: true,
-                  controller: fechaPublicacionController,
-                  decoration: InputDecoration(
-                    //helperText: "Fecha de publicación",
-                    hintText: "Fecha de publicación",
-                    labelText: "Fecha de publicación",
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    icon: Icon(Icons.edit_calendar),
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor seleccione una fecha';
-                    }
-                    return null;
-                  },
-                ),
+                form_date_field_widget(fecha: fechaPublicacion, controller: fechaPublicacionController, llamarDatePicker: llamarDatePicker, texto: "Fecha de publicación",),
                 SizedBox(
                   height: 10,
                 ),
-                TextFormField(
-                  onTap: () async {
-                    final DateTime? dateTime = await showDatePicker(
-                      context: context,
-                      initialDate: fechaFinPublicacion,
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime(2030),
-                    );
-                    if (dateTime != null) {
-                      setState(() {
-                        fechaFinPublicacion = DateUtils.dateOnly(dateTime);
-                        fechaFinPublicacionController.text =
-                            fechaFinPublicacion.toString();
-                      });
-                    }
-                  },
-                  readOnly: true,
-                  controller: fechaFinPublicacionController,
-                  decoration: InputDecoration(
-                    //helperText: "Fecha de fin de publicación",
-                    hintText: "Fecha de fin de publicación",
-                    labelText: "Fecha de fin de publicación",
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    icon: Icon(Icons.edit_calendar),
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor seleccione una fecha';
-                    }
-                    return null;
-                  },
-                ),
+                form_date_field_widget(fecha: fechaFinPublicacion, controller: fechaFinPublicacionController, llamarDatePicker: llamarDatePicker, texto: "Fecha de fin publicación",),
                 SizedBox(
                   height: 10,
                 ),
@@ -310,6 +231,45 @@ class MyCustomFormState extends State<MyCustomForm> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class form_date_field_widget extends StatelessWidget {
+  const form_date_field_widget({
+    super.key,
+    required this.fecha,
+    required this.controller,
+    required this.llamarDatePicker,
+    required this.texto,
+  });
+
+  final DateTime fecha;
+  final TextEditingController controller;
+  final Function llamarDatePicker;
+  final String texto;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      onTap: () async {
+        llamarDatePicker(fecha, controller);
+      },
+      readOnly: true,
+      controller: controller,
+      decoration: InputDecoration(
+        hintText: texto,
+        labelText: texto,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        icon: Icon(Icons.edit_calendar),
+        border: OutlineInputBorder(),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor seleccione una fecha';
+        }
+        return null;
+      },
     );
   }
 }
@@ -330,7 +290,6 @@ class valorCompraWidget extends StatelessWidget {
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       decoration: InputDecoration(
         hintText: "Ingrese un Valor de compra",
-        //helperText: "Valor de compra",
         labelText: "Valor de compra",
         icon: Icon(Icons.money),
         border: OutlineInputBorder(),
