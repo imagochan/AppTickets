@@ -2,7 +2,8 @@ import 'package:apptickets/pantallas/pantalla_inicio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../servicios/api.dart';
-import 'package:apptickets/providers/enum_categorias.dart';
+
+//TODO:boolean para editar y sus respectivos casos, renombrar pantalla a solo formulario
 
 // Create a Form widget.
 class MyCustomForm extends StatefulWidget {
@@ -17,6 +18,7 @@ class MyCustomForm extends StatefulWidget {
 // Create a corresponding State class.
 // This class holds data related to the form.
 class MyCustomFormState extends State<MyCustomForm> {
+  
   final List<String> list = <String>[
     'Comedia',
     'Historia',
@@ -56,16 +58,16 @@ class MyCustomFormState extends State<MyCustomForm> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: Text("Mensaje"),
+          title: const Text("Mensaje"),
           content: Text(mensaje),
           actions: <Widget>[
             ElevatedButton(
-              child: Text("Regresar al menu principal"),
+              child: const Text("Regresar al menu principal"),
               onPressed: () {
                 //Navigator.of(context).pop();
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => PantallaInicio()),
+                  MaterialPageRoute(builder: (context) => const PantallaInicio()),
                   (Route<dynamic> route) => false,
                 );
               },
@@ -99,19 +101,19 @@ class MyCustomFormState extends State<MyCustomForm> {
       _showDialog(context,"Se ha creado un ticket");
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Revise los datos del ticket')),
+        const SnackBar(content: Text('Revise los datos del ticket')),
       );
       if (!(fechaVencimiento.compareTo(fechaPublicacion) > 0 ||
           fechaVencimiento.compareTo(fechaFinPublicacion) < 0)) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
               content: Text(
                   'La fecha de vencimiento debe estar entre el inicio y fin de la fecha de publicacion')),
         );
       }
       if (!(fechaFinPublicacion.compareTo(fechaPublicacion) > 0)) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
               content: Text(
                   'La fecha de fin de publicación debe ser posterior a la de inicio')),
         );
@@ -125,12 +127,12 @@ class MyCustomFormState extends State<MyCustomForm> {
 
     var botonCrearTicket = Center(
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: 16),
         child: ElevatedButton(
           onPressed: () {
             submitData();
           },
-          child: Text('Crear Ticket'),
+          child: const Text('Crear Ticket'),
         ),
       ),
     );
@@ -145,9 +147,9 @@ class MyCustomFormState extends State<MyCustomForm> {
           return null;
         },
         isExpanded: true,
-        hint: Text("Elija una categoría"),
+        hint: const Text("Elija una categoría"),
         value: dropdownValue,
-        icon: Icon(Icons.arrow_downward),
+        icon: const Icon(Icons.arrow_downward),
         elevation: 16,
         onChanged: (String? value) {
           setState(() {
@@ -181,17 +183,17 @@ class MyCustomFormState extends State<MyCustomForm> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Crear un Ticket"),
+        title: const Text("Crear un Ticket"),
       ),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 form_field_widget(
@@ -199,7 +201,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   hintText: "Ingrese un Titulo",
                   labelText: "Titulo",
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 form_field_widget(
@@ -207,23 +209,23 @@ class MyCustomFormState extends State<MyCustomForm> {
                   hintText: "Ingrese una Descripción",
                   labelText: "Descripción",
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 valorCompraWidget(valorCompraController: valorCompraController),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 form_date_field_widget(fecha: fechaVencimiento, controller: fechaVencimientoController, llamarDatePicker: llamarDatePicker, texto: "Fecha de vencimiento",),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 form_date_field_widget(fecha: fechaPublicacion, controller: fechaPublicacionController, llamarDatePicker: llamarDatePicker, texto: "Fecha de publicación",),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 form_date_field_widget(fecha: fechaFinPublicacion, controller: fechaFinPublicacionController, llamarDatePicker: llamarDatePicker, texto: "Fecha de fin publicación",),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 selectorCategoria,
@@ -236,7 +238,7 @@ class MyCustomFormState extends State<MyCustomForm> {
     );
   }
 }
-
+//TODO: mover clases a archivos
 class form_date_field_widget extends StatelessWidget {
   const form_date_field_widget({
     super.key,
@@ -263,8 +265,8 @@ class form_date_field_widget extends StatelessWidget {
         hintText: texto,
         labelText: texto,
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        icon: Icon(Icons.edit_calendar),
-        border: OutlineInputBorder(),
+        icon: const Icon(Icons.edit_calendar),
+        border: const OutlineInputBorder(),
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -277,7 +279,7 @@ class form_date_field_widget extends StatelessWidget {
 }
 
 class valorCompraWidget extends StatelessWidget {
-  valorCompraWidget({
+  const valorCompraWidget({
     super.key,
     required this.valorCompraController,
   });
@@ -289,8 +291,8 @@ class valorCompraWidget extends StatelessWidget {
     return TextFormField(
       controller: valorCompraController,
       inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))],
-      keyboardType: TextInputType.numberWithOptions(decimal: true),
-      decoration: InputDecoration(
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      decoration: const InputDecoration(
         hintText: "Ingrese un Valor de compra",
         labelText: "Valor de compra",
         icon: Icon(Icons.money),
@@ -307,7 +309,7 @@ class valorCompraWidget extends StatelessWidget {
 }
 
 class form_field_widget extends StatelessWidget {
-  form_field_widget({
+  const form_field_widget({
     super.key,
     required this.controller,
     required this.hintText,
@@ -325,8 +327,8 @@ class form_field_widget extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         labelText: labelText,
-        icon: Icon(Icons.title),
-        border: OutlineInputBorder(),
+        icon: const Icon(Icons.title),
+        border: const OutlineInputBorder(),
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {

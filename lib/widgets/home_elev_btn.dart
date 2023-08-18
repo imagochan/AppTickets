@@ -15,7 +15,6 @@ class HomeElevBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
                   onPressed: () {
-                    //_cambiarPantalla(const MyCustomForm());
                     cambiarPantalla(pageWidget, context);
                   },
                   child: Text(btnTitle)
