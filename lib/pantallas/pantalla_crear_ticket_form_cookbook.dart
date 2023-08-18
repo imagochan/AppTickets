@@ -1,16 +1,7 @@
 import 'package:apptickets/pantallas/pantalla_inicio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import '../servicios/api.dart';
-
-const List<String> list = <String>[
-  'Comedia',
-  'Historia',
-  'Ficción',
-  'Acción',
-  'Drama'
-];
 
 // Create a Form widget.
 class MyCustomForm extends StatefulWidget {
@@ -25,6 +16,13 @@ class MyCustomForm extends StatefulWidget {
 // Create a corresponding State class.
 // This class holds data related to the form.
 class MyCustomFormState extends State<MyCustomForm> {
+  final List<String> list = <String>[
+    'Comedia',
+    'Historia',
+    'Ficción',
+    'Acción',
+    'Drama'
+  ];
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -56,17 +54,16 @@ class MyCustomFormState extends State<MyCustomForm> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: const Text("Mensaje"),
-          content: const Text("Se ha creado un ticket"),
+          title: Text("Mensaje"),
+          content: Text("Se ha creado un ticket"),
           actions: <Widget>[
             ElevatedButton(
-              child: const Text("Regresar al menu principal"),
+              child: Text("Regresar al menu principal"),
               onPressed: () {
                 //Navigator.of(context).pop();
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => const PantallaInicio()),
+                  MaterialPageRoute(builder: (context) => PantallaInicio()),
                   (Route<dynamic> route) => false,
                 );
               },
@@ -77,76 +74,65 @@ class MyCustomFormState extends State<MyCustomForm> {
     );
   }
 
+  void submitData() {
+    if (_formKey.currentState!.validate() &&
+        fechaVencimiento.compareTo(fechaPublicacion) > 0 &&
+        fechaVencimiento.compareTo(fechaFinPublicacion) < 0 &&
+        fechaFinPublicacion.compareTo(fechaPublicacion) > 0) {
+      //creamos una estructura de datos
+      var data = {
+        "titulo": tituloController.text,
+        "descripcion": descripcionController.text,
+        "fechaVencimiento": fechaVencimiento.toString(),
+        "fechaPublicacion": fechaPublicacion.toString(),
+        "fechaFinPublicacion": fechaFinPublicacion.toString(),
+        "valorCompra": valorCompraController.text,
+        "categoria": dropdownValue
+      };
+      //imprimimos los datos para checar que este en orden
+      print(data);
+      //llamamos a la api de crear tickets
+      //bool isSuccesful = Api.addTicket(data);
+      Api.addTicket(data);
+      _showDialog(context);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Revise los datos del ticket')),
+      );
+      if (!(fechaVencimiento.compareTo(fechaPublicacion) > 0 ||
+          fechaVencimiento.compareTo(fechaFinPublicacion) < 0)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text(
+                  'La fecha de vencimiento debe estar entre el inicio y fin de la fecha de publicacion')),
+        );
+      }
+      if (!(fechaFinPublicacion.compareTo(fechaPublicacion) > 0)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text(
+                  'La fecha de fin de publicación debe ser posterior a la de inicio')),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
+
     var botonCrearTicket = Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
+        padding: EdgeInsets.symmetric(vertical: 16),
         child: ElevatedButton(
           onPressed: () {
-            // Validate returns true if the form is valid, or false otherwise.
-            if (_formKey.currentState!.validate() &&
-                fechaVencimiento.compareTo(fechaPublicacion) > 0 &&
-                fechaVencimiento.compareTo(fechaFinPublicacion) < 0 &&
-                fechaFinPublicacion.compareTo(fechaPublicacion) > 0) {
-              //creamos una estructura de datos
-              var data = {
-                "titulo": tituloController.text,
-                "descripcion": descripcionController.text,
-                "fechaVencimiento": fechaVencimiento.toString(),
-                "fechaPublicacion": fechaPublicacion.toString(),
-                "fechaFinPublicacion": fechaFinPublicacion.toString(),
-                "valorCompra": valorCompraController.text,
-                "categoria": dropdownValue
-              };
-              //imprimimos los datos para checar que este en orden
-              print(data);
-              //llamamos a la api de crear tickets
-              //bool isSuccesful = Api.addTicket(data);
-              Api.addTicket(data);
-
-              _showDialog(context);
-
-              // Navigator.pushAndRemoveUntil(
-              //   context,
-              //   MaterialPageRoute(
-              //       builder: (context) => const PantallaInicio()),
-              //   (Route<dynamic> route) => false,
-              // );
-
-              // If the form is valid, display a snackbar. In the real world,
-              // you'd often call a server or save the information in a database.
-
-              // ScaffoldMessenger.of(context).showSnackBar(
-              //   const SnackBar(
-              //       content: Text('Se ha creado un ticket')),
-              // );
-            } else {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Revise los datos del ticket')),
-              );
-              if (!(fechaVencimiento.compareTo(fechaPublicacion) > 0 ||
-                  fechaVencimiento.compareTo(fechaFinPublicacion) < 0)) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                      content: Text(
-                          'La fecha de vencimiento debe estar entre el inicio y fin de la fecha de publicacion')),
-                );
-              }
-              if (!(fechaFinPublicacion.compareTo(fechaPublicacion) > 0)) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                      content: Text(
-                          'La fecha de fin de publicación debe ser posterior a la de inicio')),
-                );
-              }
-            }
+            submitData();
           },
-          child: const Text('Crear Ticket'),
+          child: Text('Crear Ticket'),
         ),
       ),
     );
+
     var selectorCategoria = Center(
       child: DropdownButtonFormField<String>(
         validator: (value) {
@@ -156,17 +142,11 @@ class MyCustomFormState extends State<MyCustomForm> {
           return null;
         },
         isExpanded: true,
-        hint: const Text("Elija una categoría"),
+        hint: Text("Elija una categoría"),
         value: dropdownValue,
-        icon: const Icon(Icons.arrow_downward),
+        icon: Icon(Icons.arrow_downward),
         elevation: 16,
-        //style: const TextStyle(color: Colors.deepPurple),
-        // underline: Container(
-        //   height: 2,
-        //   color: Colors.black,
-        // ),
         onChanged: (String? value) {
-          // This is called when the user selects an item.
           setState(() {
             dropdownValue = value!;
           });
@@ -179,84 +159,40 @@ class MyCustomFormState extends State<MyCustomForm> {
         }).toList(),
       ),
     );
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Crear un Ticket"),
+        title: Text("Crear un Ticket"),
       ),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
+                SizedBox(
                   height: 10,
                 ),
-                TextFormField(
+                form_field_widget(
                   controller: tituloController,
-                  decoration: const InputDecoration(
-                    hintText: "Ingrese un Titulo",
-                    //helperText: "Titulo",
-                    labelText: "Titulo",
-                    icon: Icon(Icons.title),
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor introduzca un texto';
-                    }
-                    return null;
-                  },
+                  hintText: "Ingrese un Titulo",
+                  labelText: "Titulo",
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 10,
                 ),
-                TextFormField(
-                  minLines: 3,
-                  maxLines: 5,
-                  keyboardType: TextInputType.multiline,
+                form_field_widget(
                   controller: descripcionController,
-                  decoration: const InputDecoration(
-                    hintText: "Ingrese una Descripción",
-                    //helperText: "Descripción",
-                    labelText: "Descripción",
-                    icon: Icon(Icons.description),
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor introduzca un texto';
-                    }
-                    return null;
-                  },
+                  hintText: "Ingrese una Descripción",
+                  labelText: "Descripción",
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 10,
                 ),
-                TextFormField(
-                  controller: valorCompraController,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))
-                  ],
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
-                    hintText: "Ingrese un Valor de compra",
-                    //helperText: "Valor de compra",
-                    labelText: "Valor de compra",
-                    icon: Icon(Icons.money),
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor introduzca un numero decimal';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(
+                valorCompraWidget(valorCompraController: valorCompraController),
+                SizedBox(
                   height: 10,
                 ),
                 TextFormField(
@@ -277,7 +213,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   },
                   readOnly: true,
                   controller: fechaVencimientoController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     //helperText: "Fecha de vencimiento",
                     hintText: "Fecha de vencimiento",
                     labelText: "Fecha de vencimiento",
@@ -292,7 +228,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     return null;
                   },
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 10,
                 ),
                 TextFormField(
@@ -313,7 +249,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   },
                   readOnly: true,
                   controller: fechaPublicacionController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     //helperText: "Fecha de publicación",
                     hintText: "Fecha de publicación",
                     labelText: "Fecha de publicación",
@@ -328,7 +264,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     return null;
                   },
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 10,
                 ),
                 TextFormField(
@@ -349,7 +285,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   },
                   readOnly: true,
                   controller: fechaFinPublicacionController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     //helperText: "Fecha de fin de publicación",
                     hintText: "Fecha de fin de publicación",
                     labelText: "Fecha de fin de publicación",
@@ -364,7 +300,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     return null;
                   },
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 10,
                 ),
                 selectorCategoria,
@@ -374,6 +310,69 @@ class MyCustomFormState extends State<MyCustomForm> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class valorCompraWidget extends StatelessWidget {
+  valorCompraWidget({
+    super.key,
+    required this.valorCompraController,
+  });
+
+  final TextEditingController valorCompraController;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: valorCompraController,
+      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))],
+      keyboardType: TextInputType.numberWithOptions(decimal: true),
+      decoration: InputDecoration(
+        hintText: "Ingrese un Valor de compra",
+        //helperText: "Valor de compra",
+        labelText: "Valor de compra",
+        icon: Icon(Icons.money),
+        border: OutlineInputBorder(),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor introduzca un numero decimal';
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class form_field_widget extends StatelessWidget {
+  form_field_widget({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.labelText,
+  });
+
+  final TextEditingController controller;
+  final String hintText;
+  final String labelText;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        hintText: hintText,
+        labelText: labelText,
+        icon: Icon(Icons.title),
+        border: OutlineInputBorder(),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor introduzca un texto';
+        }
+        return null;
+      },
     );
   }
 }
