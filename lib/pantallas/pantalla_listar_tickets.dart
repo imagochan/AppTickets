@@ -69,6 +69,16 @@ class _ListarTicketsState extends State<ListarTickets> {
             //Tipo.tipo1.miextension;
 
             //TODO: variantes de !snapshot.connectionState == ConnectionState.none
+            if (snapshot.connectionState != ConnectionState.done) {
+              return _buildLoader();
+            }
+            if (snapshot.hasError) {
+              return _buildError();
+            }
+            if (snapshot.hasData) {
+              return _buildDataView();
+            }     
+            //return _buildNoData();
             if (!snapshot.hasData) {
               return const Center(
                 child: CircularProgressIndicator(),
