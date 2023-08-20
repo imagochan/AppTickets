@@ -138,7 +138,7 @@ class MyCustomFormState extends State<MyCustomForm> {
     );
 
     var selectorCategoria = Center(
-      //TODO: reemplazar lista de categorias viejas por enum
+      //TODO: reemplazar lista de categorias viejas por llamada a la API
       child: DropdownButtonFormField<String>(
         validator: (value) {
           if (value == null || value.isEmpty) {
