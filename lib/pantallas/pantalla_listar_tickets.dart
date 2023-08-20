@@ -22,8 +22,6 @@ class _ListarTicketsState extends State<ListarTickets> {
 
   String? dropdownValue;
   
-  
-
   @override
   Widget build(BuildContext context) {
 
@@ -42,9 +40,10 @@ class _ListarTicketsState extends State<ListarTickets> {
         icon: const Icon(Icons.arrow_downward),
         elevation: 16,
         onChanged: (String? value) {
-          setState(() {
-            dropdownValue = value!;
-          });
+          //setState(() {
+          //  dropdownValue = value!;
+          //});
+          dropdownValue = value!;
         },
         items: list.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
@@ -84,6 +83,7 @@ class _ListarTicketsState extends State<ListarTickets> {
                   //when you try to use a ListView/GridView inside a Column, there are many ways of solving it, I am listing few here.
                   //Wrap ListView in Expanded
                   ElevatedButton(onPressed: (){setState(() {
+                    print(dropdownValue);
                     //need this to re-run // call setState
                   });}, child: Text("filtrar")),
                   Expanded(
