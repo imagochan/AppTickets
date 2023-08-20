@@ -40,8 +40,13 @@ class Api {
     //Iniciamos una lista de tickets vacía
     List<Ticket> tickets = [];
 
-    //Creamos la URL de la API
+    //Creamos la URL de la API que usamos como request
     var url = Uri.parse("${baseUrl}get_ticket");
+    var unaCategoria = "Comedia";
+    var queryStringCategorias = "?categoria=$unaCategoria";
+    var url2 = Uri.parse("${baseUrl}get_ticket$queryStringCategorias");
+
+    //maybe I can use route parameters to acceess data of a single ticket, like get_ticket/barbie
 
     try {
       //Enviamos una solicitud GET a la API
