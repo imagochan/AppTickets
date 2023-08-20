@@ -70,28 +70,14 @@ class _ListarTicketsState extends State<ListarTickets> {
 
             //TODO: variantes de !snapshot.connectionState == ConnectionState.none
             if (snapshot.connectionState != ConnectionState.done) {
-              return _buildLoader();
+              return const Center(
+                child: CircularProgressIndicator());
             }
             if (snapshot.hasError) {
-              return _buildError();
+              return Text("hubo un error");
             }
             if (snapshot.hasData) {
-              return _buildDataView();
-            }     
-            //return _buildNoData();
-            if (!snapshot.hasData) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-              //Si recibimos datos, procedemos a desplegarlos
-            } else {
-              //Agregamos los datos recibidos a una lista
-              //para manipular mas facilmente la información
-              print("snapshot data");
-              print(snapshot.data[0].fechaVencimiento);
               List<Ticket> tdata = snapshot.data;
-              print("tdata");
-              print(tdata);
               return Column(
                 children: [
                   selectorCategoria,
@@ -130,7 +116,8 @@ class _ListarTicketsState extends State<ListarTickets> {
                   ),
                 ],
               );
-            }
+            }     
+            return Text("no data?");
           }),
     );
   }
