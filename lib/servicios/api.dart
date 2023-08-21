@@ -36,7 +36,7 @@ class Api {
 
   //Método para comunicarse con la API de obtener tickets del servidor
   static getTicket(
-    String? categoria, 
+    String? categoria,
     String? nombre,
     DateTime? fechaVencimientoStart,
     DateTime? fechaVencimientoEnd,
@@ -46,41 +46,42 @@ class Api {
     DateTime? fechaCreacionEnd,
     num? valorCompraStart,
     num? valorCompraEnd,
-    ) async {
+  ) async {
     getService(url: "url", hola: true);
     //Iniciamos una lista de tickets vacía
     List<Ticket> tickets = [];
 
     //Creamos la URL de la API que usamos como request
-    var url2 = Uri.parse("${baseUrl}get_ticket");
 
-    var unaCategoria = "Comedia";
-    
     var queryStringCategorias = "?categoria=$categoria";
-    var queryStringNombre = "&titulo=$nombre";//mas tarde renombrar a titulo
-    var queryDateTimefechaVencimientoStart =  "&fechaVencimientoStart=$fechaVencimientoStart";
-    var queryDateTimefechaVencimientoEnd =  "&fechaVencimientoEnd=$fechaVencimientoEnd";
-    var queryDateTimefechaPublicacionStart =  "&fechaPublicacionStart=$fechaPublicacionStart";
-    var queryDateTimefechaPublicacionEnd =  "&fechaPublicacionEnd=$fechaPublicacionEnd";
-    var queryDateTimefechaCreacionStart =  "&fechaCreacionStart=$fechaCreacionStart";
-    var queryDateTimefechaCreacionEnd =  "&fechaCreacionEnd=$fechaCreacionEnd";
-    var queryNumValorCompraStart =  "&valorCompraStart=$valorCompraStart";
-    var queryNumValorCompraEnd =  "&valorCompraEnd=$valorCompraEnd";
+    var queryStringNombre = "&titulo=$nombre"; //mas tarde renombrar a titulo
+    var queryDateTimefechaVencimientoStart =
+        "&fechaVencimientoStart=$fechaVencimientoStart";
+    var queryDateTimefechaVencimientoEnd =
+        "&fechaVencimientoEnd=$fechaVencimientoEnd";
+    var queryDateTimefechaPublicacionStart =
+        "&fechaPublicacionStart=$fechaPublicacionStart";
+    var queryDateTimefechaPublicacionEnd =
+        "&fechaPublicacionEnd=$fechaPublicacionEnd";
+    var queryDateTimefechaCreacionStart =
+        "&fechaCreacionStart=$fechaCreacionStart";
+    var queryDateTimefechaCreacionEnd = "&fechaCreacionEnd=$fechaCreacionEnd";
+    var queryNumValorCompraStart = "&valorCompraStart=$valorCompraStart";
+    var queryNumValorCompraEnd = "&valorCompraEnd=$valorCompraEnd";
     var url = Uri.parse(
-      "${baseUrl}get_ticket$queryStringCategorias$queryStringNombre$queryDateTimefechaVencimientoStart$queryDateTimefechaVencimientoEnd$queryDateTimefechaPublicacionStart$queryDateTimefechaPublicacionEnd$queryDateTimefechaCreacionStart$queryDateTimefechaCreacionEnd$queryNumValorCompraStart$queryNumValorCompraEnd"
-      );
+        "${baseUrl}get_ticket$queryStringCategorias$queryStringNombre$queryDateTimefechaVencimientoStart$queryDateTimefechaVencimientoEnd$queryDateTimefechaPublicacionStart$queryDateTimefechaPublicacionEnd$queryDateTimefechaCreacionStart$queryDateTimefechaCreacionEnd$queryNumValorCompraStart$queryNumValorCompraEnd");
 
-    print(url);
+    //print(url);
     //maybe I can use route parameters to acceess data of a single ticket, like get_ticket/barbie
 
     try {
       //Enviamos una solicitud GET a la API
       final res = await http.get(url);
       if (res.statusCode == 200) {
-        print("peticion get funciono");
+        //print("peticion get funciono");
         //Declaramos una variable para almacenar la información recibida
         var data = jsonDecode(res.body);
-        
+
         //print("the data looks like this");
         //print(data);
 
@@ -97,8 +98,7 @@ class Api {
                     DateTime.parse(value['fechaFinPublicacion']),
                 valorCompra: value['valorCompra'],
                 categoria: value['categoria'],
-                fechaCreacion: DateTime.parse(value['fechaCreacion'])
-                )),
+                fechaCreacion: DateTime.parse(value['fechaCreacion']))),
           },
         );
         return tickets;

@@ -1,3 +1,4 @@
+import 'package:apptickets/pantallas/listar_tickets/widget_selection_button.dart';
 import 'package:flutter/material.dart';
 import 'package:apptickets/servicios/api.dart';
 
@@ -55,17 +56,20 @@ class _ListarTicketsState extends State<ListarTickets> {
                     decoration: const BoxDecoration(
                       color: Colors.blue,
                     ),
+                    child: const Center(
+                      child: SelectionButton(),
+                    ),
                   ),
                   Expanded(
                       child: ListView.builder(
                     itemBuilder: (context, index) {
-                      return Container(
+                      return SizedBox(
                         width: double.infinity,
                         height: 100.0,
                         child: Text(index.toString()),
                       );
                     },
-                    itemCount: 150,
+                    itemCount: 25,
                     shrinkWrap: false,
                   ))
                 ],
