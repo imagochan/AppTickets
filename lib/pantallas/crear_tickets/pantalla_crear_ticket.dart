@@ -1,7 +1,7 @@
 import 'package:apptickets/pantallas/pantalla_inicio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../servicios/api.dart';
+import '../../servicios/api.dart';
 
 // Create a Form widget.
 class MyCustomForm extends StatefulWidget {
