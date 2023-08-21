@@ -13,13 +13,15 @@ class ListarTickets extends StatefulWidget {
 
 class _ListarTicketsState extends State<ListarTickets> {
 
+
+
   var valorCompraStartController = TextEditingController();
   var valorCompraEndController = TextEditingController();
   num? valorCompraStart;
   num? valorCompraEnd;
 
   var fechaCreacionRangoController = TextEditingController();
-  DateTime fechaCreacioStart = DateUtils.addDaysToDate(DateTime.now(), 6);
+  DateTime fechaCreacionStart = DateUtils.addDaysToDate(DateTime.now(), 6);
   DateTime fechaCreacionEnd = DateUtils.addDaysToDate(DateTime.now(), 8);
 
   var busquedaController = TextEditingController();
@@ -98,7 +100,7 @@ class _ListarTicketsState extends State<ListarTickets> {
       body: FutureBuilder(
           //Llamamos a la API de recolectar tickets de forma asíncrona
           //Para desplegar los tickets dentro de la App
-          future: Api.getTicket(dropdownValue,unNombre,fechaVencimientoStart,fechaPublicacionEnd,fechaPublicacionStart,fechaPublicacionEnd,fechaCreacioStart,fechaCreacionEnd,valorCompraStart,valorCompraEnd),
+          future: Api.getTicket(dropdownValue,unNombre,fechaVencimientoStart,fechaPublicacionEnd,fechaPublicacionStart,fechaPublicacionEnd,fechaCreacionStart,fechaCreacionEnd,valorCompraStart,valorCompraEnd),
           //print("futuro");
           //print(future);
           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -116,62 +118,69 @@ class _ListarTicketsState extends State<ListarTickets> {
             }
             if (snapshot.hasData) {
               List<Ticket> tdata = snapshot.data;
-              return Column(
-                children: [
-                  Row(children: [
-                    form_field_widget(controller: valorCompraStartController, hintText: "Ingrese un inicio valor compra", labelText: "ValorCompraStart"),
-                    form_field_widget(controller: valorCompraEndController, hintText: "Ingrese un fin valor compra", labelText: "Valor compra end")
-                  ],),
-                  const SizedBox(height: 10,),
-                  form_field_widget(controller: busquedaController, hintText: "ingrese nombre de ticket", labelText: "nombre de ticket"),
-                  selectorCategoria,
-                  const SizedBox(height: 10,),
-                  //when you try to use a ListView/GridView inside a Column, there are many ways of solving it, I am listing few here.
-                  //Wrap ListView in Expanded
-                  //form_date_field_widget(fecha: fechaVencimiento, controller: fechaVencimientoController, llamarDatePicker: llamarDatePicker, texto: "Fecha de vencimiento",),
-                  //form_date_field_widget(fecha: fecha, controller: controller, llamarDatePicker: llamarDatePicker, texto: texto),
-                  form_date_field_widget(fechaStart: fechaVencimientoStart, fechaEnd: fechaVencimientoEnd, controller: fechaVencimientoRangoController, llamarDatePicker: llamarDateRangePicker, texto: "fecha de vencimiento rango fecha"),
-                  const SizedBox(height: 10,),
-                  form_date_field_widget(fechaStart: fechaPublicacionStart, fechaEnd: fechaPublicacionEnd, controller: fechaPublicacionRangoController, llamarDatePicker: llamarDateRangePicker, texto: "fecha de publicacion rango fecha"),
-                  const SizedBox(height: 10,),
-                  ElevatedButton(onPressed: (){setState(() {
-                    unNombre = busquedaController.text;//para pasar el titulo del ticket a buscar
-                    print("antes de dropdownvalue y un nombre prints");
-                    print(dropdownValue);
-                    print(unNombre);
-                    //need this to re-run // call setState
-                  });}, child: Text("filtrar")),
-                  const SizedBox(height: 10,),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: tdata.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          margin: const EdgeInsets.all(15.0),
-                          padding: const EdgeInsets.all(3.0),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.blueAccent)),
-                          child: Column(
-                            children: [
-                              Text("Titulo: ${tdata[index].titulo}"),
-                              Text("Descripción: ${tdata[index].descripcion}"),
-                              Text(
-                                  "Fecha de Vencimiento: ${tdata[index].fechaVencimiento.year}-${tdata[index].fechaVencimiento.month}-${tdata[index].fechaVencimiento.day}"),
-                              Text(
-                                  "Fecha de Publicación: ${tdata[index].fechaPublicacion.year}-${tdata[index].fechaPublicacion.month}-${tdata[index].fechaPublicacion.day}"),
-                              Text(
-                                  "Fecha de fin de Publicación: ${tdata[index].fechaFinPublicacion.year}-${tdata[index].fechaFinPublicacion.month}-${tdata[index].fechaFinPublicacion.day}"),
-                              Text(
-                                  "Valor de la compra: ${tdata[index].valorCompra.toString()}"),
-                              Text("Categoria: ${tdata[index].categoria}"),
-                              Text("fechaCreacion: ${tdata[index].fechaCreacion.toString()}"),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Row(children: [
+                        valorCompraWidget(valorCompraController: valorCompraStartController,hintText: "Ingrese un inicio de compra",labelText: "valor compra start",),
+                        valorCompraWidget(valorCompraController: valorCompraEndController,hintText: "Ingrese un fin de compra",labelText: "valor compra End",),
+                      ],),
+                      const SizedBox(height: 10,),
+                      form_field_widget(controller: busquedaController, hintText: "ingrese nombre de ticket", labelText: "nombre de ticket"),
+                      selectorCategoria,
+                      const SizedBox(height: 10,),
+                      //when you try to use a ListView/GridView inside a Column, there are many ways of solving it, I am listing few here.
+                      //Wrap ListView in Expanded
+                      //form_date_field_widget(fecha: fechaVencimiento, controller: fechaVencimientoController, llamarDatePicker: llamarDatePicker, texto: "Fecha de vencimiento",),
+                      //form_date_field_widget(fecha: fecha, controller: controller, llamarDatePicker: llamarDatePicker, texto: texto),
+                      form_date_field_widget(fechaStart: fechaVencimientoStart, fechaEnd: fechaVencimientoEnd, controller: fechaVencimientoRangoController, llamarDatePicker: llamarDateRangePicker, texto: "fecha de vencimiento rango fecha"),
+                      const SizedBox(height: 10,),
+                      form_date_field_widget(fechaStart: fechaPublicacionStart, fechaEnd: fechaPublicacionEnd, controller: fechaPublicacionRangoController, llamarDatePicker: llamarDateRangePicker, texto: "fecha de publicacion rango fecha"),
+                      const SizedBox(height: 10,),
+                      ElevatedButton(onPressed: (){setState(() {
+                        unNombre = busquedaController.text;//para pasar el titulo del ticket a buscar
+                        print("antes de dropdownvalue y un nombre prints");
+                        print(dropdownValue);
+                        print(unNombre);
+                                
+                        //OJO AQUI DEBERIA SETEAR CONTROLLERS .TEXTS A LAS VARIABLES GLOBALES A PASAR EN LA API!!
+                                
+                                
+                        //need this to re-run // call setState
+                      });}, child: Text("filtrar")),
+                      const SizedBox(height: 10,),
+                      ListView.builder(
+                        itemCount: tdata.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            margin: const EdgeInsets.all(15.0),
+                            padding: const EdgeInsets.all(3.0),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.blueAccent)),
+                            child: Column(
+                              children: [
+                                Text("Titulo: ${tdata[index].titulo}"),
+                                Text("Descripción: ${tdata[index].descripcion}"),
+                                Text(
+                                    "Fecha de Vencimiento: ${tdata[index].fechaVencimiento.year}-${tdata[index].fechaVencimiento.month}-${tdata[index].fechaVencimiento.day}"),
+                                Text(
+                                    "Fecha de Publicación: ${tdata[index].fechaPublicacion.year}-${tdata[index].fechaPublicacion.month}-${tdata[index].fechaPublicacion.day}"),
+                                Text(
+                                    "Fecha de fin de Publicación: ${tdata[index].fechaFinPublicacion.year}-${tdata[index].fechaFinPublicacion.month}-${tdata[index].fechaFinPublicacion.day}"),
+                                Text(
+                                    "Valor de la compra: ${tdata[index].valorCompra.toString()}"),
+                                Text("Categoria: ${tdata[index].categoria}"),
+                                Text("fechaCreacion: ${tdata[index].fechaCreacion.toString()}"),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
+                ),
               );
             }     
             return Text("No hay conexión con el servidor");//can be improved
@@ -257,9 +266,13 @@ class valorCompraWidget extends StatelessWidget {
   const valorCompraWidget({
     super.key,
     required this.valorCompraController,
+    required this.hintText,
+    required this.labelText,
   });
 
   final TextEditingController valorCompraController;
+  final String hintText;
+  final String labelText;
 
   @override
   Widget build(BuildContext context) {
@@ -267,11 +280,11 @@ class valorCompraWidget extends StatelessWidget {
       controller: valorCompraController,
       inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))],
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
-      decoration: const InputDecoration(
-        hintText: "Ingrese un Valor de compra",
-        labelText: "Valor de compra",
-        icon: Icon(Icons.money),
-        border: OutlineInputBorder(),
+      decoration: InputDecoration(
+        hintText: hintText,
+        labelText: labelText,
+        icon: const Icon(Icons.money),
+        border: const OutlineInputBorder(),
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
