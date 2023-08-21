@@ -12,6 +12,8 @@ class ListarTickets extends StatefulWidget {
 
 class _ListarTicketsState extends State<ListarTickets> {
 
+  var busquedaController = TextEditingController();
+
   var fechaPublicacionRangoController = TextEditingController();
 
   //DateTime fechaVencimiento = DateUtils.addDaysToDate(DateTime.now(), 7);
@@ -33,6 +35,7 @@ class _ListarTicketsState extends State<ListarTickets> {
   ];
 
   String? dropdownValue;
+  String? unNombre;
   
   @override
   Widget build(BuildContext context) {
@@ -89,7 +92,7 @@ class _ListarTicketsState extends State<ListarTickets> {
       body: FutureBuilder(
           //Llamamos a la API de recolectar tickets de forma asíncrona
           //Para desplegar los tickets dentro de la App
-          future: Api.getTicket(dropdownValue),
+          future: Api.getTicket(dropdownValue,unNombre),
           //print("futuro");
           //print(future);
           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -109,6 +112,8 @@ class _ListarTicketsState extends State<ListarTickets> {
               List<Ticket> tdata = snapshot.data;
               return Column(
                 children: [
+                  const SizedBox(height: 10,),
+                  form_field_widget(controller: busquedaController, hintText: "ingrese nombre de ticket", labelText: "nombre de ticket"),
                   selectorCategoria,
                   const SizedBox(height: 10,),
                   //when you try to use a ListView/GridView inside a Column, there are many ways of solving it, I am listing few here.
@@ -120,7 +125,10 @@ class _ListarTicketsState extends State<ListarTickets> {
                   form_date_field_widget(fechaStart: fechaPublicacionStart, fechaEnd: fechaPublicacionEnd, controller: fechaPublicacionRangoController, llamarDatePicker: llamarDateRangePicker, texto: "fecha de publicacion rango fecha"),
                   const SizedBox(height: 10,),
                   ElevatedButton(onPressed: (){setState(() {
+                    unNombre = busquedaController.text;//para pasar el titulo del ticket a buscar
+                    print("antes de dropdownvalue y un nombre prints");
                     print(dropdownValue);
+                    print(unNombre);
                     //need this to re-run // call setState
                   });}, child: Text("filtrar")),
                   const SizedBox(height: 10,),
@@ -195,6 +203,38 @@ class form_date_field_widget extends StatelessWidget {
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Por favor seleccione una fecha';
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class form_field_widget extends StatelessWidget {
+  const form_field_widget({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.labelText,
+  });
+
+  final TextEditingController controller;
+  final String hintText;
+  final String labelText;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        hintText: hintText,
+        labelText: labelText,
+        icon: const Icon(Icons.title),
+        border: const OutlineInputBorder(),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor introduzca un texto';
         }
         return null;
       },

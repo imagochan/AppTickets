@@ -35,7 +35,7 @@ class Api {
   }
 
   //Método para comunicarse con la API de obtener tickets del servidor
-  static getTicket(String? categoria) async {
+  static getTicket(String? categoria, String? nombre) async {
     getService(url: "url", hola: true);
     //Iniciamos una lista de tickets vacía
     List<Ticket> tickets = [];
@@ -46,7 +46,8 @@ class Api {
     var unaCategoria = "Comedia";
     
     var queryStringCategorias = "?categoria=$categoria";
-    var url = Uri.parse("${baseUrl}get_ticket$queryStringCategorias");
+    var queryStringNombre = "&titulo=$nombre";//mas tarde renombrar a titulo
+    var url = Uri.parse("${baseUrl}get_ticket$queryStringCategorias$queryStringNombre");
 
     //maybe I can use route parameters to acceess data of a single ticket, like get_ticket/barbie
 
