@@ -70,6 +70,7 @@ class Api {
       "${baseUrl}get_ticket$queryStringCategorias$queryStringNombre$queryDateTimefechaVencimientoStart$queryDateTimefechaVencimientoEnd$queryDateTimefechaPublicacionStart$queryDateTimefechaPublicacionEnd$queryDateTimefechaCreacionStart$queryDateTimefechaCreacionEnd$queryNumValorCompraStart$queryNumValorCompraEnd"
       );
 
+    print(url);
     //maybe I can use route parameters to acceess data of a single ticket, like get_ticket/barbie
 
     try {
@@ -80,8 +81,8 @@ class Api {
         //Declaramos una variable para almacenar la información recibida
         var data = jsonDecode(res.body);
         
-        print("the data looks like this");
-        print(data);
+        //print("the data looks like this");
+        //print(data);
 
         //añadimos a la lista de tickets la información recibida de la API
         data['tickets'].forEach(
