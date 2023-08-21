@@ -1,9 +1,9 @@
-import 'package:apptickets/pantallas/pantalla_crear_ticket.dart';
+import 'package:apptickets/pantallas/crear_tickets/pantalla_crear_ticket.dart';
 import 'package:apptickets/widgets/home_elev_btn.dart';
 import 'package:flutter/material.dart';
-import 'package:apptickets/pantallas/pantalla_borrar_tickets.dart';
+import 'package:apptickets/pantallas/borrar_tickets/pantalla_borrar_tickets.dart';
 import 'package:apptickets/pantallas/listar_tickets/pantalla_listar_tickets.dart';
-import 'package:apptickets/pantallas/pantalla_actualizar_tickets.dart';
+import 'package:apptickets/pantallas/actualizar_tickets/pantalla_actualizar_tickets.dart';
 
 //Pantalla de inicio que aloja los botones para crear, listar, actualizar y borrar tickets
 //Utilizamos Navigator y Routes para mover al usuario entre pantallas
@@ -31,13 +31,22 @@ class _PantallaInicioState extends State<PantallaInicio> {
                 pageWidget: MyCustomForm(),
                 btnTitle: 'Crear Ticket',
               ),
+              SizedBox(
+                height: 10,
+              ),
               HomeElevBtn(
                 pageWidget: ListarTickets(),
                 btnTitle: 'Listar Ticket',
               ),
+              SizedBox(
+                height: 10,
+              ),
               HomeElevBtn(
                 pageWidget: ActualizarTickets(),
                 btnTitle: 'Actualizar Ticket',
+              ),
+              SizedBox(
+                height: 10,
               ),
               HomeElevBtn(
                 pageWidget: BorrarTickets(),
