@@ -1,112 +1,355 @@
 import 'package:apptickets/pantallas/pantalla_inicio.dart';
 import 'package:flutter/material.dart';
-import 'package:apptickets/servicios/api.dart';
+import 'package:flutter/services.dart';
+import '../servicios/api.dart';
 
-class CrearTicket extends StatefulWidget {
-  const CrearTicket({super.key});
+// Create a Form widget.
+class MyCustomForm extends StatefulWidget {
+  const MyCustomForm({super.key});
 
   @override
-  State<CrearTicket> createState() => _CrearTicketState();
+  MyCustomFormState createState() {
+    return MyCustomFormState();
+  }
 }
 
-//Declaramos controladores para los widget dentro de esta pantalla
-//para acceder al estado del widget y sus propiedades
+// Create a corresponding State class.
+// This class holds data related to the form.
+class MyCustomFormState extends State<MyCustomForm> {
+  final List<String> list = <String>[
+    'Comedia',
+    'Historia',
+    'Ficción',
+    'Acción',
+    'Drama'
+  ];
 
-class _CrearTicketState extends State<CrearTicket> {
+  // Create a global key that uniquely identifies the Form widget
+  // and allows validation of the form.
+  //
+  // Note: This is a GlobalKey<FormState>,
+  // not a GlobalKey<MyCustomFormState>.
+  final _formKey = GlobalKey<FormState>();
+
+  DateTime fechaVencimiento = DateUtils.addDaysToDate(DateTime.now(), 7);
+  DateTime fechaPublicacion = DateUtils.dateOnly(DateTime.now());
+  DateTime fechaFinPublicacion = DateUtils.addDaysToDate(DateTime.now(), 14);
+  DateTime fechaCreacion = DateUtils.dateOnly(DateTime.now());
+
+//  String? categoriaSeleccionada;
+
+  String? dropdownValue;
+
   var tituloController = TextEditingController();
   var descripcionController = TextEditingController();
+  var valorCompraController = TextEditingController();
+
   var fechaVencimientoController = TextEditingController();
   var fechaPublicacionController = TextEditingController();
   var fechaFinPublicacionController = TextEditingController();
-  var valorCompraController = TextEditingController();
-  var categoriaController = TextEditingController();
+
+  // user defined function void _showDialog(BuildContext context) {
+  void _showDialog(BuildContext context, String mensaje) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: const Text("Mensaje"),
+          content: Text(mensaje),
+          actions: <Widget>[
+            ElevatedButton(
+              child: const Text("Regresar al menu principal"),
+              onPressed: () {
+                //Navigator.of(context).pop();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PantallaInicio()),
+                  (Route<dynamic> route) => false,
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void submitData() {
+    if (_formKey.currentState!.validate() &&
+        fechaVencimiento.compareTo(fechaPublicacion) > 0 &&
+        fechaVencimiento.compareTo(fechaFinPublicacion) < 0 &&
+        fechaFinPublicacion.compareTo(fechaPublicacion) > 0) {
+      //creamos una estructura de datos
+      var data = {
+        "titulo": tituloController.text,
+        "descripcion": descripcionController.text,
+        "fechaVencimiento": fechaVencimiento.toString(),
+        "fechaPublicacion": fechaPublicacion.toString(),
+        "fechaFinPublicacion": fechaFinPublicacion.toString(),
+        "valorCompra": valorCompraController.text,
+        "categoria": dropdownValue,
+        "fechaCreacion": fechaCreacion
+      };
+      //imprimimos los datos para checar que este en orden
+      //print(data);
+      //llamamos a la api de crear tickets
+
+      Api.addTicket(data);
+      _showDialog(context, "Se ha creado un ticket");
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Revise los datos del ticket')),
+      );
+      if (!(fechaVencimiento.compareTo(fechaPublicacion) > 0 ||
+          fechaVencimiento.compareTo(fechaFinPublicacion) < 0)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text(
+                  'La fecha de vencimiento debe estar entre el inicio y fin de la fecha de publicacion')),
+        );
+      }
+      if (!(fechaFinPublicacion.compareTo(fechaPublicacion) > 0)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text(
+                  'La fecha de fin de publicación debe ser posterior a la de inicio')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    // Build a Form widget using the _formKey created above.
+
+    var botonCrearTicket = Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: ElevatedButton(
+          onPressed: () {
+            submitData();
+          },
+          child: const Text('Crear Ticket'),
+        ),
+      ),
+    );
+
+    var selectorCategoria = Center(
+      child: DropdownButtonFormField<String>(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Por favor seleccione una categoria';
+          }
+          return null;
+        },
+        isExpanded: true,
+        hint: const Text("Elija una categoría"),
+        value: dropdownValue,
+        icon: const Icon(Icons.arrow_downward),
+        elevation: 16,
+        onChanged: (String? value) {
+          setState(() {
+            dropdownValue = value!;
+          });
+        },
+        items: list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+      ),
+    );
+
+    Future<void> llamarDatePicker(
+        DateTime date, TextEditingController controller) async {
+      final DateTime? dateTime = await showDatePicker(
+        context: context,
+        initialDate: date,
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2030),
+      );
+      if (dateTime != null) {
+        setState(() {
+          date = DateUtils.dateOnly(dateTime);
+          controller.text = date.toString();
+        });
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Ingrese datos del ticket a crear"),
+        title: const Text("Crear un Ticket"),
       ),
       body: SingleChildScrollView(
-        child: Center(
+        child: Form(
+          key: _formKey,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextField(
+                const SizedBox(
+                  height: 10,
+                ),
+                FormTextField(
                   controller: tituloController,
-                  decoration: const InputDecoration(
-                    hintText: "ingrese el titulo del ticket",
-                  ),
-                ),
-                TextField(
-                  controller: descripcionController,
-                  decoration: const InputDecoration(
-                      hintText: "Ingrese la descripción del ticket"),
-                ),
-                TextField(
-                  controller: fechaVencimientoController,
-                  decoration: const InputDecoration(
-                    hintText: "Ingrese la fecha de vencimiento del ticket",
-                  ),
-                ),
-                TextField(
-                  controller: fechaPublicacionController,
-                  decoration: const InputDecoration(
-                      hintText: "Ingrese la fecha de publicación del ticket"),
-                ),
-                TextField(
-                  controller: fechaFinPublicacionController,
-                  decoration: const InputDecoration(
-                      hintText:
-                          "Ingrese la fecha de fin de publicación del ticket"),
-                ),
-                TextField(
-                  controller: valorCompraController,
-                  decoration: const InputDecoration(
-                      hintText: "Ingrese el valor de compra del ticket"),
-                ),
-                TextField(
-                  controller: categoriaController,
-                  decoration: const InputDecoration(
-                      hintText: "Ingrese la categoria del ticket"),
+                  hintText: "Ingrese un Titulo",
+                  labelText: "Titulo",
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
-                //Al pulsar el botón, recolectamos la información de los widgets
-                ElevatedButton(
-                    onPressed: () {
-                      var data = {
-                        "titulo": tituloController.text,
-                        "descripcion": descripcionController.text,
-                        "fechaVencimiento": fechaVencimientoController.text,
-                        "fechaPublicacion": fechaPublicacionController.text,
-                        "fechaFinPublicacion":
-                            fechaFinPublicacionController.text,
-                        //"valorCompra": num.parse(valorCompraController.text),
-                        "valorCompra": valorCompraController.text,
-                        "categoria": categoriaController.text
-                      };
-                      //Enviamos la información del ticket usando la API del servidor
-                      Api.addTicket(data);
-                      //Redirigimos al usuario a la pantalla de inicio
-                      //utilizamos el método pushandremoveuntil
-                      //para que el usuario no retroceda a una vista desactualizada
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const PantallaInicio()),
-                        (Route<dynamic> route) => false,
-                      );
-                    },
-                    child: const Text("Crear ticket"))
+                FormTextField(
+                  controller: descripcionController,
+                  hintText: "Ingrese una Descripción",
+                  labelText: "Descripción",
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ValorCompraWidget(valorCompraController: valorCompraController),
+                const SizedBox(
+                  height: 10,
+                ),
+                FormDateField(
+                  fecha: fechaVencimiento,
+                  controller: fechaVencimientoController,
+                  llamarDatePicker: llamarDatePicker,
+                  texto: "Fecha de vencimiento",
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                FormDateField(
+                  fecha: fechaPublicacion,
+                  controller: fechaPublicacionController,
+                  llamarDatePicker: llamarDatePicker,
+                  texto: "Fecha de publicación",
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                FormDateField(
+                  fecha: fechaFinPublicacion,
+                  controller: fechaFinPublicacionController,
+                  llamarDatePicker: llamarDatePicker,
+                  texto: "Fecha de fin publicación",
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                selectorCategoria,
+                botonCrearTicket,
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class FormDateField extends StatelessWidget {
+  const FormDateField({
+    super.key,
+    required this.fecha,
+    required this.controller,
+    required this.llamarDatePicker,
+    required this.texto,
+  });
+
+  final DateTime fecha;
+  final TextEditingController controller;
+  final Function llamarDatePicker;
+  final String texto;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      onTap: () async {
+        llamarDatePicker(fecha, controller);
+      },
+      readOnly: true,
+      controller: controller,
+      decoration: InputDecoration(
+        hintText: texto,
+        labelText: texto,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        icon: const Icon(Icons.edit_calendar),
+        border: const OutlineInputBorder(),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor seleccione una fecha';
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class ValorCompraWidget extends StatelessWidget {
+  const ValorCompraWidget({
+    super.key,
+    required this.valorCompraController,
+  });
+
+  final TextEditingController valorCompraController;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: valorCompraController,
+      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))],
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      decoration: const InputDecoration(
+        hintText: "Ingrese un Valor de compra",
+        labelText: "Valor de compra",
+        icon: Icon(Icons.money),
+        border: OutlineInputBorder(),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor introduzca un numero decimal';
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class FormTextField extends StatelessWidget {
+  const FormTextField({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.labelText,
+  });
+
+  final TextEditingController controller;
+  final String hintText;
+  final String labelText;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        hintText: hintText,
+        labelText: labelText,
+        icon: const Icon(Icons.title),
+        border: const OutlineInputBorder(),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor introduzca un texto';
+        }
+        return null;
+      },
     );
   }
 }

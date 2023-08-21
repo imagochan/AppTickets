@@ -1,8 +1,8 @@
-import 'package:apptickets/pantallas/pantalla_crear_ticket_form_cookbook.dart';
+import 'package:apptickets/pantallas/pantalla_crear_ticket.dart';
 import 'package:apptickets/widgets/home_elev_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:apptickets/pantallas/pantalla_borrar_tickets.dart';
-import 'package:apptickets/pantallas/pantalla_listar_tickets.dart';
+import 'package:apptickets/pantallas/listar_tickets/pantalla_listar_tickets.dart';
 import 'package:apptickets/pantallas/pantalla_actualizar_tickets.dart';
 
 //Pantalla de inicio que aloja los botones para crear, listar, actualizar y borrar tickets
@@ -16,7 +16,6 @@ class PantallaInicio extends StatefulWidget {
 }
 
 class _PantallaInicioState extends State<PantallaInicio> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,13 +27,24 @@ class _PantallaInicioState extends State<PantallaInicio> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              HomeElevBtn(pageWidget: MyCustomForm(), btnTitle: 'Crear Ticket',),
-              HomeElevBtn(pageWidget: ListarTickets(), btnTitle: 'Listar Ticket',),
-              HomeElevBtn(pageWidget: ActualizarTickets(), btnTitle: 'Actualizar Ticket',),
-              HomeElevBtn(pageWidget: BorrarTickets(), btnTitle: 'Borrar Ticket',),
+              HomeElevBtn(
+                pageWidget: MyCustomForm(),
+                btnTitle: 'Crear Ticket',
+              ),
+              HomeElevBtn(
+                pageWidget: ListarTickets(),
+                btnTitle: 'Listar Ticket',
+              ),
+              HomeElevBtn(
+                pageWidget: ActualizarTickets(),
+                btnTitle: 'Actualizar Ticket',
+              ),
+              HomeElevBtn(
+                pageWidget: BorrarTickets(),
+                btnTitle: 'Borrar Ticket',
+              ),
             ],
           ),
         ));
   }
-  
 }
