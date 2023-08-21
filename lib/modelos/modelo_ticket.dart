@@ -10,6 +10,7 @@ class Ticket {
   final num valorCompra;
   //final String? imagenTicket;
   final String categoria;
+  final DateTime fechaCreacion;
 
   Ticket(
       {required this.id,
@@ -19,7 +20,8 @@ class Ticket {
       required this.fechaPublicacion,
       required this.fechaFinPublicacion,
       required this.valorCompra,
-      required this.categoria});
+      required this.categoria,
+      required this.fechaCreacion});
 
   factory Ticket.fromJson(Map<String, dynamic> parametro) => Ticket(
       id: parametro["id"],
@@ -29,7 +31,9 @@ class Ticket {
       fechaPublicacion: parametro["fechaPublicacion"],
       fechaFinPublicacion: parametro["fechaFinPublicacion"],
       valorCompra: parametro["valorCompra"],
-      categoria: parametro["categoria"]);
+      categoria: parametro["categoria"],
+      fechaCreacion:parametro["fechaCreacion"]
+      );
 
   List<Ticket> fromJsonToList(List<dynamic> list) =>
       List<Ticket>.from(list.map((x) => Ticket.fromJson(x)));

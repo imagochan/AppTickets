@@ -154,6 +154,7 @@ class _ListarTicketsState extends State<ListarTickets> {
                               Text(
                                   "Valor de la compra: ${tdata[index].valorCompra.toString()}"),
                               Text("Categoria: ${tdata[index].categoria}"),
+                              Text("fechaCreacion: ${tdata[index].fechaCreacion.toString()}"),
                             ],
                           ),
                         );

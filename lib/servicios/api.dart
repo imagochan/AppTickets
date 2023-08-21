@@ -58,7 +58,8 @@ class Api {
         print("peticion get funciono");
         //Declaramos una variable para almacenar la información recibida
         var data = jsonDecode(res.body);
-        print("data");
+        
+        print("the data looks like this");
         print(data);
 
         //añadimos a la lista de tickets la información recibida de la API
@@ -73,7 +74,9 @@ class Api {
                 fechaFinPublicacion:
                     DateTime.parse(value['fechaFinPublicacion']),
                 valorCompra: value['valorCompra'],
-                categoria: value['categoria'])),
+                categoria: value['categoria'],
+                fechaCreacion: DateTime.parse(value['fechaCreacion'])
+                )),
           },
         );
         return tickets;

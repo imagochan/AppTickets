@@ -37,6 +37,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   DateTime fechaVencimiento = DateUtils.addDaysToDate(DateTime.now(), 7);
   DateTime fechaPublicacion = DateUtils.dateOnly(DateTime.now());
   DateTime fechaFinPublicacion = DateUtils.addDaysToDate(DateTime.now(), 14);
+  DateTime fechaCreacion = DateUtils.dateOnly(DateTime.now());
 
 //  String? categoriaSeleccionada;
 
@@ -91,7 +92,8 @@ class MyCustomFormState extends State<MyCustomForm> {
         "fechaPublicacion": fechaPublicacion.toString(),
         "fechaFinPublicacion": fechaFinPublicacion.toString(),
         "valorCompra": valorCompraController.text,
-        "categoria": dropdownValue
+        "categoria": dropdownValue,
+        "fechaCreacion":fechaCreacion
       };
       //imprimimos los datos para checar que este en orden
       print(data);
