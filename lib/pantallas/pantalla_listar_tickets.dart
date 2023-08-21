@@ -12,6 +12,18 @@ class ListarTickets extends StatefulWidget {
 
 class _ListarTicketsState extends State<ListarTickets> {
 
+  var fechaPublicacionRangoController = TextEditingController();
+
+  //DateTime fechaVencimiento = DateUtils.addDaysToDate(DateTime.now(), 7);
+  DateTime fechaPublicacionStart = DateUtils.addDaysToDate(DateTime.now(), 6);
+  DateTime fechaPublicacionEnd = DateUtils.addDaysToDate(DateTime.now(), 8);
+
+  var fechaVencimientoRangoController = TextEditingController();
+
+  //DateTime fechaVencimiento = DateUtils.addDaysToDate(DateTime.now(), 7);
+  DateTime fechaVencimientoStart = DateUtils.addDaysToDate(DateTime.now(), 6);
+  DateTime fechaVencimientoEnd = DateUtils.addDaysToDate(DateTime.now(), 8);
+
   final List<String> list = <String>[
     'Comedia',
     'Historia',
@@ -54,6 +66,24 @@ class _ListarTicketsState extends State<ListarTickets> {
       ),
     );
 
+    Future<void> llamarDateRangePicker(DateTime dateStart,DateTime dateEnd, TextEditingController controller) async {
+      final DateTimeRange? dateTimeRange = await showDateRangePicker(
+                      context: context,
+                      //initialDate: date,
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2030),
+                    );
+                    if (dateTimeRange != null) {
+                      setState(() {
+                        dateStart = DateUtils.dateOnly(dateTimeRange.start);
+                        dateEnd = DateUtils.dateOnly(dateTimeRange.end);
+                        controller.text =
+                            //date.toString();
+                            "${dateStart}-${dateEnd}";
+                      });
+                    }
+    }
+
     return Scaffold(
       appBar: AppBar(),
       body: FutureBuilder(
@@ -80,12 +110,20 @@ class _ListarTicketsState extends State<ListarTickets> {
               return Column(
                 children: [
                   selectorCategoria,
+                  const SizedBox(height: 10,),
                   //when you try to use a ListView/GridView inside a Column, there are many ways of solving it, I am listing few here.
                   //Wrap ListView in Expanded
+                  //form_date_field_widget(fecha: fechaVencimiento, controller: fechaVencimientoController, llamarDatePicker: llamarDatePicker, texto: "Fecha de vencimiento",),
+                  //form_date_field_widget(fecha: fecha, controller: controller, llamarDatePicker: llamarDatePicker, texto: texto),
+                  form_date_field_widget(fechaStart: fechaVencimientoStart, fechaEnd: fechaVencimientoEnd, controller: fechaVencimientoRangoController, llamarDatePicker: llamarDateRangePicker, texto: "fecha de vencimiento rango fecha"),
+                  const SizedBox(height: 10,),
+                  form_date_field_widget(fechaStart: fechaPublicacionStart, fechaEnd: fechaPublicacionEnd, controller: fechaPublicacionRangoController, llamarDatePicker: llamarDateRangePicker, texto: "fecha de publicacion rango fecha"),
+                  const SizedBox(height: 10,),
                   ElevatedButton(onPressed: (){setState(() {
                     print(dropdownValue);
                     //need this to re-run // call setState
                   });}, child: Text("filtrar")),
+                  const SizedBox(height: 10,),
                   Expanded(
                     child: ListView.builder(
                       itemCount: tdata.length,
@@ -119,6 +157,47 @@ class _ListarTicketsState extends State<ListarTickets> {
             }     
             return Text("no data?");
           }),
+    );
+  }
+}
+
+class form_date_field_widget extends StatelessWidget {
+  const form_date_field_widget({
+    super.key,
+    required this.fechaStart,
+    required this.fechaEnd,
+    required this.controller,
+    required this.llamarDatePicker,
+    required this.texto,
+  });
+
+  final DateTime fechaStart;
+  final DateTime fechaEnd;
+  final TextEditingController controller;
+  final Function llamarDatePicker;
+  final String texto;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      onTap: () async {
+        llamarDatePicker(fechaStart,fechaEnd,controller);
+      },
+      readOnly: true,
+      controller: controller,
+      decoration: InputDecoration(
+        hintText: texto,
+        labelText: texto,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        icon: const Icon(Icons.edit_calendar),
+        border: const OutlineInputBorder(),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor seleccione una fecha';
+        }
+        return null;
+      },
     );
   }
 }
