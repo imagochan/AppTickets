@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:apptickets/servicios/api.dart';
 import 'package:apptickets/modelos/modelo_ticket.dart';
+import 'package:flutter/services.dart';
 
 class ListarTickets extends StatefulWidget {
   const ListarTickets({super.key});
@@ -12,17 +13,22 @@ class ListarTickets extends StatefulWidget {
 
 class _ListarTicketsState extends State<ListarTickets> {
 
+  var valorCompraStartController = TextEditingController();
+  var valorCompraEndController = TextEditingController();
+  num? valorCompraStart;
+  num? valorCompraEnd;
+
+  var fechaCreacionRangoController = TextEditingController();
+  DateTime fechaCreacioStart = DateUtils.addDaysToDate(DateTime.now(), 6);
+  DateTime fechaCreacionEnd = DateUtils.addDaysToDate(DateTime.now(), 8);
+
   var busquedaController = TextEditingController();
 
   var fechaPublicacionRangoController = TextEditingController();
-
-  //DateTime fechaVencimiento = DateUtils.addDaysToDate(DateTime.now(), 7);
   DateTime fechaPublicacionStart = DateUtils.addDaysToDate(DateTime.now(), 6);
   DateTime fechaPublicacionEnd = DateUtils.addDaysToDate(DateTime.now(), 8);
 
   var fechaVencimientoRangoController = TextEditingController();
-
-  //DateTime fechaVencimiento = DateUtils.addDaysToDate(DateTime.now(), 7);
   DateTime fechaVencimientoStart = DateUtils.addDaysToDate(DateTime.now(), 6);
   DateTime fechaVencimientoEnd = DateUtils.addDaysToDate(DateTime.now(), 8);
 
@@ -92,7 +98,7 @@ class _ListarTicketsState extends State<ListarTickets> {
       body: FutureBuilder(
           //Llamamos a la API de recolectar tickets de forma asíncrona
           //Para desplegar los tickets dentro de la App
-          future: Api.getTicket(dropdownValue,unNombre),
+          future: Api.getTicket(dropdownValue,unNombre,fechaVencimientoStart,fechaPublicacionEnd,fechaPublicacionStart,fechaPublicacionEnd,fechaCreacioStart,fechaCreacionEnd,valorCompraStart,valorCompraEnd),
           //print("futuro");
           //print(future);
           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -112,6 +118,10 @@ class _ListarTicketsState extends State<ListarTickets> {
               List<Ticket> tdata = snapshot.data;
               return Column(
                 children: [
+                  Row(children: [
+                    form_field_widget(controller: valorCompraStartController, hintText: "Ingrese un inicio valor compra", labelText: "ValorCompraStart"),
+                    form_field_widget(controller: valorCompraEndController, hintText: "Ingrese un fin valor compra", labelText: "Valor compra end")
+                  ],),
                   const SizedBox(height: 10,),
                   form_field_widget(controller: busquedaController, hintText: "ingrese nombre de ticket", labelText: "nombre de ticket"),
                   selectorCategoria,
@@ -164,7 +174,7 @@ class _ListarTicketsState extends State<ListarTickets> {
                 ],
               );
             }     
-            return Text("no data?");
+            return Text("No hay conexión con el servidor");//can be improved
           }),
     );
   }
@@ -236,6 +246,36 @@ class form_field_widget extends StatelessWidget {
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Por favor introduzca un texto';
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class valorCompraWidget extends StatelessWidget {
+  const valorCompraWidget({
+    super.key,
+    required this.valorCompraController,
+  });
+
+  final TextEditingController valorCompraController;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: valorCompraController,
+      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))],
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      decoration: const InputDecoration(
+        hintText: "Ingrese un Valor de compra",
+        labelText: "Valor de compra",
+        icon: Icon(Icons.money),
+        border: OutlineInputBorder(),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor introduzca un numero decimal';
         }
         return null;
       },

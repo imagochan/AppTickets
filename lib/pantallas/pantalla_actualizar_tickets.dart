@@ -13,7 +13,7 @@ class ActualizarTickets extends StatelessWidget {
       body: FutureBuilder(
           //Llamamos a la API de recolectar tickets de forma asíncrona
           //Para desplegar los tickets dentro de la App
-          future: Api.getTicket("unaCategoriaDummy","untitulodummy"),
+          future: Api.getTicket("unaCategoriaDummy","untitulodummy",DateTime.now(),DateTime.now(),DateTime.now(),DateTime.now(),DateTime.now(),DateTime.now(),0.0,0.0),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             //Mostramos una pantalla de carga mientras esperamos la información.
             if (!snapshot.hasData) {
