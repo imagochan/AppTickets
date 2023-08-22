@@ -15,10 +15,10 @@ class _ListarTicketsState extends State<ListarTickets> {
 
   num? valorCompraStart;
   num? valorCompraEnd;
-  DateTime fechaCreacionStart = DateUtils.addDaysToDate(DateTime.now(), 6);
-  DateTime fechaCreacionEnd = DateUtils.addDaysToDate(DateTime.now(), 8);
-  DateTime fechaPublicacionStart = DateUtils.addDaysToDate(DateTime.now(), 6);
-  DateTime fechaPublicacionEnd = DateUtils.addDaysToDate(DateTime.now(), 8);
+  DateTime? fechaCreacionStart;
+  DateTime? fechaCreacionEnd;
+  DateTime? fechaPublicacionStart;
+  DateTime? fechaPublicacionEnd;
   String? dropdownValue;
   String? unNombre;
 

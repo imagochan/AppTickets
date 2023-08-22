@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-Future<void> llamarDatePicker(
-        DateTime date, TextEditingController controller, BuildContext context) async {
-      final DateTime? dateTime = await showDatePicker(
-        context: context,
-        initialDate: date,
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2030),
-      );
-      if (dateTime != null) {
-        //setState(() {
-        date = DateUtils.dateOnly(dateTime);
-        controller.text = date.toString();
-        //});
-      }
-    }
+Future<void> llamarDatePicker(DateTime firstDate, DateTime? chosenDate,
+    TextEditingController controller, BuildContext context) async {
+  final DateTime? dateTime = await showDatePicker(
+    context: context,
+    initialDate: firstDate,
+    firstDate: DateTime.now(),
+    lastDate: DateTime(2030),
+  );
+  if (dateTime != null) {
+    //setState(() {
+    chosenDate = DateUtils.dateOnly(dateTime);
+    controller.text = chosenDate.toString();
+    //});
+  }
+}
 
 Future<void> llamarDateRangePicker(DateTime dateStart, DateTime dateEnd,
     TextEditingController controller, BuildContext context) async {
@@ -51,7 +51,7 @@ class FormDateRangeField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       onTap: () async {
-        llamarDateRangePicker(fechaStart, fechaEnd, controller,context);
+        llamarDateRangePicker(fechaStart, fechaEnd, controller, context);
       },
       readOnly: true,
       controller: controller,
@@ -75,12 +75,14 @@ class FormDateRangeField extends StatelessWidget {
 class FormDateField extends StatelessWidget {
   const FormDateField({
     super.key,
-    required this.fecha,
+    required this.firstDate,
+    required this.chosenDate,
     required this.controller,
     required this.texto,
   });
 
-  final DateTime fecha;
+  final DateTime firstDate;
+  final DateTime? chosenDate;
   final TextEditingController controller;
   final String texto;
 
@@ -90,7 +92,7 @@ class FormDateField extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         onTap: () async {
-          llamarDatePicker(fecha, controller,context);
+          llamarDatePicker(firstDate, chosenDate, controller, context);
         },
         readOnly: true,
         controller: controller,

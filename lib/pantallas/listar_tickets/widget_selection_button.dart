@@ -16,7 +16,7 @@ class _SelectionButtonState extends State<SelectionButton> {
       onPressed: () {
         _navigateAndDisplaySelection(context);
       },
-      child: const Text('Pick an option, any option!'),
+      child: const Text('Escoger filtros'),
     );
   }
 
