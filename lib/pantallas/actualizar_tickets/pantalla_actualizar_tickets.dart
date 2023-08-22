@@ -20,8 +20,6 @@ class ActualizarTickets extends StatelessWidget {
               DateTime.now(),
               DateTime.now(),
               DateTime.now(),
-              DateTime.now(),
-              DateTime.now(),
               0.0,
               0.0),
           builder: (BuildContext context, AsyncSnapshot snapshot) {

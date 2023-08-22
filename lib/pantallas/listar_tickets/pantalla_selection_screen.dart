@@ -46,10 +46,14 @@ class _SelectionScreenState extends State<SelectionScreen> {
                   Navigator.pop(
                       context,
                       BundleFiltros(
-                          valorCompraStart:
-                              double.parse(valorCompraStartController.text),
+                          valorCompraStart: valorCompraStartController
+                                  .text.isNotEmpty
+                              ? double.parse(valorCompraStartController.text)
+                              : null,
                           valorCompraEnd:
-                              double.parse(valorCompraEndController.text),
+                              valorCompraEndController.text.isNotEmpty
+                                  ? double.parse(valorCompraEndController.text)
+                                  : null,
                           fechaCreacionStart: fechaCreacionStart,
                           fechaCreacionEnd: fechaCreacionEnd,
                           fechaPublicacionStart: fechaPublicacionStart,

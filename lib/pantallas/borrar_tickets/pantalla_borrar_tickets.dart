@@ -19,14 +19,22 @@ class _BorrarTicketsState extends State<BorrarTickets> {
       body: FutureBuilder(
           //Llamamos a la API de recolectar tickets de forma asíncrona
           //Para desplegar los tickets dentro de la App
-          future: Api.getTicket("unaCategoriaDummy","untitulodummy",DateTime.now(),DateTime.now(),DateTime.now(),DateTime.now(),DateTime.now(),DateTime.now(),0.0,0.0),
+          future: Api.getTicket(
+              "unaCategoriaDummy",
+              "untitulodummy",
+              DateTime.now(),
+              DateTime.now(),
+              DateTime.now(),
+              DateTime.now(),
+              0.0,
+              0.0),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             //Mostramos una pantalla de carga mientras esperamos la información.
             if (!snapshot.hasData) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            //Si recibimos datos, procedemos a desplegarlos
+              //Si recibimos datos, procedemos a desplegarlos
             } else {
               //Agregamos los datos recibidos a una lista
               //para manipular mas facilmente la información

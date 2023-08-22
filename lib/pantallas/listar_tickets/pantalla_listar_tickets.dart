@@ -31,8 +31,6 @@ class _ListarTicketsState extends State<ListarTickets> {
           future: Api.getTicket(
               dropdownValue,
               unNombre,
-              DateTime.now(),
-              DateTime.now(),
               fechaPublicacionStart,
               fechaPublicacionEnd,
               fechaCreacionStart,

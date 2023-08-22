@@ -38,8 +38,6 @@ class Api {
   static getTicket(
     String? categoria,
     String? nombre,
-    DateTime? fechaVencimientoStart,
-    DateTime? fechaVencimientoEnd,
     DateTime? fechaPublicacionStart,
     DateTime? fechaPublicacionEnd,
     DateTime? fechaCreacionStart,
@@ -55,10 +53,6 @@ class Api {
 
     var queryStringCategorias = "?categoria=$categoria";
     var queryStringNombre = "&titulo=$nombre"; //mas tarde renombrar a titulo
-    var queryDateTimefechaVencimientoStart =
-        "&fechaVencimientoStart=$fechaVencimientoStart";
-    var queryDateTimefechaVencimientoEnd =
-        "&fechaVencimientoEnd=$fechaVencimientoEnd";
     var queryDateTimefechaPublicacionStart =
         "&fechaPublicacionStart=$fechaPublicacionStart";
     var queryDateTimefechaPublicacionEnd =
@@ -69,7 +63,7 @@ class Api {
     var queryNumValorCompraStart = "&valorCompraStart=$valorCompraStart";
     var queryNumValorCompraEnd = "&valorCompraEnd=$valorCompraEnd";
     var url = Uri.parse(
-        "${baseUrl}get_ticket$queryStringCategorias$queryStringNombre$queryDateTimefechaVencimientoStart$queryDateTimefechaVencimientoEnd$queryDateTimefechaPublicacionStart$queryDateTimefechaPublicacionEnd$queryDateTimefechaCreacionStart$queryDateTimefechaCreacionEnd$queryNumValorCompraStart$queryNumValorCompraEnd");
+        "${baseUrl}get_ticket$queryStringCategorias$queryStringNombre$queryDateTimefechaPublicacionStart$queryDateTimefechaPublicacionEnd$queryDateTimefechaCreacionStart$queryDateTimefechaCreacionEnd$queryNumValorCompraStart$queryNumValorCompraEnd");
 
     //print(url);
     //maybe I can use route parameters to acceess data of a single ticket, like get_ticket/barbie
