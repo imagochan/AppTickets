@@ -14,20 +14,23 @@ class FormTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-        hintText: hintText,
-        labelText: labelText,
-        icon: const Icon(Icons.title),
-        border: const OutlineInputBorder(),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        controller: controller,
+        decoration: InputDecoration(
+          hintText: hintText,
+          labelText: labelText,
+          icon: const Icon(Icons.title),
+          border: const OutlineInputBorder(),
+        ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Por favor introduzca un texto';
+          }
+          return null;
+        },
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Por favor introduzca un texto';
-        }
-        return null;
-      },
     );
   }
 }
