@@ -5,13 +5,14 @@ final List<String> list = <String>[
   'Historia',
   'Ficción',
   'Acción',
-  'Drama'
+  'Drama',
+  'ALL'
 ];
 
 class DropdownMenuCategory extends StatefulWidget {
-  const DropdownMenuCategory({super.key, required this.dropdownValue});
+  const DropdownMenuCategory({super.key, required this.retorno});
 
-  final String? dropdownValue;
+  final Function(String miCategoria) retorno;
 
   @override
   State<DropdownMenuCategory> createState() => _DropdownMenuCategoryState();
@@ -25,14 +26,14 @@ class _DropdownMenuCategoryState extends State<DropdownMenuCategory> {
       child: Center(
         child: DropdownButtonFormField<String>(
           validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Por favor seleccione una categoria';
-            }
+            //if (value.isEmpty) {
+            //  return 'Por favor seleccione una categoria';
+            //}
             return null;
           },
           isExpanded: true,
           hint: const Text("Elija una categoría"),
-          value: widget.dropdownValue,
+          value: 'ALL',
           icon: const Icon(Icons.arrow_downward),
           elevation: 16,
           onChanged: (String? value) {
@@ -40,6 +41,7 @@ class _DropdownMenuCategoryState extends State<DropdownMenuCategory> {
             //  dropdownValue = value!;
             //});
             //widget.dropdownValue = value!;
+            widget.retorno(value!);
           },
           items: list.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(

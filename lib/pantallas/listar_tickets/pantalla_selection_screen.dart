@@ -18,15 +18,19 @@ class _SelectionScreenState extends State<SelectionScreen> {
   final fechaPublicacionStartController = TextEditingController();
   final fechaPublicacionEndController = TextEditingController();
 
-  String? dropdownValue;
+  String categoriaEscogida = 'ALL';
   final valorCompraStartController = TextEditingController();
   final valorCompraEndController = TextEditingController();
   final tituloController = TextEditingController();
 
-  DateTime? fechaCreacionStart = DateUtils.addDaysToDate(DateTime.now(), 6);
-  DateTime? fechaCreacionEnd = DateUtils.addDaysToDate(DateTime.now(), 8);
-  DateTime? fechaPublicacionStart = DateUtils.addDaysToDate(DateTime.now(), 6);
-  DateTime? fechaPublicacionEnd = DateUtils.addDaysToDate(DateTime.now(), 8);
+  DateTime fechaCreacionStart = DateUtils.addDaysToDate(DateTime.now(), 6);
+  DateTime fechaCreacionEnd = DateUtils.addDaysToDate(DateTime.now(), 8);
+  DateTime fechaPublicacionStart = DateUtils.addDaysToDate(DateTime.now(), 6);
+  DateTime fechaPublicacionEnd = DateUtils.addDaysToDate(DateTime.now(), 8);
+
+  void getCategoria(String categoria){
+    categoriaEscogida = categoria;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,16 +53,17 @@ class _SelectionScreenState extends State<SelectionScreen> {
                           valorCompraStart: valorCompraStartController
                                   .text.isNotEmpty
                               ? double.parse(valorCompraStartController.text)
-                              : null,
+                              : 0,
                           valorCompraEnd:
                               valorCompraEndController.text.isNotEmpty
                                   ? double.parse(valorCompraEndController.text)
-                                  : null,
+                                  : 0,
+                                  //inicio de mes a fin de mes para default
                           fechaCreacionStart: fechaCreacionStart,
                           fechaCreacionEnd: fechaCreacionEnd,
                           fechaPublicacionStart: fechaPublicacionStart,
                           fechaPublicacionEnd: fechaPublicacionEnd,
-                          categoria: dropdownValue,
+                          categoria: categoriaEscogida,
                           titulo: tituloController.text));
                 },
                 child: const Text('Seleccionar filtros'),
@@ -95,7 +100,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                 chosenDate: fechaPublicacionEnd,
                 controller: fechaPublicacionEndController,
                 texto: "Fin del rango de fecha de creación"),
-            DropdownMenuCategory(dropdownValue: dropdownValue),
+            DropdownMenuCategory(retorno: getCategoria,),
             ValorCompraWidget(
               hintText: "Inicio del rango de valor de compra",
               labelText: "Inicio del rango de valor de compra",

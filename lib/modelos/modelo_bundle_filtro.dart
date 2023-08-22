@@ -1,12 +1,14 @@
+import 'package:flutter/material.dart';
+
 class BundleFiltros {
-  num? valorCompraStart;
-  num? valorCompraEnd;
-  DateTime? fechaCreacionStart;
-  DateTime? fechaCreacionEnd;
-  DateTime? fechaPublicacionStart;
-  DateTime? fechaPublicacionEnd;
-  String? categoria;
-  String? titulo;
+  num valorCompraStart;
+  num valorCompraEnd;
+  DateTime fechaCreacionStart;
+  DateTime fechaCreacionEnd;
+  DateTime fechaPublicacionStart;
+  DateTime fechaPublicacionEnd;
+  String categoria;
+  String titulo;
 
   BundleFiltros({
     required this.valorCompraStart,
@@ -32,4 +34,16 @@ class BundleFiltros {
 
   List<BundleFiltros> fromJsonToList(List<dynamic> list) =>
       List<BundleFiltros>.from(list.map((x) => BundleFiltros.fromJson(x)));
+
+  //caso bundle empty recomendable en vez de nulos
+  factory BundleFiltros.empty() => BundleFiltros(
+    valorCompraStart:0.0,
+    valorCompraEnd:0.0,
+    fechaCreacionStart:DateUtils.addMonthsToMonthDate(DateTime.now(), -1),
+    fechaCreacionEnd:DateUtils.addMonthsToMonthDate(DateTime.now(), 1),
+    fechaPublicacionStart:DateUtils.addMonthsToMonthDate(DateTime.now(), -1),
+    fechaPublicacionEnd:DateUtils.addMonthsToMonthDate(DateTime.now(), 1),
+    categoria:'',
+    titulo:'',
+  );
 }

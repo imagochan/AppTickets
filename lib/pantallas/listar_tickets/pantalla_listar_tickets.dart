@@ -23,7 +23,21 @@ class _ListarTicketsState extends State<ListarTickets> {
   String? dropdownValue;
   String? unNombre;
 
-  BundleFiltros? miBundleFiltros;
+  BundleFiltros miBundleFiltros = BundleFiltros.empty();
+
+  void getBundle(BundleFiltros data){
+    miBundleFiltros = data;
+    setState(() {
+      print("bundle titulo ${miBundleFiltros.titulo}");
+      print("bundle categoria ${miBundleFiltros.categoria}");
+      print("bundle valorCompraStart ${miBundleFiltros.valorCompraStart}");
+      print("bundle valorCompraEnd ${miBundleFiltros.valorCompraEnd}");
+      print("bundle fechaCreacionStart ${miBundleFiltros.fechaCreacionStart}");
+      print("bundle fechaCreacionEnd ${miBundleFiltros.fechaCreacionEnd}");
+      print("bundle fechaPublicacionStart ${miBundleFiltros.fechaPublicacionStart}");
+      print("bundle fechaPublicacionEnd ${miBundleFiltros.fechaPublicacionEnd}");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +72,8 @@ class _ListarTicketsState extends State<ListarTickets> {
                     decoration: const BoxDecoration(
                       color: Colors.blue,
                     ),
-                    child: const Center(
-                      child: SelectionButton(unBundleFiltros: miBundleFiltros),
+                    child: Center(
+                      child: SelectionButton(unBundleFiltros: miBundleFiltros,retorno: getBundle),
                     ),
                   ),
                   Expanded(
