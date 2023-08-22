@@ -18,8 +18,8 @@ class FormDateRangeField extends StatelessWidget {
     TextEditingController controller, BuildContext context) async {
   final DateTimeRange? dateTimeRange = await showDateRangePicker(
     context: context,
-    firstDate: DateUtils.addMonthsToMonthDate(DateTime.now(), 60),
-    lastDate: DateUtils.addMonthsToMonthDate(DateTime.now(), -60),
+    firstDate: DateUtils.addMonthsToMonthDate(DateTime.now(), -60),
+    lastDate: DateUtils.addMonthsToMonthDate(DateTime.now(), 60),
   );
   if (dateTimeRange != null) {
     //setState(() {
@@ -80,8 +80,8 @@ class _FormDateFieldState extends State<FormDateField> {
       final DateTime? dateTime = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
-        firstDate: DateUtils.addMonthsToMonthDate(DateTime.now(), 60),
-        lastDate: DateUtils.addMonthsToMonthDate(DateTime.now(), -60),
+        firstDate: DateUtils.addMonthsToMonthDate(DateTime.now(), -60),
+        lastDate: DateUtils.addMonthsToMonthDate(DateTime.now(), 60),
       );
       if (dateTime != null) {
         //setState(() {
