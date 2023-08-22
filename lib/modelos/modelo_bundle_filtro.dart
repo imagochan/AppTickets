@@ -43,7 +43,7 @@ class BundleFiltros {
     fechaCreacionEnd:DateUtils.addMonthsToMonthDate(DateTime.now(), 1),
     fechaPublicacionStart:DateUtils.addMonthsToMonthDate(DateTime.now(), -1),
     fechaPublicacionEnd:DateUtils.addMonthsToMonthDate(DateTime.now(), 1),
-    categoria:'',
+    categoria:'ALL',
     titulo:'',
   );
 }

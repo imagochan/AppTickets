@@ -14,14 +14,14 @@ class ListarTickets extends StatefulWidget {
 class _ListarTicketsState extends State<ListarTickets> {
   //Declaramos nuestras variables a utilizar que pasaremos a la API
 
-  num? valorCompraStart;
-  num? valorCompraEnd;
-  DateTime? fechaCreacionStart;
-  DateTime? fechaCreacionEnd;
-  DateTime? fechaPublicacionStart;
-  DateTime? fechaPublicacionEnd;
-  String? dropdownValue;
-  String? unNombre;
+  // num? valorCompraStart;
+  // num? valorCompraEnd;
+  // DateTime? fechaCreacionStart;
+  // DateTime? fechaCreacionEnd;
+  // DateTime? fechaPublicacionStart;
+  // DateTime? fechaPublicacionEnd;
+  // String? dropdownValue;
+  // String? unNombre;
 
   BundleFiltros miBundleFiltros = BundleFiltros.empty();
 
@@ -46,14 +46,14 @@ class _ListarTicketsState extends State<ListarTickets> {
       body: FutureBuilder(
           //Llamamos a la API de recolectar tickets de forma asíncrona
           future: Api.getTicket(
-              dropdownValue,
-              unNombre,
-              fechaPublicacionStart,
-              fechaPublicacionEnd,
-              fechaCreacionStart,
-              fechaCreacionEnd,
-              valorCompraStart,
-              valorCompraEnd),
+              miBundleFiltros.categoria,
+              miBundleFiltros.titulo,
+              miBundleFiltros.fechaPublicacionStart,
+              miBundleFiltros.fechaPublicacionEnd,
+              miBundleFiltros.fechaCreacionStart,
+              miBundleFiltros.fechaCreacionEnd,
+              miBundleFiltros.valorCompraStart,
+              miBundleFiltros.valorCompraEnd),
           //Construimos dependiendo del estado de la snapshot
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState != ConnectionState.done) {
