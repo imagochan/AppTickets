@@ -1,3 +1,4 @@
+import 'package:apptickets/modelos/modelo_bundle_filtro.dart';
 import 'package:apptickets/pantallas/listar_tickets/widget_list_ticket.dart';
 import 'package:apptickets/pantallas/listar_tickets/widget_selection_button.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,8 @@ class _ListarTicketsState extends State<ListarTickets> {
   DateTime? fechaPublicacionEnd;
   String? dropdownValue;
   String? unNombre;
+
+  BundleFiltros? miBundleFiltros;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +59,7 @@ class _ListarTicketsState extends State<ListarTickets> {
                       color: Colors.blue,
                     ),
                     child: const Center(
-                      child: SelectionButton(),
+                      child: SelectionButton(unBundleFiltros: miBundleFiltros),
                     ),
                   ),
                   Expanded(
