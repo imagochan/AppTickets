@@ -23,13 +23,29 @@ class _SelectionScreenState extends State<SelectionScreen> {
   final valorCompraEndController = TextEditingController();
   final tituloController = TextEditingController();
 
-  DateTime fechaCreacionStart = DateUtils.addDaysToDate(DateTime.now(), 6);
-  DateTime fechaCreacionEnd = DateUtils.addDaysToDate(DateTime.now(), 8);
-  DateTime fechaPublicacionStart = DateUtils.addDaysToDate(DateTime.now(), 6);
-  DateTime fechaPublicacionEnd = DateUtils.addDaysToDate(DateTime.now(), 8);
+  DateTime fechaCreacionStart = DateUtils.addMonthsToMonthDate(DateTime.now(), -1);
+  DateTime fechaCreacionEnd = DateUtils.addMonthsToMonthDate(DateTime.now(), 1);
+  DateTime fechaPublicacionStart = DateUtils.addMonthsToMonthDate(DateTime.now(), -1);
+  DateTime fechaPublicacionEnd = DateUtils.addMonthsToMonthDate(DateTime.now(), 1);
 
   void getCategoria(String categoria){
     categoriaEscogida = categoria;
+  }
+
+  void getfechaCreacionStart(DateTime fechaTarget){
+    fechaCreacionStart = fechaTarget;
+  }
+
+  void getfechaCreacionEnd(DateTime fechaTarget){
+    fechaCreacionEnd = fechaTarget;
+  }
+
+  void getfechaPublicactionStart(DateTime fechaTarget){
+    fechaPublicacionStart = fechaTarget;
+  }
+
+  void getfechaPublicactionEnd(DateTime fechaTarget){
+    fechaCreacionEnd = fechaTarget;
   }
 
   @override
@@ -81,23 +97,23 @@ class _SelectionScreenState extends State<SelectionScreen> {
               ),
             ),
             FormDateField(
-                firstDate: DateTime.now(),
-                chosenDate: fechaCreacionStart,
-                controller: fechaCreacionStartController,
-                texto: "Inicio del rango de fecha de creación"),
+              fecha: fechaCreacionStart,
+              retorno: getfechaCreacionStart,
+              controller: fechaCreacionStartController,
+              texto: "Inicio del rango de fecha de creación"),
             FormDateField(
-                firstDate: DateTime.now(),
-                chosenDate: fechaCreacionEnd,
+              retorno: getfechaCreacionEnd,
+                fecha: fechaCreacionEnd,
                 controller: fechaCreacionEndController,
                 texto: "Fin del rango de fecha de creación"),
             FormDateField(
-                firstDate: DateTime.now(),
-                chosenDate: fechaPublicacionStart,
+              retorno: getfechaPublicactionStart,
+                fecha: fechaPublicacionStart,
                 controller: fechaPublicacionStartController,
                 texto: "Inicio del rango de fecha de publicación"),
             FormDateField(
-                firstDate: DateTime.now(),
-                chosenDate: fechaPublicacionEnd,
+              retorno: getfechaPublicactionEnd,
+                fecha: fechaPublicacionEnd,
                 controller: fechaPublicacionEndController,
                 texto: "Fin del rango de fecha de creación"),
             DropdownMenuCategory(retorno: getCategoria,),

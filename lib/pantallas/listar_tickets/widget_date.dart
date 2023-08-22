@@ -1,38 +1,5 @@
 import 'package:flutter/material.dart';
 
-Future<void> llamarDatePicker(DateTime firstDate, DateTime? chosenDate,
-    TextEditingController controller, BuildContext context) async {
-  final DateTime? dateTime = await showDatePicker(
-    context: context,
-    initialDate: firstDate,
-    firstDate: DateTime.now(),
-    lastDate: DateTime(2030),
-  );
-  if (dateTime != null) {
-    //setState(() {
-    chosenDate = DateUtils.dateOnly(dateTime);
-    controller.text = chosenDate.toString();
-    //});
-  }
-}
-
-Future<void> llamarDateRangePicker(DateTime dateStart, DateTime dateEnd,
-    TextEditingController controller, BuildContext context) async {
-  final DateTimeRange? dateTimeRange = await showDateRangePicker(
-    context: context,
-    //initialDate: date,
-    firstDate: DateTime.now(),
-    lastDate: DateTime(2030),
-  );
-  if (dateTimeRange != null) {
-    //setState(() {
-    dateStart = DateUtils.dateOnly(dateTimeRange.start);
-    dateEnd = DateUtils.dateOnly(dateTimeRange.end);
-    controller.text = "$dateStart-$dateEnd";
-    //});
-  }
-}
-
 class FormDateRangeField extends StatelessWidget {
   const FormDateRangeField({
     super.key,
@@ -46,6 +13,22 @@ class FormDateRangeField extends StatelessWidget {
   final DateTime fechaEnd;
   final TextEditingController controller;
   final String texto;
+
+  Future<void> llamarDateRangePicker(DateTime dateStart, DateTime dateEnd,
+    TextEditingController controller, BuildContext context) async {
+  final DateTimeRange? dateTimeRange = await showDateRangePicker(
+    context: context,
+    firstDate: DateUtils.addMonthsToMonthDate(DateTime.now(), 60),
+    lastDate: DateUtils.addMonthsToMonthDate(DateTime.now(), -60),
+  );
+  if (dateTimeRange != null) {
+    //setState(() {
+    dateStart = DateUtils.dateOnly(dateTimeRange.start);
+    dateEnd = DateUtils.dateOnly(dateTimeRange.end);
+    controller.text = "$dateStart-$dateEnd";
+    //});
+  }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,19 +55,42 @@ class FormDateRangeField extends StatelessWidget {
   }
 }
 
-class FormDateField extends StatelessWidget {
+class FormDateField extends StatefulWidget {
   const FormDateField({
     super.key,
-    required this.firstDate,
-    required this.chosenDate,
+    required this.retorno,
     required this.controller,
     required this.texto,
+    required this.fecha,
   });
 
-  final DateTime firstDate;
-  final DateTime? chosenDate;
   final TextEditingController controller;
   final String texto;
+  final Function(DateTime fechaTarget) retorno;
+  final DateTime fecha;
+
+  @override
+  State<FormDateField> createState() => _FormDateFieldState();
+}
+
+class _FormDateFieldState extends State<FormDateField> {
+
+  Future<void> llamarDatePicker(DateTime fecha,
+    TextEditingController controller, BuildContext context) async {
+      final DateTime? dateTime = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateUtils.addMonthsToMonthDate(DateTime.now(), 60),
+        lastDate: DateUtils.addMonthsToMonthDate(DateTime.now(), -60),
+      );
+      if (dateTime != null) {
+        //setState(() {
+        fecha = DateUtils.dateOnly(dateTime);
+        controller.text = fecha.toString();
+        widget.retorno(fecha);
+        //});
+      }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,13 +98,13 @@ class FormDateField extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         onTap: () async {
-          llamarDatePicker(firstDate, chosenDate, controller, context);
+          llamarDatePicker(widget.fecha, widget.controller, context);
         },
         readOnly: true,
-        controller: controller,
+        controller: widget.controller,
         decoration: InputDecoration(
-          hintText: texto,
-          labelText: texto,
+          hintText: widget.texto,
+          labelText: widget.texto,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           icon: const Icon(Icons.edit_calendar),
           border: const OutlineInputBorder(),
