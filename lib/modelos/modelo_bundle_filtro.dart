@@ -41,8 +41,8 @@ class BundleFiltros {
 
   //caso bundle empty recomendable en vez de nulos
   factory BundleFiltros.empty() => BundleFiltros(
-    valorCompraStart:0.0,
-    valorCompraEnd:0.0,
+    valorCompraStart:0,
+    valorCompraEnd:0,
     fechaCreacionStart:DateUtils.addMonthsToMonthDate(DateTime.now(), -1),
     fechaCreacionEnd:DateUtils.addMonthsToMonthDate(DateTime.now(), 1),
     fechaPublicacionStart:DateUtils.addMonthsToMonthDate(DateTime.now(), -1),
