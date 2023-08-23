@@ -74,17 +74,6 @@ class _ListarTicketsState extends State<ListarTickets> {
                       child: ListTicketWidget(
                     aSnapshot: snapshot,
                   )
-                      //   ListView.builder(
-                      // itemBuilder: (context, index) {
-                      //   return SizedBox(
-                      //     width: double.infinity,
-                      //     height: 100.0,
-                      //     child: Text(index.toString()),
-                      //   );
-                      // },
-                      // itemCount: 25,
-                      // shrinkWrap: false,
-                      // )
                       )
                 ],
               );

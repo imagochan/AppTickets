@@ -1,3 +1,4 @@
+import 'package:apptickets/pantallas/listar_tickets/widget_delete_button.dart';
 import 'package:flutter/material.dart';
 import '../../modelos/modelo_ticket.dart';
 
@@ -12,10 +13,23 @@ class ListTicketWidget extends StatefulWidget {
 }
 
 class _ListTicketWidgetState extends State<ListTicketWidget> {
+
+  int indexListaTicketABorrar = 0;
+
+  void getIndex(int index){
+    indexListaTicketABorrar = index;
+  }
+
+  List<Ticket> getListTicket(List<Ticket> losTickets){
+    losTickets.removeAt(indexListaTicketABorrar);
+    return losTickets;
+  }
+
   @override
   Widget build(BuildContext context) {
     //This is how you access parameters passed to another class
     List<Ticket> tdata = widget.aSnapshot.data;
+    tdata = getListTicket(tdata);
     return ListView.builder(
       itemCount: tdata.length,
       itemBuilder: (BuildContext context, int index) {
@@ -36,6 +50,7 @@ class _ListTicketWidgetState extends State<ListTicketWidget> {
                   "Valor de la compra: ${tdata[index].valorCompra.toString()}"),
               Text("Categoria: ${tdata[index].categoria}"),
               Text("fechaCreacion: ${tdata[index].fechaCreacion.year}-${tdata[index].fechaCreacion.month}-${tdata[index].fechaCreacion.day}"),
+              DeleteButtonWidget(miTicket: tdata[index],index: index,retorno: getIndex,)
             ],
           ),
         );

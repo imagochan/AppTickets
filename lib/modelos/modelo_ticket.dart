@@ -1,5 +1,7 @@
 //Modelo de un ticket a utilizar en la App
 
+import 'package:flutter/material.dart';
+
 class Ticket {
   final String id;
   final String titulo;
@@ -34,4 +36,15 @@ class Ticket {
 
   List<Ticket> fromJsonToList(List<dynamic> list) =>
       List<Ticket>.from(list.map((x) => Ticket.fromJson(x)));
+
+  factory Ticket.empty() => Ticket(
+    id:'0',
+    titulo:'',
+    descripcion:'',
+    fechaVencimiento: DateUtils.addDaysToDate(DateTime.now(), 14),
+    fechaPublicacion: DateUtils.addDaysToDate(DateTime.now(), 7),
+    categoria:'ALL',
+    valorCompra: 0,
+    fechaCreacion: DateTime.now(),
+  );
 }
