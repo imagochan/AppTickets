@@ -26,7 +26,7 @@ class _RadioExampleState extends State<RadioExample> {
             onChanged: (FechaFiltro? value) {
               setState(() {
                 _fecha = value;
-                widget.retorno(false);
+                widget.retorno(true);
               });
             },
           ),
@@ -39,7 +39,7 @@ class _RadioExampleState extends State<RadioExample> {
             onChanged: (FechaFiltro? value) {
               setState(() {
                 _fecha = value;
-                widget.retorno(true);
+                widget.retorno(false);
               });
             },
           ),

@@ -62,7 +62,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pick an option'),
+        title: const Text('Escoja sus filtros'),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -109,35 +109,38 @@ class _SelectionScreenState extends State<SelectionScreen> {
               ),
               RadioExample(retorno:getRadioSelection),
               AnimatedCrossFade(
-                duration: const Duration(seconds: 1),
-                firstChild: const FlutterLogo(style: FlutterLogoStyle.horizontal, size: 100.0),
-                secondChild: const FlutterLogo(style: FlutterLogoStyle.stacked, size: 100.0),
-                crossFadeState: _first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-              ),
-              Column(
+                duration: const Duration(milliseconds: 250),
+                firstChild:Column(
                 children: [
                   FormDateField(
                     fecha: fechaCreacionStart,
                     retorno: getfechaCreacionStart,
                     controller: fechaCreacionStartController,
                     texto: "Inicio del rango de fecha de creación"),
-                                  FormDateField(
-                retorno: getfechaCreacionEnd,
-                  fecha: fechaCreacionEnd,
-                  controller: fechaCreacionEndController,
-                  texto: "Fin del rango de fecha de creación"),
+                  FormDateField(
+                    retorno: getfechaCreacionEnd,
+                    fecha: fechaCreacionEnd,
+                    controller: fechaCreacionEndController,
+                    texto: "Fin del rango de fecha de creación"),
                 ],
               ),
-              FormDateField(
-                retorno: getfechaPublicactionStart,
-                  fecha: fechaPublicacionStart,
-                  controller: fechaPublicacionStartController,
-                  texto: "Inicio del rango de fecha de publicación"),
-              FormDateField(
-                retorno: getfechaPublicactionEnd,
-                  fecha: fechaPublicacionEnd,
-                  controller: fechaPublicacionEndController,
-                  texto: "Fin del rango de fecha de creación"),
+                secondChild: Column(
+                children: [
+                  FormDateField(
+                    retorno: getfechaPublicactionStart,
+                      fecha: fechaPublicacionStart,
+                      controller: fechaPublicacionStartController,
+                      texto: "Inicio del rango de fecha de publicación"),
+                  FormDateField(
+                    retorno: getfechaPublicactionEnd,
+                    fecha: fechaPublicacionEnd,
+                    controller: fechaPublicacionEndController,
+                    texto: "Fin del rango de fecha de creación"),
+                ],
+              ),
+                crossFadeState: _first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+              ),
+
               DropdownMenuCategory(retorno: getCategoria,),
               ValorCompraWidget(
                 hintText: "Inicio del rango de valor de compra",
