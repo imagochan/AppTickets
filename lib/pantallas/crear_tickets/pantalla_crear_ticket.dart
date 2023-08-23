@@ -91,7 +91,7 @@ class MyCustomFormState extends State<MyCustomForm> {
         "fechaFinPublicacion": fechaFinPublicacion.toString(),
         "valorCompra": valorCompraController.text,
         "categoria": dropdownValue,
-        "fechaCreacion": fechaCreacion
+        "fechaCreacion": fechaCreacion.toString()
       };
       //imprimimos los datos para checar que este en orden
       //print(data);
