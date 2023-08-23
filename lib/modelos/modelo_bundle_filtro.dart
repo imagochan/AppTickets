@@ -49,6 +49,6 @@ class BundleFiltros {
     fechaPublicacionEnd:DateUtils.addMonthsToMonthDate(DateTime.now(), 1),
     categoria:'ALL',
     titulo:'',
-    esFechaCreacionOPublicidad: false
+    esFechaCreacionOPublicidad: true
   );
 }
