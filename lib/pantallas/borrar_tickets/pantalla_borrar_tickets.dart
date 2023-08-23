@@ -58,8 +58,6 @@ class _BorrarTicketsState extends State<BorrarTickets> {
                             "Fecha de Vencimiento: ${tdata[index].fechaVencimiento}"),
                         Text(
                             "Fecha de Publicación: ${tdata[index].fechaPublicacion}"),
-                        Text(
-                            "Fecha de fin de Publicación: ${tdata[index].fechaFinPublicacion}"),
                         Text("Valor de compra: ${tdata[index].valorCompra}"),
                         Text("Categoria: ${tdata[index].categoria}"),
                         IconButton(

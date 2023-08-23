@@ -90,8 +90,6 @@ class Api {
                 descripcion: value['descripcion'],
                 fechaVencimiento: DateTime.parse(value['fechaVencimiento']),
                 fechaPublicacion: DateTime.parse(value['fechaPublicacion']),
-                fechaFinPublicacion:
-                    DateTime.parse(value['fechaFinPublicacion']),
                 valorCompra: value['valorCompra'],
                 categoria: value['categoria'],
                 fechaCreacion: DateTime.parse(value['fechaCreacion']))),

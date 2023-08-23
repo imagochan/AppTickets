@@ -52,8 +52,6 @@ class ActualizarTickets extends StatelessWidget {
                         Text(
                             "Fecha de Publicación: ${tdata[index].fechaPublicacion}"),
                         Text(
-                            "Fecha de fin de Publicación: ${tdata[index].fechaFinPublicacion}"),
-                        Text(
                             "Valor de la compra: ${tdata[index].valorCompra.toString()}"),
                         Text("Categoria: ${tdata[index].categoria}"),
                         IconButton(

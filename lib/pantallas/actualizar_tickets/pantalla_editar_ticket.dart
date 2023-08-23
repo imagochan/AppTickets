@@ -33,8 +33,6 @@ class _PantallaActualizarTicketState extends State<PantallaActualizarTicket> {
     descripcionController.text = widget.data.descripcion.toString();
     fechaVencimientoController.text = widget.data.fechaVencimiento.toString();
     fechaPublicacionController.text = widget.data.fechaPublicacion.toString();
-    fechaFinPublicacionController.text =
-        widget.data.fechaFinPublicacion.toString();
     valorCompraController.text = widget.data.valorCompra.toString();
     categoriaController.text = widget.data.categoria.toString();
   }
