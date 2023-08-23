@@ -9,6 +9,7 @@ class BundleFiltros {
   DateTime fechaPublicacionEnd;
   String categoria;
   String titulo;
+  bool esFechaCreacionOPublicidad;
 
   BundleFiltros({
     required this.valorCompraStart,
@@ -19,6 +20,7 @@ class BundleFiltros {
     required this.fechaPublicacionEnd,
     required this.categoria,
     required this.titulo,
+    required this.esFechaCreacionOPublicidad,
   });
 
   factory BundleFiltros.fromJson(Map<String, dynamic> parametro) =>
@@ -30,7 +32,9 @@ class BundleFiltros {
           fechaPublicacionStart: parametro["fechaPublicacionStart"],
           fechaPublicacionEnd: parametro["fechaPublicacionEnd"],
           categoria: parametro["categoria"],
-          titulo: parametro["titulo"]);
+          titulo: parametro["titulo"],
+          esFechaCreacionOPublicidad: parametro["esFechaCreacionOPublicidad"]
+          );
 
   List<BundleFiltros> fromJsonToList(List<dynamic> list) =>
       List<BundleFiltros>.from(list.map((x) => BundleFiltros.fromJson(x)));
@@ -45,5 +49,6 @@ class BundleFiltros {
     fechaPublicacionEnd:DateUtils.addMonthsToMonthDate(DateTime.now(), 1),
     categoria:'ALL',
     titulo:'',
+    esFechaCreacionOPublicidad: false
   );
 }

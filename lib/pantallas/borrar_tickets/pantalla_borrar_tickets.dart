@@ -27,7 +27,9 @@ class _BorrarTicketsState extends State<BorrarTickets> {
               DateTime.now(),
               DateTime.now(),
               0.0,
-              0.0),
+              0.0,
+              false
+              ),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             //Mostramos una pantalla de carga mientras esperamos la información.
             if (!snapshot.hasData) {

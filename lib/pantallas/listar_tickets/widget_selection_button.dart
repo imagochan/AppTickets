@@ -31,10 +31,11 @@ class _SelectionButtonState extends State<SelectionButton> {
       BuildContext context, BundleFiltros unBundleFiltros) async {
     // Navigator.push returns a Future that completes after calling
     // Navigator.pop on the Selection Screen.
-    final result = await Navigator.push(
+    var result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const SelectionScreen()),
     );
+    result ??= BundleFiltros.empty();
 
     // When a BuildContext is used from a StatefulWidget, the mounted property
     // must be checked after an asynchronous gap.

@@ -49,7 +49,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
     fechaCreacionEnd = fechaTarget;
   }
 
-  var _first = false;
+  var _first = true;
 
   void getRadioSelection(bool mySelection){
     _first = mySelection;
@@ -91,26 +91,28 @@ class _SelectionScreenState extends State<SelectionScreen> {
                             fechaPublicacionStart: fechaPublicacionStart,
                             fechaPublicacionEnd: fechaPublicacionEnd,
                             categoria: categoriaEscogida,
-                            titulo: tituloController.text));
+                            titulo: tituloController.text,
+                            esFechaCreacionOPublicidad: _first
+                            ));
                   },
                   child: const Text('Seleccionar filtros'),
                 ),
               ),
-              Padding(
-                //LIMPIAR LA SELECCION para resetear filtros
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Cierra la pantalla y regresa "Nope!" como el resultado
-                    Navigator.pop(context, 'Nope.');
-                  },
-                  child: const Text('Nope.'),
-                ),
-              ),
+              // Padding(
+              //   //LIMPIAR LA SELECCION para resetear filtros
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: ElevatedButton(
+              //     onPressed: () {
+              //       // Cierra la pantalla y regresa "Nope!" como el resultado
+              //       Navigator.pop(context, 'Nope.');
+              //     },
+              //     child: const Text('Nope.'),
+              //   ),
+              // ),
               RadioExample(retorno:getRadioSelection),
               AnimatedCrossFade(
                 duration: const Duration(milliseconds: 250),
-                firstChild:Column(
+                firstChild: Column(
                 children: [
                   FormDateField(
                     fecha: fechaCreacionStart,
@@ -135,13 +137,12 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     retorno: getfechaPublicactionEnd,
                     fecha: fechaPublicacionEnd,
                     controller: fechaPublicacionEndController,
-                    texto: "Fin del rango de fecha de creación"),
+                    texto: "Fin del rango de fecha de publicación"),
                 ],
               ),
                 crossFadeState: _first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
               ),
-
-              DropdownMenuCategory(retorno: getCategoria,),
+              DropdownMenuCategory(retorno: getCategoria),
               ValorCompraWidget(
                 hintText: "Inicio del rango de valor de compra",
                 labelText: "Inicio del rango de valor de compra",

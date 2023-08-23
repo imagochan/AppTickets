@@ -27,6 +27,7 @@ class _ListarTicketsState extends State<ListarTickets> {
       debugPrint("bundle fechaCreacionEnd ${miBundleFiltros.fechaCreacionEnd}");
       debugPrint("bundle fechaPublicacionStart ${miBundleFiltros.fechaPublicacionStart}");
       debugPrint("bundle fechaPublicacionEnd ${miBundleFiltros.fechaPublicacionEnd}");
+      debugPrint("bundle esFechaCreacionOPublicidad ${miBundleFiltros.esFechaCreacionOPublicidad}");
     });
   }
 
@@ -44,7 +45,9 @@ class _ListarTicketsState extends State<ListarTickets> {
               miBundleFiltros.fechaCreacionStart,
               miBundleFiltros.fechaCreacionEnd,
               miBundleFiltros.valorCompraStart,
-              miBundleFiltros.valorCompraEnd),
+              miBundleFiltros.valorCompraEnd,
+              miBundleFiltros.esFechaCreacionOPublicidad
+              ),
           //Construimos dependiendo del estado de la snapshot
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState != ConnectionState.done) {
