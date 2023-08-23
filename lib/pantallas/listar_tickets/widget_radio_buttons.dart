@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 enum FechaFiltro { fechaCreacion, fechaPublicacion }
 
 class RadioExample extends StatefulWidget {
-  const RadioExample({super.key});
+  const RadioExample({super.key, required this.retorno});
+
+  final Function(bool mySelection) retorno;
 
   @override
   State<RadioExample> createState() => _RadioExampleState();
@@ -24,6 +26,7 @@ class _RadioExampleState extends State<RadioExample> {
             onChanged: (FechaFiltro? value) {
               setState(() {
                 _fecha = value;
+                widget.retorno(false);
               });
             },
           ),
@@ -36,6 +39,7 @@ class _RadioExampleState extends State<RadioExample> {
             onChanged: (FechaFiltro? value) {
               setState(() {
                 _fecha = value;
+                widget.retorno(true);
               });
             },
           ),

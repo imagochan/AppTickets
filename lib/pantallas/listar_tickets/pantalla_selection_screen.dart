@@ -49,6 +49,15 @@ class _SelectionScreenState extends State<SelectionScreen> {
     fechaCreacionEnd = fechaTarget;
   }
 
+  var _first = false;
+
+  void getRadioSelection(bool mySelection){
+    _first = mySelection;
+    setState(() {
+      
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,17 +107,27 @@ class _SelectionScreenState extends State<SelectionScreen> {
                   child: const Text('Nope.'),
                 ),
               ),
-              const RadioExample(),
-              FormDateField(
-                fecha: fechaCreacionStart,
-                retorno: getfechaCreacionStart,
-                controller: fechaCreacionStartController,
-                texto: "Inicio del rango de fecha de creación"),
-              FormDateField(
+              RadioExample(retorno:getRadioSelection),
+              AnimatedCrossFade(
+                duration: const Duration(seconds: 1),
+                firstChild: const FlutterLogo(style: FlutterLogoStyle.horizontal, size: 100.0),
+                secondChild: const FlutterLogo(style: FlutterLogoStyle.stacked, size: 100.0),
+                crossFadeState: _first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+              ),
+              Column(
+                children: [
+                  FormDateField(
+                    fecha: fechaCreacionStart,
+                    retorno: getfechaCreacionStart,
+                    controller: fechaCreacionStartController,
+                    texto: "Inicio del rango de fecha de creación"),
+                                  FormDateField(
                 retorno: getfechaCreacionEnd,
                   fecha: fechaCreacionEnd,
                   controller: fechaCreacionEndController,
                   texto: "Fin del rango de fecha de creación"),
+                ],
+              ),
               FormDateField(
                 retorno: getfechaPublicactionStart,
                   fecha: fechaPublicacionStart,
