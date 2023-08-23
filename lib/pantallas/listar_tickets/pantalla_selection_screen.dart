@@ -46,7 +46,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
   }
 
   void getfechaPublicactionEnd(DateTime fechaTarget){
-    fechaCreacionEnd = fechaTarget;
+    fechaPublicacionEnd = fechaTarget;
   }
 
   var _first = true;

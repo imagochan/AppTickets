@@ -37,7 +37,7 @@ class _ListTicketWidgetState extends State<ListTicketWidget> {
               Text(
                   "Valor de la compra: ${tdata[index].valorCompra.toString()}"),
               Text("Categoria: ${tdata[index].categoria}"),
-              Text("fechaCreacion: ${tdata[index].fechaCreacion.toString()}"),
+              Text("fechaCreacion: ${tdata[index].fechaCreacion.year}-${tdata[index].fechaCreacion.month}-${tdata[index].fechaCreacion.day}"),
             ],
           ),
         );
