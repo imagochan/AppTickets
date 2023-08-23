@@ -14,28 +14,19 @@ class ListarTickets extends StatefulWidget {
 class _ListarTicketsState extends State<ListarTickets> {
   //Declaramos nuestras variables a utilizar que pasaremos a la API
 
-  // num? valorCompraStart;
-  // num? valorCompraEnd;
-  // DateTime? fechaCreacionStart;
-  // DateTime? fechaCreacionEnd;
-  // DateTime? fechaPublicacionStart;
-  // DateTime? fechaPublicacionEnd;
-  // String? dropdownValue;
-  // String? unNombre;
-
   BundleFiltros miBundleFiltros = BundleFiltros.empty();
 
   void getBundle(BundleFiltros data){
     miBundleFiltros = data;
     setState(() {
-      print("bundle titulo ${miBundleFiltros.titulo}");
-      print("bundle categoria ${miBundleFiltros.categoria}");
-      print("bundle valorCompraStart ${miBundleFiltros.valorCompraStart}");
-      print("bundle valorCompraEnd ${miBundleFiltros.valorCompraEnd}");
-      print("bundle fechaCreacionStart ${miBundleFiltros.fechaCreacionStart}");
-      print("bundle fechaCreacionEnd ${miBundleFiltros.fechaCreacionEnd}");
-      print("bundle fechaPublicacionStart ${miBundleFiltros.fechaPublicacionStart}");
-      print("bundle fechaPublicacionEnd ${miBundleFiltros.fechaPublicacionEnd}");
+      debugPrint("bundle titulo ${miBundleFiltros.titulo}");
+      debugPrint("bundle categoria ${miBundleFiltros.categoria}");
+      debugPrint("bundle valorCompraStart ${miBundleFiltros.valorCompraStart}");
+      debugPrint("bundle valorCompraEnd ${miBundleFiltros.valorCompraEnd}");
+      debugPrint("bundle fechaCreacionStart ${miBundleFiltros.fechaCreacionStart}");
+      debugPrint("bundle fechaCreacionEnd ${miBundleFiltros.fechaCreacionEnd}");
+      debugPrint("bundle fechaPublicacionStart ${miBundleFiltros.fechaPublicacionStart}");
+      debugPrint("bundle fechaPublicacionEnd ${miBundleFiltros.fechaPublicacionEnd}");
     });
   }
 

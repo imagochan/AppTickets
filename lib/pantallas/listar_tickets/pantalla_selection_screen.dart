@@ -2,6 +2,7 @@ import 'package:apptickets/modelos/modelo_bundle_filtro.dart';
 import 'package:apptickets/pantallas/listar_tickets/widget_date.dart';
 import 'package:apptickets/pantallas/listar_tickets/widget_dropdown_menu_category.dart';
 import 'package:apptickets/pantallas/listar_tickets/widget_form_text_field.dart';
+import 'package:apptickets/pantallas/listar_tickets/widget_radio_buttons.dart';
 import 'package:apptickets/pantallas/listar_tickets/widget_text_valor_compra.dart';
 import 'package:flutter/material.dart';
 
@@ -97,6 +98,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                   child: const Text('Nope.'),
                 ),
               ),
+              const RadioExample(),
               FormDateField(
                 fecha: fechaCreacionStart,
                 retorno: getfechaCreacionStart,
