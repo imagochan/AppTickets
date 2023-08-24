@@ -14,22 +14,22 @@ class ListTicketWidget extends StatefulWidget {
 
 class _ListTicketWidgetState extends State<ListTicketWidget> {
 
-  int indexListaTicketABorrar = 0;
+  // int indexListaTicketABorrar = 0;
 
-  void getIndex(int index){
-    indexListaTicketABorrar = index;
-  }
+  // void getIndex(int index){
+  //   indexListaTicketABorrar = index;
+  // }
 
-  List<Ticket> getListTicket(List<Ticket> losTickets){
-    losTickets.removeAt(indexListaTicketABorrar);
-    return losTickets;
-  }
+  // List<Ticket> getListTicket(List<Ticket> losTickets){
+  //   losTickets.removeAt(indexListaTicketABorrar);
+  //   return losTickets;
+  // }
 
   @override
   Widget build(BuildContext context) {
     //This is how you access parameters passed to another class
     List<Ticket> tdata = widget.aSnapshot.data;
-    tdata = getListTicket(tdata);
+    // tdata = getListTicket(tdata);
     return ListView.builder(
       itemCount: tdata.length,
       itemBuilder: (BuildContext context, int index) {
@@ -43,14 +43,14 @@ class _ListTicketWidgetState extends State<ListTicketWidget> {
               Text("Titulo: ${tdata[index].titulo}"),
               Text("Descripción: ${tdata[index].descripcion}"),
               Text(
-                  "Fecha de Vencimiento: ${tdata[index].fechaVencimiento.year}-${tdata[index].fechaVencimiento.month}-${tdata[index].fechaVencimiento.day}"),
+                  "Fecha de Vencimiento: ${tdata[index].fechaVencimiento.day}-${tdata[index].fechaVencimiento.month}-${tdata[index].fechaVencimiento.year}"),
               Text(
-                  "Fecha de Publicación: ${tdata[index].fechaPublicacion.year}-${tdata[index].fechaPublicacion.month}-${tdata[index].fechaPublicacion.day}"),
+                  "Fecha de Publicación: ${tdata[index].fechaPublicacion.day}-${tdata[index].fechaPublicacion.month}-${tdata[index].fechaPublicacion.year}"),
               Text(
                   "Valor de la compra: ${tdata[index].valorCompra.toString()}"),
               Text("Categoria: ${tdata[index].categoria}"),
-              Text("fechaCreacion: ${tdata[index].fechaCreacion.year}-${tdata[index].fechaCreacion.month}-${tdata[index].fechaCreacion.day}"),
-              DeleteButtonWidget(miTicket: tdata[index],index: index,retorno: getIndex,)
+              Text("fechaCreacion: ${tdata[index].fechaCreacion.day}-${tdata[index].fechaCreacion.month}-${tdata[index].fechaCreacion.year}"),
+              DeleteButtonWidget(miTicket: tdata[index])
             ],
           ),
         );
