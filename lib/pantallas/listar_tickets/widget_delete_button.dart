@@ -6,12 +6,12 @@ import '../../servicios/api.dart';
 class DeleteButtonWidget extends StatefulWidget {
   const DeleteButtonWidget({super.key, 
   required this.miTicket, 
-  // required this.retorno, 
+  required this.retorno, 
   // required this.index
   });
 
   final Ticket miTicket;
-  // final Function(int index) retorno;
+  final Function() retorno;
   // final int index;
 
   @override
@@ -29,7 +29,8 @@ class _DeleteButtonWidgetState extends State<DeleteButtonWidget> {
                             //tdata.removeAt(index);
                             //Refrescamos la pantalla luego de borrar el ticket
                             // widget.retorno(widget.index);
-                            setState(() {});
+                            //setState(() {}); tengo que reconstruir en un callback
+                            widget.retorno();
                           },
                           icon: const Icon(Icons.delete),
                         );

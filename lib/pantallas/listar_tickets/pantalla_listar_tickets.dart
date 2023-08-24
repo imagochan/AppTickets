@@ -16,6 +16,12 @@ class _ListarTicketsState extends State<ListarTickets> {
 
   BundleFiltros miBundleFiltros = BundleFiltros.empty();
 
+  void updateList(){
+    setState(() {
+      
+    });
+  }
+
   void getBundle(BundleFiltros data){
     miBundleFiltros = data;
     setState(() {
@@ -73,6 +79,9 @@ class _ListarTicketsState extends State<ListarTickets> {
                   Expanded(
                       child: ListTicketWidget(
                     aSnapshot: snapshot,
+                    aCallBack: updateList,
+                    //pasar de un solo el boton de borrado para tener un 
+                    //callback function para refrescar con setState
                   )
                       )
                 ],

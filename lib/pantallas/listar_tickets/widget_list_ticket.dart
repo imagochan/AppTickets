@@ -4,9 +4,13 @@ import '../../modelos/modelo_ticket.dart';
 
 class ListTicketWidget extends StatefulWidget {
   //requerimos un snapshot
-  const ListTicketWidget({super.key, required this.aSnapshot});
+  const ListTicketWidget({super.key, 
+  required this.aSnapshot, 
+  required this.aCallBack
+  });
 
   final AsyncSnapshot<dynamic> aSnapshot;
+  final Function() aCallBack;
 
   @override
   State<ListTicketWidget> createState() => _ListTicketWidgetState();
@@ -50,7 +54,7 @@ class _ListTicketWidgetState extends State<ListTicketWidget> {
                   "Valor de la compra: ${tdata[index].valorCompra.toString()}"),
               Text("Categoria: ${tdata[index].categoria}"),
               Text("fechaCreacion: ${tdata[index].fechaCreacion.day}-${tdata[index].fechaCreacion.month}-${tdata[index].fechaCreacion.year}"),
-              DeleteButtonWidget(miTicket: tdata[index])
+              DeleteButtonWidget(miTicket: tdata[index],retorno: widget.aCallBack)
             ],
           ),
         );
