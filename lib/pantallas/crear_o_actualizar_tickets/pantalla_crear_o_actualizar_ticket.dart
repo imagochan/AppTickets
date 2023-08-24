@@ -1,4 +1,4 @@
-import 'package:apptickets/pantallas/crear_tickets/widget_submit_button.dart';
+import 'package:apptickets/pantallas/crear_o_actualizar_tickets/widget_submit_button.dart';
 import 'package:apptickets/pantallas/pantalla_inicio.dart';
 import 'package:apptickets/pantallas/shared_widgets/widget_dropdown_menu_category.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:apptickets/pantallas/crear_tickets/pantalla_crear_ticket.dart';
+import 'package:apptickets/pantallas/crear_o_actualizar_tickets/pantalla_crear_o_actualizar_ticket.dart';
 import 'package:flutter/material.dart';
 
 import '../../modelos/modelo_ticket.dart';
@@ -23,16 +23,6 @@ class _UpdateButtonWidgetState extends State<UpdateButtonWidget> {
     return IconButton(
       onPressed: () {
         _navigateAndDisplaySelection(context, widget.miTicket,widget.retorno);
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) =>
-        //     FormCrearEditarTicket(
-        //       unTicket: widget.miTicket,
-        //       esCrearOActualizar: false,
-        //     ),
-        //   )
-        // );
       },
       icon: const Icon(Icons.edit),
     );
@@ -45,7 +35,6 @@ class _UpdateButtonWidgetState extends State<UpdateButtonWidget> {
     // Navigator.push returns a Future that completes after calling
     // Navigator.pop on the Selection Screen.
 
-    //var result = await Navigator.push(
     await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => FormCrearEditarTicket(
@@ -55,26 +44,8 @@ class _UpdateButtonWidgetState extends State<UpdateButtonWidget> {
       ),
     );
     
-    // result ??= BundleFiltros.empty();
+    if (!mounted) return;
 
-    // When a BuildContext is used from a StatefulWidget, the mounted property
-    // must be checked after an asynchronous gap.
-    if (!mounted) return;// si no existe la otra pagina, la funcion se detiene
-
-    //pasamos el bundle data
-    
-    // unBundleFiltros = result;
-
-    //tirando el bundle hacia la lista de tickets
-    
-    // widget.retorno(result);
     widget.retorno();
-
-    // After the Selection Screen returns a result, hide any previous snackbars
-    // and show the new result.
-
-    // ScaffoldMessenger.of(context)
-    //   ..removeCurrentSnackBar()
-    //   ..showSnackBar(SnackBar(content: Text('$result')));
   }
 }

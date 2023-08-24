@@ -1,8 +1,9 @@
-import 'package:apptickets/pantallas/crear_tickets/pantalla_crear_ticket.dart';
+import 'package:apptickets/pantallas/crear_o_actualizar_categorias/pantalla_crear_o_actualizar_categorias.dart';
+import 'package:apptickets/pantallas/crear_o_actualizar_tickets/pantalla_crear_o_actualizar_ticket.dart';
 import 'package:apptickets/pantallas/home_elev_btn.dart';
+import 'package:apptickets/pantallas/listar_categorias/pantalla_listar_categorias.dart';
 import 'package:flutter/material.dart';
 import 'package:apptickets/pantallas/listar_tickets/pantalla_listar_tickets.dart';
-import 'package:apptickets/pantallas/actualizar_tickets/pantalla_actualizar_tickets.dart';
 
 import '../modelos/modelo_ticket.dart';
 
@@ -39,6 +40,14 @@ class _PantallaInicioState extends State<PantallaInicio> {
                 pageWidget: ListarTickets(),
                 btnTitle: 'Listar Ticket',
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              const HomeElevBtn(pageWidget: PantallaListarCategorias(), btnTitle: "Listar Categorias"),
+              const SizedBox(
+                height: 10,
+              ),
+              const HomeElevBtn(pageWidget: PantallaCrearOActualizarCategorias(), btnTitle: "Crear Categorias")
             ],
           ),
         ));
