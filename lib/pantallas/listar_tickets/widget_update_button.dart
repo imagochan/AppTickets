@@ -1,32 +1,35 @@
-// import 'package:flutter/material.dart';
-// //Al pulsar el botón de editar
-// //enviamos el índice del ticket a actualizar y
-// //redirigimos al usuario a la pantalla de edición de tickets
+import 'package:flutter/material.dart';
 
-// class UpdateButtonWidget extends StatefulWidget {
-//   const UpdateButtonWidget({super.key});
+//Al pulsar el botón de editar
+//enviamos el índice del ticket a actualizar y
+//redirigimos al usuario a la pantalla de edición de tickets
 
-//   @override
-//   State<UpdateButtonWidget> createState() => _UpdateButtonWidgetState();
-// }
+class UpdateButtonWidget extends StatefulWidget {
+  const UpdateButtonWidget({super.key});
 
-// class _UpdateButtonWidgetState extends State<UpdateButtonWidget> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return IconButton(
-//                           onPressed: () {
-//                             Navigator.push(
-//                                 context,
-//                                 MaterialPageRoute(
-//                                   builder: (context) =>
-//                                       PantallaActualizarTicket(
-//                                           data: tdata[index]),
-//                                 ));
-//                           },
-//                           icon: const Icon(Icons.edit),
-//                         );
-//   }
-// }
+  @override
+  State<UpdateButtonWidget> createState() => _UpdateButtonWidgetState();
+}
+
+class _UpdateButtonWidgetState extends State<UpdateButtonWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+            PantallaActualizarTicket(
+              data: tdata[index]
+            ),
+          )
+        );
+      },
+      icon: const Icon(Icons.edit),
+    );
+  }
+}
 
 //   @override
 //   void initState() {

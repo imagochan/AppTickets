@@ -1,7 +1,6 @@
 import 'package:apptickets/pantallas/crear_tickets/pantalla_crear_ticket.dart';
-import 'package:apptickets/widgets/home_elev_btn.dart';
+import 'package:apptickets/pantallas/home_elev_btn.dart';
 import 'package:flutter/material.dart';
-import 'package:apptickets/pantallas/borrar_tickets/pantalla_borrar_tickets.dart';
 import 'package:apptickets/pantallas/listar_tickets/pantalla_listar_tickets.dart';
 import 'package:apptickets/pantallas/actualizar_tickets/pantalla_actualizar_tickets.dart';
 
@@ -47,10 +46,6 @@ class _PantallaInicioState extends State<PantallaInicio> {
               ),
               SizedBox(
                 height: 10,
-              ),
-              HomeElevBtn(
-                pageWidget: BorrarTickets(),
-                btnTitle: 'Borrar Ticket',
               ),
             ],
           ),
