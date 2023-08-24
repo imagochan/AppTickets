@@ -1,7 +1,11 @@
+import 'package:apptickets/pantallas/crear_tickets/widget_submit_button.dart';
 import 'package:apptickets/pantallas/pantalla_inicio.dart';
+import 'package:apptickets/pantallas/shared_widgets/widget_dropdown_menu_category.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../../servicios/api.dart';
+import '../shared_widgets/widget_date.dart';
+import '../shared_widgets/widget_form_text_field.dart';
+import '../shared_widgets/widget_text_valor_compra.dart';
 
 // Create a Form widget.
 class MyCustomForm extends StatefulWidget {
@@ -16,13 +20,14 @@ class MyCustomForm extends StatefulWidget {
 // Create a corresponding State class.
 // This class holds data related to the form.
 class MyCustomFormState extends State<MyCustomForm> {
-  final List<String> list = <String>[
-    'Comedia',
-    'Historia',
-    'Ficción',
-    'Acción',
-    'Drama'
-  ];
+
+  void getFecha(DateTime fechaTarget){
+    //unaFecha = fechaTarget
+  }
+
+  void getCategoria(String categoria){
+    //categoriaEscogida = categoria;
+  }
 
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
@@ -48,7 +53,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   var fechaPublicacionController = TextEditingController();
   var fechaFinPublicacionController = TextEditingController();
 
-  // user defined function void _showDialog(BuildContext context) {
+  //Funcion mostrar dialogo
   void _showDialog(BuildContext context, String mensaje) {
     // flutter defined function
     showDialog(
@@ -77,6 +82,7 @@ class MyCustomFormState extends State<MyCustomForm> {
     );
   }
 
+  //Funcion mandar datos a la API
   void submitData() {
     if (_formKey.currentState!.validate() &&
         fechaVencimiento.compareTo(fechaPublicacion) > 0 &&
@@ -123,63 +129,8 @@ class MyCustomFormState extends State<MyCustomForm> {
 
   @override
   Widget build(BuildContext context) {
+    
     // Build a Form widget using the _formKey created above.
-
-    var botonCrearTicket = Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        child: ElevatedButton(
-          onPressed: () {
-            submitData();
-          },
-          child: const Text('Crear Ticket'),
-        ),
-      ),
-    );
-
-    var selectorCategoria = Center(
-      child: DropdownButtonFormField<String>(
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Por favor seleccione una categoria';
-          }
-          return null;
-        },
-        isExpanded: true,
-        hint: const Text("Elija una categoría"),
-        value: dropdownValue,
-        icon: const Icon(Icons.arrow_downward),
-        elevation: 16,
-        onChanged: (String? value) {
-          setState(() {
-            dropdownValue = value!;
-          });
-        },
-        items: list.map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-      ),
-    );
-
-    Future<void> llamarDatePicker(
-        DateTime date, TextEditingController controller) async {
-      final DateTime? dateTime = await showDatePicker(
-        context: context,
-        initialDate: date,
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2030),
-      );
-      if (dateTime != null) {
-        setState(() {
-          date = DateUtils.dateOnly(dateTime);
-          controller.text = date.toString();
-        });
-      }
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Crear un Ticket"),
@@ -192,58 +143,43 @@ class MyCustomFormState extends State<MyCustomForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 10,
-                ),
                 FormTextField(
                   controller: tituloController,
                   hintText: "Ingrese un Titulo",
                   labelText: "Titulo",
-                ),
-                const SizedBox(
-                  height: 10,
                 ),
                 FormTextField(
                   controller: descripcionController,
                   hintText: "Ingrese una Descripción",
                   labelText: "Descripción",
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                ValorCompraWidget(valorCompraController: valorCompraController),
-                const SizedBox(
-                  height: 10,
+                ValorCompraWidget(valorCompraController: valorCompraController,
+                hintText: "Ingrese un valor de compra",
+                labelText: "Valor de compra"
                 ),
                 FormDateField(
                   fecha: fechaVencimiento,
                   controller: fechaVencimientoController,
-                  llamarDatePicker: llamarDatePicker,
+                  // llamarDatePicker: llamarDatePicker,
+                  retorno: getFecha,
                   texto: "Fecha de vencimiento",
-                ),
-                const SizedBox(
-                  height: 10,
                 ),
                 FormDateField(
                   fecha: fechaPublicacion,
                   controller: fechaPublicacionController,
-                  llamarDatePicker: llamarDatePicker,
+                  // llamarDatePicker: llamarDatePicker,
+                  retorno: getFecha,
                   texto: "Fecha de publicación",
-                ),
-                const SizedBox(
-                  height: 10,
                 ),
                 FormDateField(
                   fecha: fechaFinPublicacion,
                   controller: fechaFinPublicacionController,
-                  llamarDatePicker: llamarDatePicker,
+                  // llamarDatePicker: llamarDatePicker,
+                  retorno: getFecha,
                   texto: "Fecha de fin publicación",
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                selectorCategoria,
-                botonCrearTicket,
+                DropdownMenuCategory(retorno: getCategoria),
+                SubmitTicketButton(submitData: submitData)
               ],
             ),
           ),
@@ -253,103 +189,154 @@ class MyCustomFormState extends State<MyCustomForm> {
   }
 }
 
-class FormDateField extends StatelessWidget {
-  const FormDateField({
-    super.key,
-    required this.fecha,
-    required this.controller,
-    required this.llamarDatePicker,
-    required this.texto,
-  });
+// class FormDateField extends StatelessWidget {
+//   const FormDateField({
+//     super.key,
+//     required this.fecha,
+//     required this.controller,
+//     required this.llamarDatePicker,
+//     required this.texto,
+//   });
 
-  final DateTime fecha;
-  final TextEditingController controller;
-  final Function llamarDatePicker;
-  final String texto;
+//   final DateTime fecha;
+//   final TextEditingController controller;
+//   final Function llamarDatePicker;
+//   final String texto;
 
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      onTap: () async {
-        llamarDatePicker(fecha, controller);
-      },
-      readOnly: true,
-      controller: controller,
-      decoration: InputDecoration(
-        hintText: texto,
-        labelText: texto,
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        icon: const Icon(Icons.edit_calendar),
-        border: const OutlineInputBorder(),
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Por favor seleccione una fecha';
-        }
-        return null;
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextFormField(
+//       onTap: () async {
+//         llamarDatePicker(fecha, controller);
+//       },
+//       readOnly: true,
+//       controller: controller,
+//       decoration: InputDecoration(
+//         hintText: texto,
+//         labelText: texto,
+//         floatingLabelBehavior: FloatingLabelBehavior.always,
+//         icon: const Icon(Icons.edit_calendar),
+//         border: const OutlineInputBorder(),
+//       ),
+//       validator: (value) {
+//         if (value == null || value.isEmpty) {
+//           return 'Por favor seleccione una fecha';
+//         }
+//         return null;
+//       },
+//     );
+//   }
+// }
 
-class ValorCompraWidget extends StatelessWidget {
-  const ValorCompraWidget({
-    super.key,
-    required this.valorCompraController,
-  });
+// class ValorCompraWidget extends StatelessWidget {
+//   const ValorCompraWidget({
+//     super.key,
+//     required this.valorCompraController,
+//   });
 
-  final TextEditingController valorCompraController;
+//   final TextEditingController valorCompraController;
 
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: valorCompraController,
-      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))],
-      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-      decoration: const InputDecoration(
-        hintText: "Ingrese un Valor de compra",
-        labelText: "Valor de compra",
-        icon: Icon(Icons.money),
-        border: OutlineInputBorder(),
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Por favor introduzca un numero decimal';
-        }
-        return null;
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextFormField(
+//       controller: valorCompraController,
+//       inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))],
+//       keyboardType: const TextInputType.numberWithOptions(decimal: true),
+//       decoration: const InputDecoration(
+//         hintText: "Ingrese un Valor de compra",
+//         labelText: "Valor de compra",
+//         icon: Icon(Icons.money),
+//         border: OutlineInputBorder(),
+//       ),
+//       validator: (value) {
+//         if (value == null || value.isEmpty) {
+//           return 'Por favor introduzca un numero decimal';
+//         }
+//         return null;
+//       },
+//     );
+//   }
+// }
 
-class FormTextField extends StatelessWidget {
-  const FormTextField({
-    super.key,
-    required this.controller,
-    required this.hintText,
-    required this.labelText,
-  });
+// class FormTextField extends StatelessWidget {
+//   const FormTextField({
+//     super.key,
+//     required this.controller,
+//     required this.hintText,
+//     required this.labelText,
+//   });
 
-  final TextEditingController controller;
-  final String hintText;
-  final String labelText;
+//   final TextEditingController controller;
+//   final String hintText;
+//   final String labelText;
 
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-        hintText: hintText,
-        labelText: labelText,
-        icon: const Icon(Icons.title),
-        border: const OutlineInputBorder(),
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Por favor introduzca un texto';
-        }
-        return null;
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextFormField(
+//       controller: controller,
+//       decoration: InputDecoration(
+//         hintText: hintText,
+//         labelText: labelText,
+//         icon: const Icon(Icons.title),
+//         border: const OutlineInputBorder(),
+//       ),
+//       validator: (value) {
+//         if (value == null || value.isEmpty) {
+//           return 'Por favor introduzca un texto';
+//         }
+//         return null;
+//       },
+//     );
+//   }
+// }
+
+    // Future<void> llamarDatePicker(
+    //     DateTime date, TextEditingController controller) async {
+    //   final DateTime? dateTime = await showDatePicker(
+    //     context: context,
+    //     initialDate: date,
+    //     firstDate: DateTime.now(),
+    //     lastDate: DateTime(2030),
+    //   );
+    //   if (dateTime != null) {
+    //     setState(() {
+    //       date = DateUtils.dateOnly(dateTime);
+    //       controller.text = date.toString();
+    //     });
+    //   }
+    // }
+
+    // var selectorCategoria = Center(
+    //   child: DropdownButtonFormField<String>(
+    //     validator: (value) {
+    //       if (value == null || value.isEmpty) {
+    //         return 'Por favor seleccione una categoria';
+    //       }
+    //       return null;
+    //     },
+    //     isExpanded: true,
+    //     hint: const Text("Elija una categoría"),
+    //     value: dropdownValue,
+    //     icon: const Icon(Icons.arrow_downward),
+    //     elevation: 16,
+    //     onChanged: (String? value) {
+    //       setState(() {
+    //         dropdownValue = value!;
+    //       });
+    //     },
+    //     items: list.map<DropdownMenuItem<String>>((String value) {
+    //       return DropdownMenuItem<String>(
+    //         value: value,
+    //         child: Text(value),
+    //       );
+    //     }).toList(),
+    //   ),
+    // );
+
+  // final List<String> list = <String>[
+  //   'Comedia',
+  //   'Historia',
+  //   'Ficción',
+  //   'Acción',
+  //   'Drama'
+  // ];

@@ -1,59 +1,59 @@
 import 'package:flutter/material.dart';
 
-class FormDateRangeField extends StatelessWidget {
-  const FormDateRangeField({
-    super.key,
-    required this.fechaStart,
-    required this.fechaEnd,
-    required this.controller,
-    required this.texto,
-  });
+// class FormDateRangeField extends StatelessWidget {
+//   const FormDateRangeField({
+//     super.key,
+//     required this.fechaStart,
+//     required this.fechaEnd,
+//     required this.controller,
+//     required this.texto,
+//   });
 
-  final DateTime fechaStart;
-  final DateTime fechaEnd;
-  final TextEditingController controller;
-  final String texto;
+//   final DateTime fechaStart;
+//   final DateTime fechaEnd;
+//   final TextEditingController controller;
+//   final String texto;
 
-  Future<void> llamarDateRangePicker(DateTime dateStart, DateTime dateEnd,
-    TextEditingController controller, BuildContext context) async {
-  final DateTimeRange? dateTimeRange = await showDateRangePicker(
-    context: context,
-    firstDate: DateUtils.addMonthsToMonthDate(DateTime.now(), -60),
-    lastDate: DateUtils.addMonthsToMonthDate(DateTime.now(), 60),
-  );
-  if (dateTimeRange != null) {
-    //setState(() {
-    dateStart = DateUtils.dateOnly(dateTimeRange.start);
-    dateEnd = DateUtils.dateOnly(dateTimeRange.end);
-    controller.text = "$dateStart-$dateEnd";
-    //});
-  }
-  }
+//   Future<void> llamarDateRangePicker(DateTime dateStart, DateTime dateEnd,
+//     TextEditingController controller, BuildContext context) async {
+//   final DateTimeRange? dateTimeRange = await showDateRangePicker(
+//     context: context,
+//     firstDate: DateUtils.addMonthsToMonthDate(DateTime.now(), -60),
+//     lastDate: DateUtils.addMonthsToMonthDate(DateTime.now(), 60),
+//   );
+//   if (dateTimeRange != null) {
+//     //setState(() {
+//     dateStart = DateUtils.dateOnly(dateTimeRange.start);
+//     dateEnd = DateUtils.dateOnly(dateTimeRange.end);
+//     controller.text = "$dateStart-$dateEnd";
+//     //});
+//   }
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      onTap: () async {
-        llamarDateRangePicker(fechaStart, fechaEnd, controller, context);
-      },
-      readOnly: true,
-      controller: controller,
-      decoration: InputDecoration(
-        hintText: texto,
-        labelText: texto,
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        icon: const Icon(Icons.edit_calendar),
-        border: const OutlineInputBorder(),
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Por favor seleccione una fecha';
-        }
-        return null;
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextFormField(
+//       onTap: () async {
+//         llamarDateRangePicker(fechaStart, fechaEnd, controller, context);
+//       },
+//       readOnly: true,
+//       controller: controller,
+//       decoration: InputDecoration(
+//         hintText: texto,
+//         labelText: texto,
+//         floatingLabelBehavior: FloatingLabelBehavior.always,
+//         icon: const Icon(Icons.edit_calendar),
+//         border: const OutlineInputBorder(),
+//       ),
+//       validator: (value) {
+//         if (value == null || value.isEmpty) {
+//           return 'Por favor seleccione una fecha';
+//         }
+//         return null;
+//       },
+//     );
+//   }
+// }
 
 class FormDateField extends StatefulWidget {
   const FormDateField({

@@ -1,9 +1,9 @@
 import 'package:apptickets/modelos/modelo_bundle_filtro.dart';
-import 'package:apptickets/pantallas/listar_tickets/widget_date.dart';
-import 'package:apptickets/pantallas/listar_tickets/widget_dropdown_menu_category.dart';
-import 'package:apptickets/pantallas/listar_tickets/widget_form_text_field.dart';
+import 'package:apptickets/pantallas/shared_widgets/widget_date.dart';
+import 'package:apptickets/pantallas/shared_widgets/widget_dropdown_menu_category.dart';
+import 'package:apptickets/pantallas/shared_widgets/widget_form_text_field.dart';
 import 'package:apptickets/pantallas/listar_tickets/widget_radio_buttons.dart';
-import 'package:apptickets/pantallas/listar_tickets/widget_text_valor_compra.dart';
+import 'package:apptickets/pantallas/shared_widgets/widget_text_valor_compra.dart';
 import 'package:flutter/material.dart';
 
 class SelectionScreen extends StatefulWidget {
