@@ -155,13 +155,6 @@ class FormCrearEditarTicketState extends State<FormCrearEditarTicket> {
           }
       );
       Navigator.pop(context);
-      // Navigator.pushAndRemoveUntil(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => const PantallaInicio()
-      //   ),
-      //   (Route<dynamic> route) => false,
-      // );
     }
   }
 
