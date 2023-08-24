@@ -93,22 +93,12 @@ class _SelectionScreenState extends State<SelectionScreen> {
                             categoria: categoriaEscogida,
                             titulo: tituloController.text,
                             esFechaCreacionOPublicidad: _first
-                            ));
+                            )
+                      );
                   },
                   child: const Text('Seleccionar filtros'),
                 ),
               ),
-              // Padding(
-              //   //LIMPIAR LA SELECCION para resetear filtros
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: ElevatedButton(
-              //     onPressed: () {
-              //       // Cierra la pantalla y regresa "Nope!" como el resultado
-              //       Navigator.pop(context, 'Nope.');
-              //     },
-              //     child: const Text('Nope.'),
-              //   ),
-              // ),
               RadioExample(retorno:getRadioSelection),
               AnimatedCrossFade(
                 duration: const Duration(milliseconds: 250),
@@ -142,7 +132,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
               ),
                 crossFadeState: _first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
               ),
-              DropdownMenuCategory(retorno: getCategoria),
+              DropdownMenuCategory(retorno: getCategoria,unaCategoria: categoriaEscogida),
               ValorCompraWidget(
                 hintText: "Inicio del rango de valor de compra",
                 labelText: "Inicio del rango de valor de compra",

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
 class SubmitTicketButton extends StatefulWidget {
-  const SubmitTicketButton({super.key, required this.submitData});
+  const SubmitTicketButton({super.key, 
+  required this.submitData,
+  required this.esCrearOActualizar
+  });
 
   final Function() submitData;
+  final bool esCrearOActualizar;
 
   @override
   State<SubmitTicketButton> createState() => _SubmitTicketButtonState();
@@ -20,7 +24,7 @@ class _SubmitTicketButtonState extends State<SubmitTicketButton> {
           onPressed: () {
             widget.submitData();//mejor pasar submit data
           },
-          child: const Text('Crear Ticket'),
+          child: Text(widget.esCrearOActualizar?'Crear Ticket':'Actualizar Ticket'),
         ),
       ),
     );

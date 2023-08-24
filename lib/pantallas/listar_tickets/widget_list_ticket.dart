@@ -1,4 +1,5 @@
 import 'package:apptickets/pantallas/listar_tickets/widget_delete_button.dart';
+import 'package:apptickets/pantallas/listar_tickets/widget_update_button.dart';
 import 'package:flutter/material.dart';
 import '../../modelos/modelo_ticket.dart';
 
@@ -54,8 +55,8 @@ class _ListTicketWidgetState extends State<ListTicketWidget> {
                   "Valor de la compra: ${tdata[index].valorCompra.toString()}"),
               Text("Categoria: ${tdata[index].categoria}"),
               Text("fechaCreacion: ${tdata[index].fechaCreacion.day}-${tdata[index].fechaCreacion.month}-${tdata[index].fechaCreacion.year}"),
-              DeleteButtonWidget(miTicket: tdata[index],retorno: widget.aCallBack),
-              
+              DeleteButtonWidget(miTicket: tdata[index],retorno: widget.aCallBack,),
+              UpdateButtonWidget(miTicket: tdata[index],retorno: widget.aCallBack,),
             ],
           ),
         );

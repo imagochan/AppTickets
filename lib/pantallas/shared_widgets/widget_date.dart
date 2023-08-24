@@ -1,5 +1,71 @@
 import 'package:flutter/material.dart';
 
+class FormDateField extends StatefulWidget {
+  const FormDateField({
+    super.key,
+    required this.retorno,
+    required this.controller,
+    required this.texto,
+    required this.fecha,
+  });
+
+  final TextEditingController controller;
+  final String texto;
+  final Function(DateTime fechaTarget) retorno;
+  final DateTime fecha;
+
+  @override
+  State<FormDateField> createState() => _FormDateFieldState();
+}
+
+class _FormDateFieldState extends State<FormDateField> {
+
+  Future<void> llamarDatePicker(DateTime fecha,
+    TextEditingController controller, BuildContext context) async {
+      final DateTime? dateTime = await showDatePicker(
+        context: context,
+        initialDate: fecha,
+        firstDate: DateUtils.addMonthsToMonthDate(DateTime.now(), -60),
+        lastDate: DateUtils.addMonthsToMonthDate(DateTime.now(), 60),
+      );
+      if (dateTime != null) {
+        //setState(() {
+        fecha = DateUtils.dateOnly(dateTime);
+        controller.text = fecha.toString();
+        widget.retorno(fecha);
+        //});
+      }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        onTap: () async {
+          llamarDatePicker(widget.fecha, widget.controller, context);
+        },
+        readOnly: true,
+        controller: widget.controller,
+        decoration: InputDecoration(
+          hintText: widget.texto,
+          labelText: widget.texto,
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          icon: const Icon(Icons.edit_calendar),
+          border: const OutlineInputBorder(),
+        ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Por favor seleccione una fecha';
+          }
+          return null;
+        },
+      ),
+    );
+  }
+}
+
+
 // class FormDateRangeField extends StatelessWidget {
 //   const FormDateRangeField({
 //     super.key,
@@ -54,68 +120,3 @@ import 'package:flutter/material.dart';
 //     );
 //   }
 // }
-
-class FormDateField extends StatefulWidget {
-  const FormDateField({
-    super.key,
-    required this.retorno,
-    required this.controller,
-    required this.texto,
-    required this.fecha,
-  });
-
-  final TextEditingController controller;
-  final String texto;
-  final Function(DateTime fechaTarget) retorno;
-  final DateTime fecha;
-
-  @override
-  State<FormDateField> createState() => _FormDateFieldState();
-}
-
-class _FormDateFieldState extends State<FormDateField> {
-
-  Future<void> llamarDatePicker(DateTime fecha,
-    TextEditingController controller, BuildContext context) async {
-      final DateTime? dateTime = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateUtils.addMonthsToMonthDate(DateTime.now(), -60),
-        lastDate: DateUtils.addMonthsToMonthDate(DateTime.now(), 60),
-      );
-      if (dateTime != null) {
-        //setState(() {
-        fecha = DateUtils.dateOnly(dateTime);
-        controller.text = fecha.toString();
-        widget.retorno(fecha);
-        //});
-      }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextFormField(
-        onTap: () async {
-          llamarDatePicker(widget.fecha, widget.controller, context);
-        },
-        readOnly: true,
-        controller: widget.controller,
-        decoration: InputDecoration(
-          hintText: widget.texto,
-          labelText: widget.texto,
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          icon: const Icon(Icons.edit_calendar),
-          border: const OutlineInputBorder(),
-        ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Por favor seleccione una fecha';
-          }
-          return null;
-        },
-      ),
-    );
-  }
-}

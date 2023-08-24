@@ -10,9 +10,10 @@ final List<String> list = <String>[
 ];
 
 class DropdownMenuCategory extends StatefulWidget {
-  const DropdownMenuCategory({super.key, required this.retorno});
+  const DropdownMenuCategory({super.key, required this.retorno, required this.unaCategoria});
 
   final Function(String miCategoria) retorno;
+  final String unaCategoria;
 
   @override
   State<DropdownMenuCategory> createState() => _DropdownMenuCategoryState();
@@ -25,15 +26,15 @@ class _DropdownMenuCategoryState extends State<DropdownMenuCategory> {
       padding: const EdgeInsets.all(8.0),
       child: Center(
         child: DropdownButtonFormField<String>(
-          validator: (value) {
-            //if (value.isEmpty) {
-            //  return 'Por favor seleccione una categoria';
-            //}
-            return null;
-          },
+          // validator: (value) {
+          //   //if (value.isEmpty) {
+          //   //  return 'Por favor seleccione una categoria';
+          //   //}
+          //   return null;
+          // },
           isExpanded: true,
           hint: const Text("Elija una categoría"),
-          value: 'ALL',
+          value: widget.unaCategoria,
           icon: const Icon(Icons.arrow_downward),
           elevation: 16,
           onChanged: (String? value) {
