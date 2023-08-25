@@ -51,6 +51,23 @@ class _PantallaListarCategoriasState extends State<PantallaListarCategorias> {
                         }, 
                         icon: const Icon(Icons.delete)
                       ),
+                      IconButton(
+                        onPressed: () async{
+                          await Navigator.push(
+                            context, 
+                            MaterialPageRoute(
+                              builder: (context) => FormCrearEditarCategoria(
+                                unaCategoria: listaCategorias[index],
+                                esCrearOActualizar: false,
+                              ))
+                          );
+                          if (!mounted) return;
+                          setState(() {
+                            
+                          });
+                        },
+                        icon: const Icon(Icons.edit)
+                      )
                     ],
                   ),
                 );
