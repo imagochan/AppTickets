@@ -23,7 +23,7 @@ class _PantallaListarCategoriasState extends State<PantallaListarCategorias> {
     return Scaffold(
       appBar: AppBar(),
       body: FutureBuilder(
-        future: ApiCategorias.getCategoria,
+        future: ApiCategorias.getCategorias(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return const Center(child: CircularProgressIndicator());

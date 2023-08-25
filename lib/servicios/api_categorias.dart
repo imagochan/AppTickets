@@ -28,7 +28,7 @@ class ApiCategorias {
   }
 
   //Método para comunicarse con la API de obtener tickets del servidor
-  static getTicket() async {
+  static getCategorias() async {
     
     //Iniciamos una lista de categorías vacía
     List<Categoria> listaCategorias = [];
