@@ -20,7 +20,10 @@ class _PantallaCrearOActualizarCategoriasState extends State<PantallaCrearOActua
   void submitCategory(){
     //hacer logica de llamar a la api de crear categoria
     if (_formKey.currentState!.validate()){
-      ApiCategorias.agregarCategoria(categoriaController.text);
+      var unaCategoria = {
+        "categoriaNombre":categoriaController.text
+      };
+      ApiCategorias.agregarCategoria(unaCategoria);
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('se ha creado una categoria')),
       );
