@@ -28,11 +28,11 @@ class _PantallaListarCategoriasState extends State<PantallaListarCategorias> {
             return const Text("hubo un error");
           }
           if (snapshot.hasData) {
-            return Column(
-              children: [
-                Placeholder()
-              ],
-            );
+            List<Categoria> listaCategorias = snapshot.data;
+            return ListView.builder(
+              itemBuilder: (BuildContext context, int index){
+
+              });
           }
           return const Text("No hay conexión con el servidor");
         } ),
