@@ -19,7 +19,23 @@ class _PantallaListarCategoriasState extends State<PantallaListarCategorias> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: const Placeholder(),
+      body: FutureBuilder(
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return const Text("hubo un error");
+          }
+          if (snapshot.hasData) {
+            return Column(
+              children: [
+                Placeholder()
+              ],
+            );
+          }
+          return const Text("No hay conexión con el servidor");
+        } ),
     );
   }
 }
