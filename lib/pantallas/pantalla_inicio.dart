@@ -1,3 +1,4 @@
+import 'package:apptickets/modelos/modelo_categoria.dart';
 import 'package:apptickets/pantallas/crear_o_actualizar_categorias/pantalla_crear_o_actualizar_categorias.dart';
 import 'package:apptickets/pantallas/crear_o_actualizar_tickets/pantalla_crear_o_actualizar_ticket.dart';
 import 'package:apptickets/pantallas/home_elev_btn.dart';
@@ -47,7 +48,7 @@ class _PantallaInicioState extends State<PantallaInicio> {
               const SizedBox(
                 height: 10,
               ),
-              const HomeElevBtn(pageWidget: PantallaCrearOActualizarCategorias(), btnTitle: "Crear Categorias")
+              HomeElevBtn(pageWidget: PantallaCrearOActualizarCategorias(esCrearOActualizar: true,unaCategoria: Categoria.empty()), btnTitle: "Crear Categorias")
             ],
           ),
         ));

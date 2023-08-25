@@ -1,3 +1,4 @@
+import 'package:apptickets/pantallas/crear_o_actualizar_categorias/pantalla_crear_o_actualizar_categorias.dart';
 import 'package:apptickets/servicios/api_categorias.dart';
 import 'package:flutter/material.dart';
 
@@ -56,7 +57,7 @@ class _PantallaListarCategoriasState extends State<PantallaListarCategorias> {
                           await Navigator.push(
                             context, 
                             MaterialPageRoute(
-                              builder: (context) => FormCrearEditarCategoria(
+                              builder: (context) => PantallaCrearOActualizarCategorias(
                                 unaCategoria: listaCategorias[index],
                                 esCrearOActualizar: false,
                               ))

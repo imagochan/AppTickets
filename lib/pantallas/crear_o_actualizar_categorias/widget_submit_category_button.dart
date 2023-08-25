@@ -21,7 +21,7 @@ class _SubmitCategoryButtonState extends State<SubmitCategoryButton> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
-          onPressed: () => widget.retorno(),//retorno execution should go on {} or =>
+          onPressed: () => widget.retorno(),//retorno execution should go inside {} or =>
           child: const Text("Crear categoria"),),
       )
     );
