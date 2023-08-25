@@ -19,7 +19,7 @@ class _PantallaListarCategoriasState extends State<PantallaListarCategorias> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Placeholder(),
+      body: const Placeholder(),
     );
   }
 }

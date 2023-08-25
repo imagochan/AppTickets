@@ -15,6 +15,8 @@ class _PantallaCrearOActualizarCategoriasState extends State<PantallaCrearOActua
 
   TextEditingController categoriaController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   void submitCategory(){
     //hacer logica de llamar a la api de crear categoria
     if (_formKey.currentState!.validate()){
@@ -28,8 +30,6 @@ class _PantallaCrearOActualizarCategoriasState extends State<PantallaCrearOActua
         );
     }
   }
-
-  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
