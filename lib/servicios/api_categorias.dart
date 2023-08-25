@@ -88,7 +88,7 @@ class ApiCategorias {
   }
 
     //Método para comunicarse con la API de actualizar categorias del servidor
-  static actualizarCategoria(String id, body) async {
+  static actualizarCategoria(id, body) async {
     //Configuramos la URL a usar junto con el id de la categoria a actualizar
     var url = Uri.parse("${baseUrl}actualizar_categoria/$id");
 

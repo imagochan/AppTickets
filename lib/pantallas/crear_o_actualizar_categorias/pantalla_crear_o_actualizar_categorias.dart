@@ -21,14 +21,14 @@ class PantallaCrearOActualizarCategorias extends StatefulWidget {
 
 class _PantallaCrearOActualizarCategoriasState extends State<PantallaCrearOActualizarCategorias> {
 
-  String categoriaID='';
+  //String categoriaID='';
 
   @override
   void initState(){
     super.initState();
     if (!widget.esCrearOActualizar) {
       categoriaController.text = widget.unaCategoria.categoriaNombre;
-      categoriaID = widget.unaCategoria.id;
+      //categoriaID = widget.unaCategoria.id;
     }
   }
 
@@ -59,7 +59,7 @@ class _PantallaCrearOActualizarCategoriasState extends State<PantallaCrearOActua
       ApiCategorias.actualizarCategoria(
         widget.unaCategoria.id,
         {
-          "categoria":widget.unaCategoria.categoriaNombre
+          "categoria":categoriaController.text
         }
       );
       Navigator.pop(context);
@@ -78,7 +78,7 @@ class _PantallaCrearOActualizarCategoriasState extends State<PantallaCrearOActua
           child: Column(
             children: [
               FormTextField(controller: categoriaController, hintText: "Ingrese una categoria", labelText: "Categoria",),
-              SubmitCategoryButton(retorno: submitCategory),
+              SubmitCategoryButton(retorno: submitCategory,esCrearOActualizar: widget.esCrearOActualizar),
             ],
           ),
         ),

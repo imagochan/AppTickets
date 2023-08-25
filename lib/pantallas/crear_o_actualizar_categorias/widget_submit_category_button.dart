@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class SubmitCategoryButton extends StatefulWidget {
   const SubmitCategoryButton({super.key,
-  required this.retorno
+  required this.retorno,
+  required this.esCrearOActualizar
   });
 
   final Function() retorno;
+  final bool esCrearOActualizar;
 
   @override
   State<SubmitCategoryButton> createState() => _SubmitCategoryButtonState();
@@ -22,7 +24,7 @@ class _SubmitCategoryButtonState extends State<SubmitCategoryButton> {
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
           onPressed: () => widget.retorno(),//retorno execution should go inside {} or =>
-          child: const Text("Crear categoria"),),
+          child: Text(widget.esCrearOActualizar?"Crear categoria":"Actualizar categoria"),),
       )
     );
   }
