@@ -67,4 +67,24 @@ class ApiCategorias {
     }
   }
 
+  //Método para comunicarse con la API de borrar tickets del servidor
+  static borrarCategoria(String id) async {
+    //Configuramos la URL a usar junto con el ID del ticket a borrar
+    var url = Uri.parse("${baseUrl}borrar_categoria/$id");
+
+    //Enviamos una solicitud POST al servidor conteniendo
+    //El id del ticket a borrar
+    final res = await http.post(url);
+
+    if (res.statusCode == 204) {
+      //Asegurar que la transacción se ejecute correctamente
+      //confirmando que el body no este vacío
+      if (res.body.isNotEmpty) {
+        json.decode(res.body);
+      }
+    } else {
+      //
+    }
+  }
+
 }

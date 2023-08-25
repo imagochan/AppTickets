@@ -41,7 +41,16 @@ class _PantallaListarCategoriasState extends State<PantallaListarCategorias> {
                   decoration: BoxDecoration(border: Border.all(color: Colors.indigo)),
                   child: Column(
                     children: [
-                      Text("Categoria: ${listaCategorias[index].categoriaNombre}")
+                      Text("Categoria: ${listaCategorias[index].categoriaNombre}"),
+                      IconButton(
+                        onPressed: () async{
+                          await ApiCategorias.borrarCategoria(listaCategorias[index].id);
+                          setState(() {
+                            
+                          });
+                        }, 
+                        icon: const Icon(Icons.delete)
+                      ),
                     ],
                   ),
                 );
