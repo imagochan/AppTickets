@@ -128,7 +128,7 @@ class FormCrearEditarTicketState extends State<FormCrearEditarTicket> {
         };
 
         //imprimimos los datos para checar que este en orden
-        //print(unTicket);
+        print(unTicket);
 
         //llamamos a la api de crear tickets
         Api.addTicket(unTicket);
@@ -182,6 +182,9 @@ class FormCrearEditarTicketState extends State<FormCrearEditarTicket> {
             }
             if (snapshot.hasData) {
               List<Categoria> listaDeCategorias = snapshot.data;
+              //esto es necesario para que exista un valor por defecto,
+              //ya que el dropdown no hace nada si no se toca o interactua
+              unaCategoriaID = listaDeCategorias.first.id;
               debugPrint(listaDeCategorias.toString());
               return SingleChildScrollView(
                 child: Form(

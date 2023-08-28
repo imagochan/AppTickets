@@ -43,11 +43,12 @@ class _DropdownMenuCategoryState extends State<DropdownMenuCategory> {
           icon: const Icon(Icons.arrow_downward),
           elevation: 16,
           onChanged: (Categoria? value) {
-            //setState(() {
-            //  dropdownValue = value!;
-            //});
+            setState(() {
+              // dropdownValue = value!;
+              widget.retorno(value!);
+            });
             //widget.dropdownValue = value!;
-            widget.retorno(value!);
+            //widget.retorno(value!);
           },
           //cambiar list. a widget.unaLista que voy a pasar al boton
           items: widget.listaCategorias
