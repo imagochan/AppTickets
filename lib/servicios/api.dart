@@ -36,7 +36,7 @@ class Api {
 
   //Método para comunicarse con la API de obtener tickets del servidor
   static getTicket(
-    String categoria,
+    String categoriaID,
     String nombre,
     DateTime fechaPublicacionStart,
     DateTime fechaPublicacionEnd,
@@ -48,11 +48,11 @@ class Api {
   ) async {
     getService(url: "url", hola: true);
     //Iniciamos una lista de tickets vacía
-    List<Ticket> tickets = [];
+    //List<Ticket> tickets = [];
 
     //Creamos la URL de la API que usamos como request
 
-    var queryStringCategorias = "?categoria=$categoria";
+    var queryStringCategoriaID = "?categoria=$categoriaID";
     var queryStringNombre = "&titulo=$nombre"; //mas tarde renombrar a titulo
     var queryDateTimefechaPublicacionStart =
         "&fechaPublicacionStart=$fechaPublicacionStart";
@@ -63,9 +63,10 @@ class Api {
     var queryDateTimefechaCreacionEnd = "&fechaCreacionEnd=$fechaCreacionEnd";
     var queryNumValorCompraStart = "&valorCompraStart=$valorCompraStart";
     var queryNumValorCompraEnd = "&valorCompraEnd=$valorCompraEnd";
-    var queryEsFechaCreacionOPublicidad = "&esFechaCreacionOPublicidad=$esFechaCreacionOPublicidad";
+    var queryEsFechaCreacionOPublicidad =
+        "&esFechaCreacionOPublicidad=$esFechaCreacionOPublicidad";
     var url = Uri.parse(
-        "${baseUrl}get_ticket$queryStringCategorias$queryStringNombre$queryDateTimefechaPublicacionStart$queryDateTimefechaPublicacionEnd$queryDateTimefechaCreacionStart$queryDateTimefechaCreacionEnd$queryNumValorCompraStart$queryNumValorCompraEnd$queryEsFechaCreacionOPublicidad");
+        "${baseUrl}get_ticket$queryStringCategoriaID$queryStringNombre$queryDateTimefechaPublicacionStart$queryDateTimefechaPublicacionEnd$queryDateTimefechaCreacionStart$queryDateTimefechaCreacionEnd$queryNumValorCompraStart$queryNumValorCompraEnd$queryEsFechaCreacionOPublicidad");
 
     debugPrint(url.toString());
     //maybe I can use route parameters to acceess data of a single ticket, like get_ticket/barbie
@@ -80,22 +81,23 @@ class Api {
 
         //print("the data looks like this");
         //print(data);
+        List<Ticket> listaDeTicket = Ticket.fromJsonToList(data['tickets']);
 
         //añadimos a la lista de tickets la información recibida de la API
-        data['tickets'].forEach(
-          (value) => {
-            tickets.add(Ticket(
-                id: value['id'],
-                titulo: value['titulo'],
-                descripcion: value['descripcion'],
-                fechaVencimiento: DateTime.parse(value['fechaVencimiento']),
-                fechaPublicacion: DateTime.parse(value['fechaPublicacion']),
-                valorCompra: value['valorCompra'],
-                categoria: value['categoria'],
-                fechaCreacion: DateTime.parse(value['fechaCreacion']))),
-          },
-        );
-        return tickets;
+        // data['tickets'].forEach(
+        //   (value) => {
+        //     tickets.add(Ticket(
+        //         id: value['id'],
+        //         titulo: value['titulo'],
+        //         descripcion: value['descripcion'],
+        //         fechaVencimiento: DateTime.parse(value['fechaVencimiento']),
+        //         fechaPublicacion: DateTime.parse(value['fechaPublicacion']),
+        //         valorCompra: value['valorCompra'],
+        //         categoria: value['categoria'],
+        //         fechaCreacion: DateTime.parse(value['fechaCreacion']))),
+        //   },
+        // );
+        return listaDeTicket;
       } else {
         //
       }

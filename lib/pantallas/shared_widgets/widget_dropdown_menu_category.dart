@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 
-final List<String> list = <String>[
-  'Comedia',
-  'Historia',
-  'Ficción',
-  'Acción',
-  'Drama',
-  'ALL'
-];
+import '../../modelos/modelo_categoria.dart';
+
+// final List<String> list = <String>[
+//   'Comedia',
+//   'Historia',
+//   'Ficción',
+//   'Acción',
+//   'Drama',
+//   'ALL'
+// ];
 
 class DropdownMenuCategory extends StatefulWidget {
-  const DropdownMenuCategory({super.key, required this.retorno, required this.unaCategoria});
+  const DropdownMenuCategory(
+      {super.key, required this.retorno, required this.listaCategorias});
 
-  final Function(String miCategoria) retorno;
-  final String unaCategoria;
+  final Function(Categoria miCategoria) retorno;
+  final List<Categoria> listaCategorias;
 
   @override
   State<DropdownMenuCategory> createState() => _DropdownMenuCategoryState();
@@ -25,7 +28,7 @@ class _DropdownMenuCategoryState extends State<DropdownMenuCategory> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(
-        child: DropdownButtonFormField<String>(
+        child: DropdownButtonFormField<Categoria>(
           // validator: (value) {
           //   //if (value.isEmpty) {
           //   //  return 'Por favor seleccione una categoria';
@@ -34,20 +37,24 @@ class _DropdownMenuCategoryState extends State<DropdownMenuCategory> {
           // },
           isExpanded: true,
           hint: const Text("Elija una categoría"),
-          value: widget.unaCategoria,
+          //value: widget.unaCategoria,
+          value: widget
+              .listaCategorias.first, //ojo necesitamos un valor por defecto
           icon: const Icon(Icons.arrow_downward),
           elevation: 16,
-          onChanged: (String? value) {
+          onChanged: (Categoria? value) {
             //setState(() {
             //  dropdownValue = value!;
             //});
             //widget.dropdownValue = value!;
             widget.retorno(value!);
           },
-          items: list.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
+          //cambiar list. a widget.unaLista que voy a pasar al boton
+          items: widget.listaCategorias
+              .map<DropdownMenuItem<Categoria>>((Categoria value) {
+            return DropdownMenuItem<Categoria>(
               value: value,
-              child: Text(value),
+              child: Text(value.categoriaNombre),
             );
           }).toList(),
         ),

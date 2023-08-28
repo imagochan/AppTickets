@@ -5,10 +5,8 @@ import '../../modelos/modelo_ticket.dart';
 
 class ListTicketWidget extends StatefulWidget {
   //requerimos un snapshot
-  const ListTicketWidget({super.key, 
-  required this.aSnapshot, 
-  required this.aCallBack
-  });
+  const ListTicketWidget(
+      {super.key, required this.aSnapshot, required this.aCallBack});
 
   final AsyncSnapshot<dynamic> aSnapshot;
   final Function() aCallBack;
@@ -18,7 +16,6 @@ class ListTicketWidget extends StatefulWidget {
 }
 
 class _ListTicketWidgetState extends State<ListTicketWidget> {
-
   // int indexListaTicketABorrar = 0;
 
   // void getIndex(int index){
@@ -53,10 +50,17 @@ class _ListTicketWidgetState extends State<ListTicketWidget> {
                   "Fecha de Publicación: ${tdata[index].fechaPublicacion.day}-${tdata[index].fechaPublicacion.month}-${tdata[index].fechaPublicacion.year}"),
               Text(
                   "Valor de la compra: ${tdata[index].valorCompra.toString()}"),
-              Text("Categoria: ${tdata[index].categoria}"),
-              Text("fechaCreacion: ${tdata[index].fechaCreacion.day}-${tdata[index].fechaCreacion.month}-${tdata[index].fechaCreacion.year}"),
-              DeleteButtonWidget(miTicket: tdata[index],retorno: widget.aCallBack,),
-              UpdateButtonWidget(miTicket: tdata[index],retorno: widget.aCallBack,),
+              Text("Categoria: ${tdata[index].categoriaID}"),
+              Text(
+                  "fechaCreacion: ${tdata[index].fechaCreacion.day}-${tdata[index].fechaCreacion.month}-${tdata[index].fechaCreacion.year}"),
+              DeleteButtonWidget(
+                miTicket: tdata[index],
+                retorno: widget.aCallBack,
+              ),
+              UpdateButtonWidget(
+                miTicket: tdata[index],
+                retorno: widget.aCallBack,
+              ),
             ],
           ),
         );

@@ -29,12 +29,10 @@ class ApiCategorias {
 
   //Método para comunicarse con la API de obtener tickets del servidor
   static getCategorias() async {
-    
     //Iniciamos una lista de categorías vacía
     List<Categoria> listaCategorias = [];
-    
-    var url = Uri.parse(
-        "${baseUrl}get_categorias");
+
+    var url = Uri.parse("${baseUrl}get_categorias");
 
     debugPrint(url.toString());
 
@@ -49,12 +47,14 @@ class ApiCategorias {
         //print("the data looks like this");
         //print(data);
 
+        //OJO CONVERTIR MAS TARDE A FROM JSON en vez de for each
+
         //añadimos a la lista de tickets la información recibida de la API
         data['categorias'].forEach(
           (value) => {
             listaCategorias.add(Categoria(
-                id: value['id'],
-                categoriaNombre: value['categoriaNombre'],
+              id: value['id'],
+              categoriaNombre: value['categoriaNombre'],
             )),
           },
         );
@@ -87,7 +87,7 @@ class ApiCategorias {
     }
   }
 
-    //Método para comunicarse con la API de actualizar categorias del servidor
+  //Método para comunicarse con la API de actualizar categorias del servidor
   static actualizarCategoria(id, body) async {
     //Configuramos la URL a usar junto con el id de la categoria a actualizar
     var url = Uri.parse("${baseUrl}actualizar_categoria/$id");
@@ -101,5 +101,4 @@ class ApiCategorias {
       //
     }
   }
-
 }

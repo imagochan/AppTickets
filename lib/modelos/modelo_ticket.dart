@@ -1,5 +1,6 @@
 //Modelo de un ticket a utilizar en la App
 
+//import 'package:apptickets/modelos/modelo_categoria.dart';
 import 'package:flutter/material.dart';
 
 class Ticket {
@@ -10,7 +11,7 @@ class Ticket {
   final DateTime fechaPublicacion;
   final num valorCompra;
   //final String? imagenTicket;
-  final String categoria;
+  final String categoriaID;
   final DateTime fechaCreacion;
 
   Ticket(
@@ -20,7 +21,7 @@ class Ticket {
       required this.fechaVencimiento,
       required this.fechaPublicacion,
       required this.valorCompra,
-      required this.categoria,
+      required this.categoriaID,
       required this.fechaCreacion});
 
   factory Ticket.fromJson(Map<String, dynamic> parametro) => Ticket(
@@ -30,21 +31,21 @@ class Ticket {
       fechaVencimiento: parametro["fechaVencimiento"],
       fechaPublicacion: parametro["fechaPublicacion"],
       valorCompra: parametro["valorCompra"],
-      categoria: parametro["categoria"],
-      fechaCreacion:parametro["fechaCreacion"]
-      );
+      //categoria: Categoria.fromJson(parametro['categoria']), //sintaxis valida
+      categoriaID: parametro['categoriaID'], //sintaxis valida
+      fechaCreacion: parametro["fechaCreacion"]);
 
-  List<Ticket> fromJsonToList(List<dynamic> list) =>
+  static List<Ticket> fromJsonToList(List<dynamic> list) => //debe ser estatico
       List<Ticket>.from(list.map((x) => Ticket.fromJson(x)));
 
   factory Ticket.empty() => Ticket(
-    id:'0',
-    titulo:'',
-    descripcion:'',
-    fechaVencimiento: DateUtils.addDaysToDate(DateTime.now(), 14),
-    fechaPublicacion: DateUtils.addDaysToDate(DateTime.now(), 7),
-    categoria:'ALL',
-    valorCompra: 0,
-    fechaCreacion: DateTime.now(),
-  );
+        id: '0',
+        titulo: '',
+        descripcion: '',
+        fechaVencimiento: DateUtils.addDaysToDate(DateTime.now(), 14),
+        fechaPublicacion: DateUtils.addDaysToDate(DateTime.now(), 7),
+        categoriaID: '',
+        valorCompra: 0,
+        fechaCreacion: DateTime.now(),
+      );
 }

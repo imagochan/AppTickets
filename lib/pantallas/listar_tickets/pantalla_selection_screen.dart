@@ -1,9 +1,11 @@
 import 'package:apptickets/modelos/modelo_bundle_filtro.dart';
+import 'package:apptickets/modelos/modelo_categoria.dart';
 import 'package:apptickets/pantallas/shared_widgets/widget_date.dart';
 import 'package:apptickets/pantallas/shared_widgets/widget_dropdown_menu_category.dart';
 import 'package:apptickets/pantallas/shared_widgets/widget_form_text_field.dart';
 import 'package:apptickets/pantallas/listar_tickets/widget_radio_buttons.dart';
 import 'package:apptickets/pantallas/shared_widgets/widget_text_valor_compra.dart';
+import 'package:apptickets/servicios/api_categorias.dart';
 import 'package:flutter/material.dart';
 
 class SelectionScreen extends StatefulWidget {
@@ -19,44 +21,48 @@ class _SelectionScreenState extends State<SelectionScreen> {
   final fechaPublicacionStartController = TextEditingController();
   final fechaPublicacionEndController = TextEditingController();
 
-  String categoriaEscogida = 'ALL';
+  Categoria categoriaEscogida = Categoria.empty();
   final valorCompraStartController = TextEditingController();
   final valorCompraEndController = TextEditingController();
   final tituloController = TextEditingController();
 
-  DateTime fechaCreacionStart = DateUtils.addMonthsToMonthDate(DateTime.now(), -1);
+  DateTime fechaCreacionStart =
+      DateUtils.addMonthsToMonthDate(DateTime.now(), -1);
   DateTime fechaCreacionEnd = DateUtils.addMonthsToMonthDate(DateTime.now(), 1);
-  DateTime fechaPublicacionStart = DateUtils.addMonthsToMonthDate(DateTime.now(), -1);
-  DateTime fechaPublicacionEnd = DateUtils.addMonthsToMonthDate(DateTime.now(), 1);
+  DateTime fechaPublicacionStart =
+      DateUtils.addMonthsToMonthDate(DateTime.now(), -1);
+  DateTime fechaPublicacionEnd =
+      DateUtils.addMonthsToMonthDate(DateTime.now(), 1);
 
-  void getCategoria(String categoria){
+  void getCategoria(Categoria categoria) {
     categoriaEscogida = categoria;
   }
 
-  void getfechaCreacionStart(DateTime fechaTarget){
+  void getfechaCreacionStart(DateTime fechaTarget) {
     fechaCreacionStart = fechaTarget;
   }
 
-  void getfechaCreacionEnd(DateTime fechaTarget){
+  void getfechaCreacionEnd(DateTime fechaTarget) {
     fechaCreacionEnd = fechaTarget;
   }
 
-  void getfechaPublicactionStart(DateTime fechaTarget){
+  void getfechaPublicactionStart(DateTime fechaTarget) {
     fechaPublicacionStart = fechaTarget;
   }
 
-  void getfechaPublicactionEnd(DateTime fechaTarget){
+  void getfechaPublicactionEnd(DateTime fechaTarget) {
     fechaPublicacionEnd = fechaTarget;
   }
 
   var _first = true;
 
-  void getRadioSelection(bool mySelection){
+  void getRadioSelection(bool mySelection) {
     _first = mySelection;
-    setState(() {
-      
-    });
+    setState(() {});
   }
+
+  List<Categoria> listaDeCategorias =
+      ApiCategorias.getCategorias(); //esto necesitara async?
 
   @override
   Widget build(BuildContext context) {
@@ -81,58 +87,59 @@ class _SelectionScreenState extends State<SelectionScreen> {
                                     .text.isNotEmpty
                                 ? double.parse(valorCompraStartController.text)
                                 : 0,
-                            valorCompraEnd:
-                                valorCompraEndController.text.isNotEmpty
-                                    ? double.parse(valorCompraEndController.text)
-                                    : 0,
-                                    //inicio de mes a fin de mes para default
+                            valorCompraEnd: valorCompraEndController
+                                    .text.isNotEmpty
+                                ? double.parse(valorCompraEndController.text)
+                                : 0,
+                            //inicio de mes a fin de mes para default
                             fechaCreacionStart: fechaCreacionStart,
                             fechaCreacionEnd: fechaCreacionEnd,
                             fechaPublicacionStart: fechaPublicacionStart,
                             fechaPublicacionEnd: fechaPublicacionEnd,
-                            categoria: categoriaEscogida,
+                            categoriaID: categoriaEscogida.id, //ojo
                             titulo: tituloController.text,
-                            esFechaCreacionOPublicidad: _first
-                            )
-                      );
+                            esFechaCreacionOPublicidad: _first));
                   },
                   child: const Text('Seleccionar filtros'),
                 ),
               ),
-              RadioExample(retorno:getRadioSelection),
+              RadioExample(retorno: getRadioSelection),
               AnimatedCrossFade(
                 duration: const Duration(milliseconds: 250),
                 firstChild: Column(
-                children: [
-                  FormDateField(
-                    fecha: fechaCreacionStart,
-                    retorno: getfechaCreacionStart,
-                    controller: fechaCreacionStartController,
-                    texto: "Inicio del rango de fecha de creación"),
-                  FormDateField(
-                    retorno: getfechaCreacionEnd,
-                    fecha: fechaCreacionEnd,
-                    controller: fechaCreacionEndController,
-                    texto: "Fin del rango de fecha de creación"),
-                ],
-              ),
+                  children: [
+                    FormDateField(
+                        fecha: fechaCreacionStart,
+                        retorno: getfechaCreacionStart,
+                        controller: fechaCreacionStartController,
+                        texto: "Inicio del rango de fecha de creación"),
+                    FormDateField(
+                        retorno: getfechaCreacionEnd,
+                        fecha: fechaCreacionEnd,
+                        controller: fechaCreacionEndController,
+                        texto: "Fin del rango de fecha de creación"),
+                  ],
+                ),
                 secondChild: Column(
-                children: [
-                  FormDateField(
-                    retorno: getfechaPublicactionStart,
-                      fecha: fechaPublicacionStart,
-                      controller: fechaPublicacionStartController,
-                      texto: "Inicio del rango de fecha de publicación"),
-                  FormDateField(
-                    retorno: getfechaPublicactionEnd,
-                    fecha: fechaPublicacionEnd,
-                    controller: fechaPublicacionEndController,
-                    texto: "Fin del rango de fecha de publicación"),
-                ],
+                  children: [
+                    FormDateField(
+                        retorno: getfechaPublicactionStart,
+                        fecha: fechaPublicacionStart,
+                        controller: fechaPublicacionStartController,
+                        texto: "Inicio del rango de fecha de publicación"),
+                    FormDateField(
+                        retorno: getfechaPublicactionEnd,
+                        fecha: fechaPublicacionEnd,
+                        controller: fechaPublicacionEndController,
+                        texto: "Fin del rango de fecha de publicación"),
+                  ],
+                ),
+                crossFadeState: _first
+                    ? CrossFadeState.showFirst
+                    : CrossFadeState.showSecond,
               ),
-                crossFadeState: _first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-              ),
-              DropdownMenuCategory(retorno: getCategoria,unaCategoria: categoriaEscogida),
+              DropdownMenuCategory(
+                  retorno: getCategoria, listaCategorias: listaDeCategorias),
               ValorCompraWidget(
                 hintText: "Inicio del rango de valor de compra",
                 labelText: "Inicio del rango de valor de compra",

@@ -16,24 +16,26 @@ class _ListarTicketsState extends State<ListarTickets> {
 
   BundleFiltros miBundleFiltros = BundleFiltros.empty();
 
-  void updateList(){
-    setState(() {
-      
-    });
+  void updateList() {
+    setState(() {});
   }
 
-  void getBundle(BundleFiltros data){
+  void getBundle(BundleFiltros data) {
     miBundleFiltros = data;
     setState(() {
       debugPrint("bundle titulo ${miBundleFiltros.titulo}");
-      debugPrint("bundle categoria ${miBundleFiltros.categoria}");
+      debugPrint("bundle categoria ${miBundleFiltros.categoriaID}");
       debugPrint("bundle valorCompraStart ${miBundleFiltros.valorCompraStart}");
       debugPrint("bundle valorCompraEnd ${miBundleFiltros.valorCompraEnd}");
-      debugPrint("bundle fechaCreacionStart ${miBundleFiltros.fechaCreacionStart}");
+      debugPrint(
+          "bundle fechaCreacionStart ${miBundleFiltros.fechaCreacionStart}");
       debugPrint("bundle fechaCreacionEnd ${miBundleFiltros.fechaCreacionEnd}");
-      debugPrint("bundle fechaPublicacionStart ${miBundleFiltros.fechaPublicacionStart}");
-      debugPrint("bundle fechaPublicacionEnd ${miBundleFiltros.fechaPublicacionEnd}");
-      debugPrint("bundle esFechaCreacionOPublicidad ${miBundleFiltros.esFechaCreacionOPublicidad}");
+      debugPrint(
+          "bundle fechaPublicacionStart ${miBundleFiltros.fechaPublicacionStart}");
+      debugPrint(
+          "bundle fechaPublicacionEnd ${miBundleFiltros.fechaPublicacionEnd}");
+      debugPrint(
+          "bundle esFechaCreacionOPublicidad ${miBundleFiltros.esFechaCreacionOPublicidad}");
     });
   }
 
@@ -44,7 +46,8 @@ class _ListarTicketsState extends State<ListarTickets> {
       body: FutureBuilder(
           //Llamamos a la API de recolectar tickets de forma asíncrona
           future: Api.getTicket(
-              miBundleFiltros.categoria,
+              miBundleFiltros
+                  .categoriaID, //ojo voy a probar si mandar categoriaNombre String basta en vez de mandar un objeto categoria, SERA MEJOR AL REVES, SOLO USAR STRING CATEGORIA ID
               miBundleFiltros.titulo,
               miBundleFiltros.fechaPublicacionStart,
               miBundleFiltros.fechaPublicacionEnd,
@@ -52,8 +55,7 @@ class _ListarTicketsState extends State<ListarTickets> {
               miBundleFiltros.fechaCreacionEnd,
               miBundleFiltros.valorCompraStart,
               miBundleFiltros.valorCompraEnd,
-              miBundleFiltros.esFechaCreacionOPublicidad
-              ),
+              miBundleFiltros.esFechaCreacionOPublicidad),
           //Construimos dependiendo del estado de la snapshot
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState != ConnectionState.done) {
@@ -73,17 +75,17 @@ class _ListarTicketsState extends State<ListarTickets> {
                       color: Colors.blue,
                     ),
                     child: Center(
-                      child: SelectionButton(unBundleFiltros: miBundleFiltros,retorno: getBundle),
+                      child: SelectionButton(
+                          unBundleFiltros: miBundleFiltros, retorno: getBundle),
                     ),
                   ),
                   Expanded(
                       child: ListTicketWidget(
                     aSnapshot: snapshot,
                     aCallBack: updateList,
-                    //pasar de un solo el boton de borrado para tener un 
+                    //pasar de un solo el boton de borrado para tener un
                     //callback function para refrescar con setState
-                  )
-                      )
+                  ))
                 ],
               );
             }

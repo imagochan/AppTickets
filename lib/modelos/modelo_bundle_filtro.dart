@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//import 'modelo_categoria.dart';
+
 class BundleFiltros {
   num valorCompraStart;
   num valorCompraEnd;
@@ -7,7 +9,7 @@ class BundleFiltros {
   DateTime fechaCreacionEnd;
   DateTime fechaPublicacionStart;
   DateTime fechaPublicacionEnd;
-  String categoria;
+  String categoriaID;
   String titulo;
   bool esFechaCreacionOPublicidad;
 
@@ -18,7 +20,7 @@ class BundleFiltros {
     required this.fechaCreacionEnd,
     required this.fechaPublicacionStart,
     required this.fechaPublicacionEnd,
-    required this.categoria,
+    required this.categoriaID,
     required this.titulo,
     required this.esFechaCreacionOPublicidad,
   });
@@ -31,24 +33,22 @@ class BundleFiltros {
           fechaCreacionEnd: parametro["fechaCreacionEnd"],
           fechaPublicacionStart: parametro["fechaPublicacionStart"],
           fechaPublicacionEnd: parametro["fechaPublicacionEnd"],
-          categoria: parametro["categoria"],
+          categoriaID: parametro["categoria"],
           titulo: parametro["titulo"],
-          esFechaCreacionOPublicidad: parametro["esFechaCreacionOPublicidad"]
-          );
+          esFechaCreacionOPublicidad: parametro["esFechaCreacionOPublicidad"]);
 
   List<BundleFiltros> fromJsonToList(List<dynamic> list) =>
       List<BundleFiltros>.from(list.map((x) => BundleFiltros.fromJson(x)));
 
   //caso bundle empty recomendable en vez de nulos
   factory BundleFiltros.empty() => BundleFiltros(
-    valorCompraStart:0,
-    valorCompraEnd:0,
-    fechaCreacionStart:DateUtils.addMonthsToMonthDate(DateTime.now(), -1),
-    fechaCreacionEnd:DateUtils.addMonthsToMonthDate(DateTime.now(), 1),
-    fechaPublicacionStart:DateUtils.addMonthsToMonthDate(DateTime.now(), -1),
-    fechaPublicacionEnd:DateUtils.addMonthsToMonthDate(DateTime.now(), 1),
-    categoria:'ALL',
-    titulo:'',
-    esFechaCreacionOPublicidad: true
-  );
+      valorCompraStart: 0,
+      valorCompraEnd: 0,
+      fechaCreacionStart: DateUtils.addMonthsToMonthDate(DateTime.now(), -1),
+      fechaCreacionEnd: DateUtils.addMonthsToMonthDate(DateTime.now(), 1),
+      fechaPublicacionStart: DateUtils.addMonthsToMonthDate(DateTime.now(), -1),
+      fechaPublicacionEnd: DateUtils.addMonthsToMonthDate(DateTime.now(), 1),
+      categoriaID: '',
+      titulo: '',
+      esFechaCreacionOPublicidad: true);
 }
