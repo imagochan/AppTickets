@@ -182,7 +182,7 @@ class FormCrearEditarTicketState extends State<FormCrearEditarTicket> {
             }
             if (snapshot.hasData) {
               List<Categoria> listaDeCategorias = snapshot.data;
-              print(listaDeCategorias.toString());
+              debugPrint(listaDeCategorias.toString());
               return SingleChildScrollView(
                 child: Form(
                   key: _formKey,
