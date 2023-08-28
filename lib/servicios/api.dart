@@ -37,6 +37,7 @@ class Api {
   //Método para comunicarse con la API de obtener tickets del servidor
   static getTicket(
     String categoriaID,
+    //String categoriaNombre,
     String nombre,
     DateTime fechaPublicacionStart,
     DateTime fechaPublicacionEnd,
@@ -52,7 +53,8 @@ class Api {
 
     //Creamos la URL de la API que usamos como request
 
-    var queryStringCategoriaID = "?categoria=$categoriaID";
+    var queryStringCategoriaID = "?categoriaID=$categoriaID";
+    //var queryStringCategoriaNombre = "&titulo=$categoriaNombre";
     var queryStringNombre = "&titulo=$nombre"; //mas tarde renombrar a titulo
     var queryDateTimefechaPublicacionStart =
         "&fechaPublicacionStart=$fechaPublicacionStart";
