@@ -61,8 +61,8 @@ class _SelectionScreenState extends State<SelectionScreen> {
     setState(() {});
   }
 
-  List<Categoria> listaDeCategorias =
-      ApiCategorias.getCategorias(); //esto necesitara async? SI LO NECESITA
+  List<Categoria> listaDeCategorias = ApiCategorias
+      .getCategorias(); //esto necesitara async? SI LO NECESITA, DEBE SER AWAIT, CREAR UN FUTURE BUILDER
 
   @override
   Widget build(BuildContext context) {
