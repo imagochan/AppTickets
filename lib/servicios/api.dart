@@ -82,7 +82,7 @@ class Api {
         var data = jsonDecode(res.body);
 
         //print("the data looks like this");
-        //print(data);
+        debugPrint(data);
         List<Ticket> listaDeTicket = Ticket.fromJsonToList(data['tickets']);
 
         //añadimos a la lista de tickets la información recibida de la API
