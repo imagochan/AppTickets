@@ -82,7 +82,9 @@ class Api {
         var data = jsonDecode(res.body);
 
         //print("the data looks like this");
-        debugPrint(data);
+        //adding to String fixes: type '_Map<String, dynamic>' is not a subtype of type 'String?'
+        debugPrint(data.toString());
+
         List<Ticket> listaDeTicket = Ticket.fromJsonToList(data['tickets']);
 
         //añadimos a la lista de tickets la información recibida de la API
