@@ -28,12 +28,12 @@ class Ticket {
       id: parametro["id"],
       titulo: parametro["titulo"],
       descripcion: parametro["descripcion"],
-      fechaVencimiento: parametro["fechaVencimiento"],
-      fechaPublicacion: parametro["fechaPublicacion"],
+      fechaVencimiento: DateTime.parse(parametro["fechaVencimiento"]),
+      fechaPublicacion: DateTime.parse(parametro["fechaPublicacion"]),
       valorCompra: parametro["valorCompra"],
       //categoria: Categoria.fromJson(parametro['categoria']), //sintaxis valida
       categoriaID: parametro['categoriaID'], //sintaxis valida
-      fechaCreacion: parametro["fechaCreacion"]);
+      fechaCreacion: DateTime.parse(parametro["fechaCreacion"]));
 
   static List<Ticket> fromJsonToList(List<dynamic> list) => //debe ser estatico
       List<Ticket>.from(list.map((x) => Ticket.fromJson(x)));

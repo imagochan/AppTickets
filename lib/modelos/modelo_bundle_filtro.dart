@@ -44,10 +44,10 @@ class BundleFiltros {
   factory BundleFiltros.empty() => BundleFiltros(
       valorCompraStart: 0,
       valorCompraEnd: 0,
-      fechaCreacionStart: DateUtils.addMonthsToMonthDate(DateTime.now(), -1),
-      fechaCreacionEnd: DateUtils.addMonthsToMonthDate(DateTime.now(), 1),
-      fechaPublicacionStart: DateUtils.addMonthsToMonthDate(DateTime.now(), -1),
-      fechaPublicacionEnd: DateUtils.addMonthsToMonthDate(DateTime.now(), 1),
+      fechaCreacionStart: DateUtils.addMonthsToMonthDate(DateTime.now(), -2),
+      fechaCreacionEnd: DateUtils.addMonthsToMonthDate(DateTime.now(), 2),
+      fechaPublicacionStart: DateUtils.addMonthsToMonthDate(DateTime.now(), -2),
+      fechaPublicacionEnd: DateUtils.addMonthsToMonthDate(DateTime.now(), 2),
       categoriaID: '',
       titulo: '',
       esFechaCreacionOPublicidad: true);
