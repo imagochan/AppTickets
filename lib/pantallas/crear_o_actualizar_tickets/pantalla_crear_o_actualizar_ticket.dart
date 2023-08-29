@@ -45,6 +45,9 @@ class FormCrearEditarTicketState extends State<FormCrearEditarTicket> {
       fechaPublicacion = widget.unTicket.fechaPublicacion;
       valorCompraController.text = widget.unTicket.valorCompra.toString();
       unaCategoriaID = widget.unTicket.categoriaID;
+      debugPrint("check from init ");
+      debugPrint(unaCategoriaID);
+      debugPrint(widget.esCrearOActualizar.toString());
     }
   }
 
@@ -158,6 +161,30 @@ class FormCrearEditarTicketState extends State<FormCrearEditarTicket> {
     }
   }
 
+  Categoria mandarCategoriaPorDefecto(List<Categoria> unaListaCategorias){
+    if (widget.esCrearOActualizar) {
+      return unaListaCategorias.last;
+    } else{
+      //ticketData = ticketData.filter(function(value){
+      //return value.valorCompra > valorCompraStart && value.valorCompra < valorCompraEnd;
+      //})
+      //debugPrint(unaListaCategorias.filter);
+      debugPrint("check here");
+      debugPrint(unaListaCategorias.first.categoriaNombre);
+      debugPrint("check here2");
+      debugPrint(unaCategoriaID);
+      debugPrint("check here3");
+      //OJO! 
+      //MI ERROR ES QUE ESTAMOS RECIBIENDO CATEGORIANOMBRE EN VEZ DE CATEGORIA ID
+      Iterable listaCategoriasFiltradaIterable = unaListaCategorias.where((element) => element.categoriaNombre==unaCategoriaID);
+      var listaCategoriasFiltrada = List.from(listaCategoriasFiltradaIterable);
+      debugPrint(listaCategoriasFiltrada.length.toString());
+      debugPrint(listaCategoriasFiltrada.first.toString());
+      return listaCategoriasFiltrada.first;
+    }
+
+  }
+
   // List<Categoria> listaDeCategorias = ApiCategorias
   //     .getCategorias(); //esto necesitara async? SI, necesitamos un future builder
 
@@ -184,7 +211,7 @@ class FormCrearEditarTicketState extends State<FormCrearEditarTicket> {
               List<Categoria> listaDeCategorias = snapshot.data;
               //esto es necesario para que exista un valor por defecto,
               //ya que el dropdown no hace nada si no se toca o interactua
-              unaCategoriaID = listaDeCategorias.first.id;
+              //unaCategoriaID = listaDeCategorias.last.id;
               debugPrint(listaDeCategorias.toString());
               return SingleChildScrollView(
                 child: Form(
@@ -224,7 +251,9 @@ class FormCrearEditarTicketState extends State<FormCrearEditarTicket> {
                         ),
                         DropdownMenuCategory(
                             retorno: getCategoria,
-                            listaCategorias: listaDeCategorias),
+                            listaCategorias: listaDeCategorias,
+                            //refactorizar a funcion void
+                            categoriaPorDefecto: mandarCategoriaPorDefecto(listaDeCategorias)),
                         SubmitTicketButton(
                           submitData: submitData,
                           esCrearOActualizar: widget.esCrearOActualizar,

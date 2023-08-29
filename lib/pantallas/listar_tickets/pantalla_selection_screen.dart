@@ -165,7 +165,9 @@ class _SelectionScreenState extends State<SelectionScreen> {
                         ),
                         DropdownMenuCategory(
                             retorno: getCategoria,
-                            listaCategorias: listaDeCategorias),
+                            listaCategorias: listaDeCategorias,
+                            categoriaPorDefecto: listaDeCategorias.last,
+                            ),
                         ValorCompraWidget(
                           hintText: "Inicio del rango de valor de compra",
                           labelText: "Inicio del rango de valor de compra",
