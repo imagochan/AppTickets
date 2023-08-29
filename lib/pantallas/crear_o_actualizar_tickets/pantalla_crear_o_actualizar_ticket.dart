@@ -128,7 +128,7 @@ class FormCrearEditarTicketState extends State<FormCrearEditarTicket> {
         };
 
         //imprimimos los datos para checar que este en orden
-        print(unTicket);
+        debugPrint(unTicket.toString());
 
         //llamamos a la api de crear tickets
         Api.addTicket(unTicket);
