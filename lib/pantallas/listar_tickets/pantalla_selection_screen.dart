@@ -82,9 +82,10 @@ class _SelectionScreenState extends State<SelectionScreen> {
               }
               if (snapshot.hasData) {
               List<Categoria> listaDeCategorias = snapshot.data;
+              listaDeCategorias.add(Categoria(categoriaNombre: 'Todas', id: ''));
               //esto es necesario para que exista un valor por defecto,
               //ya que el dropdown no hace nada si no se toca o interactua
-              categoriaEscogidaID = listaDeCategorias.first.id;
+              categoriaEscogidaID = listaDeCategorias.last.id;
               debugPrint(listaDeCategorias.toString());
                 return SingleChildScrollView(
                   child: Center(

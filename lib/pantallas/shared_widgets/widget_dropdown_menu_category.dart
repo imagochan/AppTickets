@@ -39,7 +39,7 @@ class _DropdownMenuCategoryState extends State<DropdownMenuCategory> {
           hint: const Text("Elija una categoría"),
           //value: widget.unaCategoria,
           value: widget
-              .listaCategorias.first, //ojo necesitamos un valor por defecto
+              .listaCategorias.last, //ojo necesitamos un valor por defecto
           icon: const Icon(Icons.arrow_downward),
           elevation: 16,
           onChanged: (Categoria? value) {
