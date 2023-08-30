@@ -19,9 +19,11 @@ class _PantallaRegistrarClienteState extends State<PantallaRegistrarCliente> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Form(
+        key: _formKey,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               FormTextField(
                   controller: nombreCompletoController,
@@ -32,10 +34,8 @@ class _PantallaRegistrarClienteState extends State<PantallaRegistrarCliente> {
                   hintText: "Ingrese un correo electrónico",
                   labelText: "Correo electrónico"),
             ],
-            crossAxisAlignment: CrossAxisAlignment.start,
           ),
         ),
-        key: _formKey,
       ),
     );
   }
