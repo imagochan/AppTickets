@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class ValorCompraWidget extends StatelessWidget {
-  const ValorCompraWidget({
+class CampoValorCompra extends StatelessWidget {
+  const CampoValorCompra({
     super.key,
     required this.valorCompraController,
     required this.hintText,

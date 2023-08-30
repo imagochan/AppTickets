@@ -4,7 +4,7 @@ import 'package:apptickets/pantallas/shared_widgets/widget_campo_fecha.dart';
 import 'package:apptickets/pantallas/shared_widgets/widget_menu_categorias_dropdown.dart';
 import 'package:apptickets/pantallas/shared_widgets/widget_campo_texto.dart';
 import 'package:apptickets/pantallas/listar_tickets/widget_radio_buttons.dart';
-import 'package:apptickets/pantallas/shared_widgets/widget_text_valor_compra.dart';
+import 'package:apptickets/pantallas/shared_widgets/widget_campo_valor_compra.dart';
 import 'package:apptickets/servicios/api_categorias.dart';
 import 'package:flutter/material.dart';
 
@@ -169,12 +169,12 @@ class _SelectionScreenState extends State<SelectionScreen> {
                           listaCategorias: listaDeCategorias,
                           categoriaPorDefecto: listaDeCategorias.last,
                         ),
-                        ValorCompraWidget(
+                        CampoValorCompra(
                           hintText: "Inicio del rango de valor de compra",
                           labelText: "Inicio del rango de valor de compra",
                           valorCompraController: valorCompraStartController,
                         ),
-                        ValorCompraWidget(
+                        CampoValorCompra(
                           hintText: "Fin del rango de valor de compra",
                           labelText: "Fin del rango de valor de compra",
                           valorCompraController: valorCompraEndController,

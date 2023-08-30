@@ -43,7 +43,8 @@ class _PantallaRegistrarClienteState extends State<PantallaRegistrarCliente> {
                 CampoTelefono(
                     telefonoController: telefonoController,
                     hintText: "Ingrese un número de teléfono",
-                    labelText: "Número de teléfono")
+                    labelText: "Número de teléfono"),
+                //CampoFecha
               ],
             ),
           ),

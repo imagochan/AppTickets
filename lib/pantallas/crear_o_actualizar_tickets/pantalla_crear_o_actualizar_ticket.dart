@@ -8,7 +8,7 @@ import '../../servicios/api_tickets.dart';
 import '../../servicios/api_categorias.dart';
 import '../shared_widgets/widget_campo_fecha.dart';
 import '../shared_widgets/widget_campo_texto.dart';
-import '../shared_widgets/widget_text_valor_compra.dart';
+import '../shared_widgets/widget_campo_valor_compra.dart';
 
 // Create a Form widget.
 class FormCrearEditarTicket extends StatefulWidget {
@@ -231,7 +231,7 @@ class FormCrearEditarTicketState extends State<FormCrearEditarTicket> {
                           hintText: "Ingrese una Descripción",
                           labelText: "Descripción",
                         ),
-                        ValorCompraWidget(
+                        CampoValorCompra(
                             valorCompraController: valorCompraController,
                             hintText: "Ingrese un valor de compra",
                             labelText: "Valor de compra"),
