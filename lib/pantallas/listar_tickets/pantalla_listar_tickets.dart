@@ -2,7 +2,7 @@ import 'package:apptickets/modelos/modelo_bundle_filtro.dart';
 import 'package:apptickets/pantallas/listar_tickets/widget_list_ticket.dart';
 import 'package:apptickets/pantallas/listar_tickets/widget_selection_button.dart';
 import 'package:flutter/material.dart';
-import 'package:apptickets/servicios/api.dart';
+import 'package:apptickets/servicios/api_tickets.dart';
 
 class ListarTickets extends StatefulWidget {
   const ListarTickets({super.key});

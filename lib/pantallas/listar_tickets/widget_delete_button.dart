@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:apptickets/modelos/modelo_ticket.dart';
 
-import '../../servicios/api.dart';
+import '../../servicios/api_tickets.dart';
 
 class DeleteButtonWidget extends StatefulWidget {
   const DeleteButtonWidget({

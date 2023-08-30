@@ -4,7 +4,7 @@ import 'package:apptickets/pantallas/shared_widgets/widget_dropdown_menu_categor
 import 'package:flutter/material.dart';
 import '../../modelos/modelo_categoria.dart';
 import '../../modelos/modelo_ticket.dart';
-import '../../servicios/api.dart';
+import '../../servicios/api_tickets.dart';
 import '../../servicios/api_categorias.dart';
 import '../shared_widgets/widget_date.dart';
 import '../shared_widgets/widget_form_text_field.dart';
