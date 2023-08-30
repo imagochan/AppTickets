@@ -14,25 +14,28 @@ class CampoTelefono extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: telefonoController,
-      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-      keyboardType: TextInputType.number,
-      decoration: InputDecoration(
-        hintText: hintText,
-        labelText: labelText,
-        icon: const Icon(Icons.phone),
-        border: const OutlineInputBorder(),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        controller: telefonoController,
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          hintText: hintText,
+          labelText: labelText,
+          icon: const Icon(Icons.phone),
+          border: const OutlineInputBorder(),
+        ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Por favor introduzca un número de teléfono';
+          }
+          if (value.length != 8) {
+            return 'El número de teléfono debe ser 8 dígitos';
+          }
+          return null;
+        },
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Por favor introduzca un número de teléfono';
-        }
-        if (value.length != 8) {
-          return 'El número de teléfono debe ser 8 dígitos';
-        }
-        return null;
-      },
     );
   }
 }
