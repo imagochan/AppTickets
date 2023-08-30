@@ -1,5 +1,6 @@
 import 'package:apptickets/pantallas/login/widget_campo_email.dart';
 import 'package:apptickets/pantallas/login/widget_campo_telefono.dart';
+import 'package:apptickets/pantallas/shared_widgets/widget_campo_fecha.dart';
 import 'package:apptickets/pantallas/shared_widgets/widget_campo_texto.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,15 @@ class _PantallaRegistrarClienteState extends State<PantallaRegistrarCliente> {
   var nombreCompletoController = TextEditingController();
   var correoElectronicoController = TextEditingController();
   var telefonoController = TextEditingController();
+
+  DateTime fechaNacimiento = DateUtils.addMonthsToMonthDate(
+      DateUtils.dateOnly(DateTime.now()), -12 * 18);
+
+  void getFechaNacimiento(DateTime fechaRetornada) {
+    fechaNacimiento = fechaRetornada;
+  }
+
+  var fechaNacimientoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +54,11 @@ class _PantallaRegistrarClienteState extends State<PantallaRegistrarCliente> {
                     telefonoController: telefonoController,
                     hintText: "Ingrese un número de teléfono",
                     labelText: "Número de teléfono"),
-                //CampoFecha
+                CampoFecha(
+                    retorno: getFechaNacimiento,
+                    controller: fechaNacimientoController,
+                    texto: "Fecha de nacimiento",
+                    fecha: fechaNacimiento),
               ],
             ),
           ),
