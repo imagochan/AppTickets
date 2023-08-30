@@ -1,8 +1,8 @@
 import 'package:apptickets/modelos/modelo_bundle_filtro.dart';
 import 'package:apptickets/modelos/modelo_categoria.dart';
-import 'package:apptickets/pantallas/shared_widgets/widget_date.dart';
-import 'package:apptickets/pantallas/shared_widgets/widget_dropdown_menu_category.dart';
-import 'package:apptickets/pantallas/shared_widgets/widget_form_text_field.dart';
+import 'package:apptickets/pantallas/shared_widgets/widget_campo_fecha.dart';
+import 'package:apptickets/pantallas/shared_widgets/widget_menu_categorias_dropdown.dart';
+import 'package:apptickets/pantallas/shared_widgets/widget_campo_texto.dart';
 import 'package:apptickets/pantallas/listar_tickets/widget_radio_buttons.dart';
 import 'package:apptickets/pantallas/shared_widgets/widget_text_valor_compra.dart';
 import 'package:apptickets/servicios/api_categorias.dart';
@@ -131,13 +131,13 @@ class _SelectionScreenState extends State<SelectionScreen> {
                           duration: const Duration(milliseconds: 250),
                           firstChild: Column(
                             children: [
-                              FormDateField(
+                              CampoFecha(
                                   fecha: fechaCreacionStart,
                                   retorno: getfechaCreacionStart,
                                   controller: fechaCreacionStartController,
                                   texto:
                                       "Inicio del rango de fecha de creación"),
-                              FormDateField(
+                              CampoFecha(
                                   retorno: getfechaCreacionEnd,
                                   fecha: fechaCreacionEnd,
                                   controller: fechaCreacionEndController,
@@ -146,13 +146,13 @@ class _SelectionScreenState extends State<SelectionScreen> {
                           ),
                           secondChild: Column(
                             children: [
-                              FormDateField(
+                              CampoFecha(
                                   retorno: getfechaPublicactionStart,
                                   fecha: fechaPublicacionStart,
                                   controller: fechaPublicacionStartController,
                                   texto:
                                       "Inicio del rango de fecha de publicación"),
-                              FormDateField(
+                              CampoFecha(
                                   retorno: getfechaPublicactionEnd,
                                   fecha: fechaPublicacionEnd,
                                   controller: fechaPublicacionEndController,
@@ -164,7 +164,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                               ? CrossFadeState.showFirst
                               : CrossFadeState.showSecond,
                         ),
-                        DropdownMenuCategory(
+                        MenuCategorias(
                           retorno: getCategoria,
                           listaCategorias: listaDeCategorias,
                           categoriaPorDefecto: listaDeCategorias.last,
@@ -179,7 +179,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                           labelText: "Fin del rango de valor de compra",
                           valorCompraController: valorCompraEndController,
                         ),
-                        FormTextField(
+                        CampoTexto(
                             controller: tituloController,
                             hintText: "Ingrese un titulo de ticket a buscar",
                             labelText: "Titulo de ticket a buscar")

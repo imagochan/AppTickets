@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class SubmitTicketButton extends StatefulWidget {
-  const SubmitTicketButton(
+class BotonEnviarTicket extends StatefulWidget {
+  const BotonEnviarTicket(
       {super.key, required this.submitData, required this.esCrearOActualizar});
 
   final Function() submitData;
   final bool esCrearOActualizar;
 
   @override
-  State<SubmitTicketButton> createState() => _SubmitTicketButtonState();
+  State<BotonEnviarTicket> createState() => _BotonEnviarTicketState();
 }
 
-class _SubmitTicketButtonState extends State<SubmitTicketButton> {
+class _BotonEnviarTicketState extends State<BotonEnviarTicket> {
   @override
   Widget build(BuildContext context) {
     return Center(

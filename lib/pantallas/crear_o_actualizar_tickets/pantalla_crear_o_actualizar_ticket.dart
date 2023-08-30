@@ -1,13 +1,13 @@
-import 'package:apptickets/pantallas/crear_o_actualizar_tickets/widget_submit_button.dart';
+import 'package:apptickets/pantallas/crear_o_actualizar_tickets/widget_boton_enviar_ticket.dart';
 import 'package:apptickets/pantallas/pantalla_inicio.dart';
-import 'package:apptickets/pantallas/shared_widgets/widget_dropdown_menu_category.dart';
+import 'package:apptickets/pantallas/shared_widgets/widget_menu_categorias_dropdown.dart';
 import 'package:flutter/material.dart';
 import '../../modelos/modelo_categoria.dart';
 import '../../modelos/modelo_ticket.dart';
 import '../../servicios/api_tickets.dart';
 import '../../servicios/api_categorias.dart';
-import '../shared_widgets/widget_date.dart';
-import '../shared_widgets/widget_form_text_field.dart';
+import '../shared_widgets/widget_campo_fecha.dart';
+import '../shared_widgets/widget_campo_texto.dart';
 import '../shared_widgets/widget_text_valor_compra.dart';
 
 // Create a Form widget.
@@ -221,12 +221,12 @@ class FormCrearEditarTicketState extends State<FormCrearEditarTicket> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        FormTextField(
+                        CampoTexto(
                           controller: tituloController,
                           hintText: "Ingrese un Titulo",
                           labelText: "Titulo",
                         ),
-                        FormTextField(
+                        CampoTexto(
                           controller: descripcionController,
                           hintText: "Ingrese una Descripción",
                           labelText: "Descripción",
@@ -235,27 +235,27 @@ class FormCrearEditarTicketState extends State<FormCrearEditarTicket> {
                             valorCompraController: valorCompraController,
                             hintText: "Ingrese un valor de compra",
                             labelText: "Valor de compra"),
-                        FormDateField(
+                        CampoFecha(
                           fecha: fechaPublicacion,
                           controller: fechaPublicacionController,
                           // llamarDatePicker: llamarDatePicker,
                           retorno: getFechaPublicacion,
                           texto: "Fecha de publicación",
                         ),
-                        FormDateField(
+                        CampoFecha(
                           fecha: fechaVencimiento,
                           controller: fechaVencimientoController,
                           // llamarDatePicker: llamarDatePicker,
                           retorno: getFechaVencimiento,
                           texto: "Fecha de vencimiento",
                         ),
-                        DropdownMenuCategory(
+                        MenuCategorias(
                             retorno: getCategoria,
                             listaCategorias: listaDeCategorias,
                             //refactorizar a funcion void
                             categoriaPorDefecto:
                                 mandarCategoriaPorDefecto(listaDeCategorias)),
-                        SubmitTicketButton(
+                        BotonEnviarTicket(
                           submitData: submitData,
                           esCrearOActualizar: widget.esCrearOActualizar,
                         )

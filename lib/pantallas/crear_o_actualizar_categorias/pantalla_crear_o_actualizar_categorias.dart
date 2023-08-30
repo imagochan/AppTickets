@@ -3,7 +3,7 @@ import 'package:apptickets/servicios/api_categorias.dart';
 import 'package:flutter/material.dart';
 
 import '../../modelos/modelo_categoria.dart';
-import '../shared_widgets/widget_form_text_field.dart';
+import '../shared_widgets/widget_campo_texto.dart';
 
 class PantallaCrearOActualizarCategorias extends StatefulWidget {
   const PantallaCrearOActualizarCategorias(
@@ -76,7 +76,7 @@ class _PantallaCrearOActualizarCategoriasState
               const SizedBox(
                 height: 10,
               ),
-              FormTextField(
+              CampoTexto(
                 controller: categoriaController,
                 hintText: "Ingrese una categoria",
                 labelText: "Categoria",

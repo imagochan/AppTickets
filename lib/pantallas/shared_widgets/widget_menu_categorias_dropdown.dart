@@ -11,8 +11,8 @@ import '../../modelos/modelo_categoria.dart';
 //   'ALL'
 // ];
 
-class DropdownMenuCategory extends StatefulWidget {
-  const DropdownMenuCategory(
+class MenuCategorias extends StatefulWidget {
+  const MenuCategorias(
       {super.key,
       required this.retorno,
       required this.listaCategorias,
@@ -23,10 +23,10 @@ class DropdownMenuCategory extends StatefulWidget {
   final Categoria categoriaPorDefecto;
 
   @override
-  State<DropdownMenuCategory> createState() => _DropdownMenuCategoryState();
+  State<MenuCategorias> createState() => _MenuCategoriasState();
 }
 
-class _DropdownMenuCategoryState extends State<DropdownMenuCategory> {
+class _MenuCategoriasState extends State<MenuCategorias> {
   @override
   Widget build(BuildContext context) {
     return Padding(

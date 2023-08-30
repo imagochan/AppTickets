@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class FormDateField extends StatefulWidget {
-  const FormDateField({
+class CampoFecha extends StatefulWidget {
+  const CampoFecha({
     super.key,
     required this.retorno,
     required this.controller,
@@ -15,10 +15,10 @@ class FormDateField extends StatefulWidget {
   final DateTime fecha;
 
   @override
-  State<FormDateField> createState() => _FormDateFieldState();
+  State<CampoFecha> createState() => _CampoFechaState();
 }
 
-class _FormDateFieldState extends State<FormDateField> {
+class _CampoFechaState extends State<CampoFecha> {
   Future<void> llamarDatePicker(DateTime fecha,
       TextEditingController controller, BuildContext context) async {
     final DateTime? dateTime = await showDatePicker(
