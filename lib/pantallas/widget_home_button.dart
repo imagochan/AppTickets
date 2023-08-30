@@ -12,10 +12,13 @@ class HomeElevBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-        onPressed: () {
-          cambiarPantalla(pageWidget, context);
-        },
-        child: Text(btnTitle));
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton(
+          onPressed: () {
+            cambiarPantalla(pageWidget, context);
+          },
+          child: Text(btnTitle)),
+    );
   }
 }

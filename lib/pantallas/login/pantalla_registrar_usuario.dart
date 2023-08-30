@@ -1,3 +1,4 @@
+import 'package:apptickets/pantallas/shared_widgets/widget_form_text_field.dart';
 import 'package:flutter/material.dart';
 
 class PantallaRegistrarCliente extends StatefulWidget {
@@ -9,8 +10,33 @@ class PantallaRegistrarCliente extends StatefulWidget {
 }
 
 class _PantallaRegistrarClienteState extends State<PantallaRegistrarCliente> {
+  final _formKey = GlobalKey<FormState>();
+
+  var nombreCompletoController = TextEditingController();
+  var correoElectronicoController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return SingleChildScrollView(
+      child: Form(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              FormTextField(
+                  controller: nombreCompletoController,
+                  hintText: "Ingrese su nombre completo",
+                  labelText: "Nombre completo"),
+              FormTextField(
+                  controller: correoElectronicoController,
+                  hintText: "Ingrese un correo electrónico",
+                  labelText: "Correo electrónico"),
+            ],
+            crossAxisAlignment: CrossAxisAlignment.start,
+          ),
+        ),
+        key: _formKey,
+      ),
+    );
   }
 }
