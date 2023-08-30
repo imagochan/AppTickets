@@ -24,6 +24,15 @@ class CampoTelefono extends StatelessWidget {
         icon: const Icon(Icons.phone),
         border: const OutlineInputBorder(),
       ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor introduzca un número de teléfono';
+        }
+        if (value.length != 8) {
+          return 'El número de teléfono debe ser 8 dígitos';
+        }
+        return null;
+      },
     );
   }
 }
