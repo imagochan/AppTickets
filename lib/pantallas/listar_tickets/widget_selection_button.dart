@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'pantalla_selection_screen.dart';
 
 class SelectionButton extends StatefulWidget {
-  const SelectionButton({super.key, required this.retorno, required this.unBundleFiltros});
+  const SelectionButton(
+      {super.key, required this.retorno, required this.unBundleFiltros});
 
   final BundleFiltros unBundleFiltros;
   final Function(BundleFiltros miBundleFiltros) retorno;
@@ -39,7 +40,7 @@ class _SelectionButtonState extends State<SelectionButton> {
 
     // When a BuildContext is used from a StatefulWidget, the mounted property
     // must be checked after an asynchronous gap.
-    if (!mounted) return;// si no existe la otra pagina, la funcion se detiene
+    if (!mounted) return; // si no existe la otra pagina, la funcion se detiene
 
     //pasamos el bundle data
     unBundleFiltros = result;

@@ -8,16 +8,14 @@ class HomeElevBtn extends StatelessWidget {
     super.key,
     required this.pageWidget,
     required this.btnTitle,
-    });
-  
+  });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-                  onPressed: () {
-                    cambiarPantalla(pageWidget, context);
-                  },
-                  child: Text(btnTitle)
-                  );
+        onPressed: () {
+          cambiarPantalla(pageWidget, context);
+        },
+        child: Text(btnTitle));
   }
 }

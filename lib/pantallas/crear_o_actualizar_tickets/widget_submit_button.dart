@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SubmitTicketButton extends StatefulWidget {
-  const SubmitTicketButton({super.key, 
-  required this.submitData,
-  required this.esCrearOActualizar
-  });
+  const SubmitTicketButton(
+      {super.key, required this.submitData, required this.esCrearOActualizar});
 
   final Function() submitData;
   final bool esCrearOActualizar;
@@ -14,7 +12,6 @@ class SubmitTicketButton extends StatefulWidget {
 }
 
 class _SubmitTicketButtonState extends State<SubmitTicketButton> {
-  
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -22,9 +19,10 @@ class _SubmitTicketButtonState extends State<SubmitTicketButton> {
         padding: const EdgeInsets.symmetric(vertical: 16),
         child: ElevatedButton(
           onPressed: () {
-            widget.submitData();//mejor pasar submit data
+            widget.submitData(); //mejor pasar submit data
           },
-          child: Text(widget.esCrearOActualizar?'Crear Ticket':'Actualizar Ticket'),
+          child: Text(
+              widget.esCrearOActualizar ? 'Crear Ticket' : 'Actualizar Ticket'),
         ),
       ),
     );

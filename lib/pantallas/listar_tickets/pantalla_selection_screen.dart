@@ -81,12 +81,13 @@ class _SelectionScreenState extends State<SelectionScreen> {
                 return const Text("hubo un error");
               }
               if (snapshot.hasData) {
-              List<Categoria> listaDeCategorias = snapshot.data;
-              listaDeCategorias.add(Categoria(categoriaNombre: 'Todas', id: ''));
-              //esto es necesario para que exista un valor por defecto,
-              //ya que el dropdown no hace nada si no se toca o interactua
-              categoriaEscogidaID = listaDeCategorias.last.id;
-              debugPrint(listaDeCategorias.toString());
+                List<Categoria> listaDeCategorias = snapshot.data;
+                listaDeCategorias
+                    .add(Categoria(categoriaNombre: 'Todas', id: ''));
+                //esto es necesario para que exista un valor por defecto,
+                //ya que el dropdown no hace nada si no se toca o interactua
+                categoriaEscogidaID = listaDeCategorias.last.id;
+                debugPrint(listaDeCategorias.toString());
                 return SingleChildScrollView(
                   child: Center(
                     child: Column(
@@ -164,10 +165,10 @@ class _SelectionScreenState extends State<SelectionScreen> {
                               : CrossFadeState.showSecond,
                         ),
                         DropdownMenuCategory(
-                            retorno: getCategoria,
-                            listaCategorias: listaDeCategorias,
-                            categoriaPorDefecto: listaDeCategorias.last,
-                            ),
+                          retorno: getCategoria,
+                          listaCategorias: listaDeCategorias,
+                          categoriaPorDefecto: listaDeCategorias.last,
+                        ),
                         ValorCompraWidget(
                           hintText: "Inicio del rango de valor de compra",
                           labelText: "Inicio del rango de valor de compra",

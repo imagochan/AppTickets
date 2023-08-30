@@ -8,7 +8,8 @@ import '../../modelos/modelo_ticket.dart';
 //redirigimos al usuario a la pantalla de edición de tickets
 
 class UpdateButtonWidget extends StatefulWidget {
-  const UpdateButtonWidget({super.key, required this.miTicket, required this.retorno});
+  const UpdateButtonWidget(
+      {super.key, required this.miTicket, required this.retorno});
 
   final Ticket miTicket;
   final Function() retorno;
@@ -22,13 +23,13 @@ class _UpdateButtonWidgetState extends State<UpdateButtonWidget> {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
-        _navigateAndDisplaySelection(context, widget.miTicket,widget.retorno);
+        _navigateAndDisplaySelection(context, widget.miTicket, widget.retorno);
       },
       icon: const Icon(Icons.edit),
     );
   }
 
-    // A method that launches the SelectionScreen and awaits the result from
+  // A method that launches the SelectionScreen and awaits the result from
   // Navigator.pop.
   Future<void> _navigateAndDisplaySelection(
       BuildContext context, Ticket miTicket, Function() retorno) async {
@@ -37,13 +38,14 @@ class _UpdateButtonWidgetState extends State<UpdateButtonWidget> {
 
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => FormCrearEditarTicket(
-              unTicket: miTicket,
-              esCrearOActualizar: false,
-            ),
+      MaterialPageRoute(
+        builder: (context) => FormCrearEditarTicket(
+          unTicket: miTicket,
+          esCrearOActualizar: false,
+        ),
       ),
     );
-    
+
     if (!mounted) return;
 
     widget.retorno();

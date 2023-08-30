@@ -4,10 +4,11 @@ import 'package:apptickets/modelos/modelo_ticket.dart';
 import '../../servicios/api.dart';
 
 class DeleteButtonWidget extends StatefulWidget {
-  const DeleteButtonWidget({super.key, 
-  required this.miTicket, 
-  required this.retorno, 
-  // required this.index
+  const DeleteButtonWidget({
+    super.key,
+    required this.miTicket,
+    required this.retorno,
+    // required this.index
   });
 
   final Ticket miTicket;
@@ -36,4 +37,3 @@ class _DeleteButtonWidgetState extends State<DeleteButtonWidget> {
     );
   }
 }
-

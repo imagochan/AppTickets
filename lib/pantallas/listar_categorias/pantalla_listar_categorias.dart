@@ -8,15 +8,13 @@ class PantallaListarCategorias extends StatefulWidget {
   const PantallaListarCategorias({super.key});
 
   @override
-  State<PantallaListarCategorias> createState() => _PantallaListarCategoriasState();
+  State<PantallaListarCategorias> createState() =>
+      _PantallaListarCategoriasState();
 }
 
 class _PantallaListarCategoriasState extends State<PantallaListarCategorias> {
-
-  void updateList(){
-    setState(() {
-      
-    });
+  void updateList() {
+    setState(() {});
   }
 
   @override
@@ -24,58 +22,56 @@ class _PantallaListarCategoriasState extends State<PantallaListarCategorias> {
     return Scaffold(
       appBar: AppBar(),
       body: FutureBuilder(
-        future: ApiCategorias.getCategorias(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState != ConnectionState.done) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return const Text("hubo un error");
-          }
-          if (snapshot.hasData) {
-            List<Categoria> listaCategorias = snapshot.data;
-            return ListView.builder(
-              itemCount: listaCategorias.length,
-              itemBuilder: (BuildContext context, int index){
-                return Container(
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(border: Border.all(color: Colors.indigo)),
-                  child: Column(
-                    children: [
-                      Text("Categoria: ${listaCategorias[index].categoriaNombre}"),
-                      IconButton(
-                        onPressed: () async{
-                          await ApiCategorias.borrarCategoria(listaCategorias[index].id);
-                          setState(() {
-                            
-                          });
-                        }, 
-                        icon: const Icon(Icons.delete)
+          future: ApiCategorias.getCategorias(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState != ConnectionState.done) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return const Text("hubo un error");
+            }
+            if (snapshot.hasData) {
+              List<Categoria> listaCategorias = snapshot.data;
+              return ListView.builder(
+                  itemCount: listaCategorias.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.indigo)),
+                      child: Column(
+                        children: [
+                          Text(
+                              "Categoria: ${listaCategorias[index].categoriaNombre}"),
+                          IconButton(
+                              onPressed: () async {
+                                await ApiCategorias.borrarCategoria(
+                                    listaCategorias[index].id);
+                                setState(() {});
+                              },
+                              icon: const Icon(Icons.delete)),
+                          IconButton(
+                              onPressed: () async {
+                                await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            PantallaCrearOActualizarCategorias(
+                                              unaCategoria:
+                                                  listaCategorias[index],
+                                              esCrearOActualizar: false,
+                                            )));
+                                if (!mounted) return;
+                                setState(() {});
+                              },
+                              icon: const Icon(Icons.edit))
+                        ],
                       ),
-                      IconButton(
-                        onPressed: () async{
-                          await Navigator.push(
-                            context, 
-                            MaterialPageRoute(
-                              builder: (context) => PantallaCrearOActualizarCategorias(
-                                unaCategoria: listaCategorias[index],
-                                esCrearOActualizar: false,
-                              ))
-                          );
-                          if (!mounted) return;
-                          setState(() {
-                            
-                          });
-                        },
-                        icon: const Icon(Icons.edit)
-                      )
-                    ],
-                  ),
-                );
-              });
-          }
-          return const Text("No hay conexión con el servidor");
-        } ),
+                    );
+                  });
+            }
+            return const Text("No hay conexión con el servidor");
+          }),
     );
   }
 }

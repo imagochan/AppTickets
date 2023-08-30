@@ -161,10 +161,10 @@ class FormCrearEditarTicketState extends State<FormCrearEditarTicket> {
     }
   }
 
-  Categoria mandarCategoriaPorDefecto(List<Categoria> unaListaCategorias){
+  Categoria mandarCategoriaPorDefecto(List<Categoria> unaListaCategorias) {
     if (widget.esCrearOActualizar) {
       return unaListaCategorias.last;
-    } else{
+    } else {
       //ticketData = ticketData.filter(function(value){
       //return value.valorCompra > valorCompraStart && value.valorCompra < valorCompraEnd;
       //})
@@ -174,15 +174,15 @@ class FormCrearEditarTicketState extends State<FormCrearEditarTicket> {
       debugPrint("check here2");
       debugPrint(unaCategoriaID);
       debugPrint("check here3");
-      //OJO! 
+      //OJO!
       //MI ERROR ES QUE ESTAMOS RECIBIENDO CATEGORIANOMBRE EN VEZ DE CATEGORIA ID
-      Iterable listaCategoriasFiltradaIterable = unaListaCategorias.where((element) => element.categoriaNombre==unaCategoriaID);
+      Iterable listaCategoriasFiltradaIterable = unaListaCategorias
+          .where((element) => element.categoriaNombre == unaCategoriaID);
       var listaCategoriasFiltrada = List.from(listaCategoriasFiltradaIterable);
       debugPrint(listaCategoriasFiltrada.length.toString());
       debugPrint(listaCategoriasFiltrada.first.toString());
       return listaCategoriasFiltrada.first;
     }
-
   }
 
   // List<Categoria> listaDeCategorias = ApiCategorias
@@ -253,7 +253,8 @@ class FormCrearEditarTicketState extends State<FormCrearEditarTicket> {
                             retorno: getCategoria,
                             listaCategorias: listaDeCategorias,
                             //refactorizar a funcion void
-                            categoriaPorDefecto: mandarCategoriaPorDefecto(listaDeCategorias)),
+                            categoriaPorDefecto:
+                                mandarCategoriaPorDefecto(listaDeCategorias)),
                         SubmitTicketButton(
                           submitData: submitData,
                           esCrearOActualizar: widget.esCrearOActualizar,

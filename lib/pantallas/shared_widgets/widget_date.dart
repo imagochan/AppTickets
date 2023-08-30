@@ -19,22 +19,21 @@ class FormDateField extends StatefulWidget {
 }
 
 class _FormDateFieldState extends State<FormDateField> {
-
   Future<void> llamarDatePicker(DateTime fecha,
-    TextEditingController controller, BuildContext context) async {
-      final DateTime? dateTime = await showDatePicker(
-        context: context,
-        initialDate: fecha,
-        firstDate: DateUtils.addMonthsToMonthDate(DateTime.now(), -60),
-        lastDate: DateUtils.addMonthsToMonthDate(DateTime.now(), 60),
-      );
-      if (dateTime != null) {
-        //setState(() {
-        fecha = DateUtils.dateOnly(dateTime);
-        controller.text = fecha.toString();
-        widget.retorno(fecha);
-        //});
-      }
+      TextEditingController controller, BuildContext context) async {
+    final DateTime? dateTime = await showDatePicker(
+      context: context,
+      initialDate: fecha,
+      firstDate: DateUtils.addMonthsToMonthDate(DateTime.now(), -60),
+      lastDate: DateUtils.addMonthsToMonthDate(DateTime.now(), 60),
+    );
+    if (dateTime != null) {
+      //setState(() {
+      fecha = DateUtils.dateOnly(dateTime);
+      controller.text = fecha.toString();
+      widget.retorno(fecha);
+      //});
+    }
   }
 
   @override

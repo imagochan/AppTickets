@@ -1,7 +1,7 @@
 import 'package:apptickets/modelos/modelo_categoria.dart';
 import 'package:apptickets/pantallas/crear_o_actualizar_categorias/pantalla_crear_o_actualizar_categorias.dart';
 import 'package:apptickets/pantallas/crear_o_actualizar_tickets/pantalla_crear_o_actualizar_ticket.dart';
-import 'package:apptickets/pantallas/home_elev_btn.dart';
+import 'package:apptickets/pantallas/widget_home_button.dart';
 import 'package:apptickets/pantallas/listar_categorias/pantalla_listar_categorias.dart';
 import 'package:flutter/material.dart';
 import 'package:apptickets/pantallas/listar_tickets/pantalla_listar_tickets.dart';
@@ -31,7 +31,10 @@ class _PantallaInicioState extends State<PantallaInicio> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               HomeElevBtn(
-                pageWidget: FormCrearEditarTicket(esCrearOActualizar: true,unTicket: Ticket.empty(),),
+                pageWidget: FormCrearEditarTicket(
+                  esCrearOActualizar: true,
+                  unTicket: Ticket.empty(),
+                ),
                 btnTitle: 'Crear Ticket',
               ),
               const SizedBox(
@@ -44,11 +47,17 @@ class _PantallaInicioState extends State<PantallaInicio> {
               const SizedBox(
                 height: 10,
               ),
-              const HomeElevBtn(pageWidget: PantallaListarCategorias(), btnTitle: "Listar Categorias"),
+              const HomeElevBtn(
+                  pageWidget: PantallaListarCategorias(),
+                  btnTitle: "Listar Categorias"),
               const SizedBox(
                 height: 10,
               ),
-              HomeElevBtn(pageWidget: PantallaCrearOActualizarCategorias(esCrearOActualizar: true,unaCategoria: Categoria.empty()), btnTitle: "Crear Categorias")
+              HomeElevBtn(
+                  pageWidget: PantallaCrearOActualizarCategorias(
+                      esCrearOActualizar: true,
+                      unaCategoria: Categoria.empty()),
+                  btnTitle: "Crear Categorias")
             ],
           ),
         ));
