@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class CampoTelefono extends StatelessWidget {
-  const CampoTelefono(
+class CampoCorreoElectronico extends StatelessWidget {
+  const CampoCorreoElectronico(
       {super.key,
-      required this.telefonoController,
+      required this.correoElectronicoController,
       required this.hintText,
       required this.labelText});
 
-  final TextEditingController telefonoController;
+  final TextEditingController correoElectronicoController;
   final String hintText;
   final String labelText;
 
@@ -17,24 +17,21 @@ class CampoTelefono extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
-        controller: telefonoController,
+        controller: correoElectronicoController,
         inputFormatters: [
-          FilteringTextInputFormatter.digitsOnly,
-          LengthLimitingTextInputFormatter(8)
+          FilteringTextInputFormatter.allow(RegExp(
+              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))
         ],
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           hintText: hintText,
           labelText: labelText,
-          icon: const Icon(Icons.phone),
+          icon: const Icon(Icons.email),
           border: const OutlineInputBorder(),
         ),
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Por favor introduzca un número de teléfono';
-          }
-          if (value.length != 8) {
-            return 'El número de teléfono debe ser 8 dígitos';
+            return 'Por favor introduzca un correo electrónico';
           }
           return null;
         },

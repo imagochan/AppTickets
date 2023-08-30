@@ -1,3 +1,4 @@
+import 'package:apptickets/pantallas/login/widget_campo_email.dart';
 import 'package:apptickets/pantallas/login/widget_campo_telefono.dart';
 import 'package:apptickets/pantallas/shared_widgets/widget_form_text_field.dart';
 import 'package:flutter/material.dart';
@@ -35,8 +36,8 @@ class _PantallaRegistrarClienteState extends State<PantallaRegistrarCliente> {
                     controller: nombreCompletoController,
                     hintText: "Ingrese su nombre completo",
                     labelText: "Nombre completo"),
-                FormTextField(
-                    controller: correoElectronicoController,
+                CampoCorreoElectronico(
+                    correoElectronicoController: correoElectronicoController,
                     hintText: "Ingrese un correo electrónico",
                     labelText: "Correo electrónico"),
                 CampoTelefono(
